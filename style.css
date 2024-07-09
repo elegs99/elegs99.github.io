@@ -143,7 +143,7 @@ html {
     border: 2px solid var(--blueHL);
     color: white;
     font-size: 25px;
-    padding: 12px 30px;
+    padding: 12px 25px;
     margin-top: 20px;
     margin-right: 15px;
     border-radius: 8px;
@@ -153,12 +153,13 @@ html {
     background: var(--blueHL);
     color: white;
     font-size: 23px;
-    margin-left: 10px;
+    margin-left: 15px;
     margin-bottom: 1px;
     transition: margin-left ease-in 0.5s;
 }
 .home .home-content a i.fas.fa-external-link-alt{
-    font-size: 20px;
+    font-size: 19px;
+    margin-bottom: 6px;
 }
 .home .home-content a:hover i.fas.fa-angle-double-right{
     color: var(--blueHL);
