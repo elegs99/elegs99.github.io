@@ -360,10 +360,11 @@ section .title::after {
     justify-content: space-between;
     font-weight: 500;
     padding-left: 20px;
+    color: var(--blueHL);
 }
 .experience .serv-content .timeline p {
-    margin-left: 20px;
-    margin-right: -20px;
+    margin-left: 15px;
+    margin-right: -15px;
 }
 .experience .serv-content .right .bars {
     margin-bottom: 15px;
@@ -380,7 +381,8 @@ section .title::after {
 .experience .serv-content .right .line {
     height: 15px;
     width: 95%;
-    margin-left: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
     background-color: lightgrey;
     position: relative;
 }
@@ -814,6 +816,12 @@ footer .social-links i:hover {
     .skills .skills-content .column {
         width: 100%;
         margin-bottom: 35px;
+    }
+    .experience .serv-content .card collapsed i{
+        display: none;
+    }
+    .experience .serv-content .card expanded i{
+        display: none;
     }
     .grid-wrapper {
         grid-template-columns: repeat(auto-fit, minmax(250px, auto));
