@@ -137,6 +137,42 @@ body {
     gap: 10px;
 }
 
+.external-links {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Link Container */
+.link-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip Text */
+.tooltiptext {
+    visibility: hidden;
+    opacity: 0;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 101%; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Show Tooltip on Hover */
+.link-container:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
 .link-btn {
     display: inline-block;
     padding: 5px 10px;
@@ -194,7 +230,7 @@ body {
     align-items: center;
     white-space: nowrap;
     gap: 40px; /* Adjust the spacing as needed */
-    animation: scroll-left 15s linear infinite;
+    animation: scroll-top 20s linear infinite;
     position: relative;
 }
 
@@ -219,7 +255,7 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 40px; /* Adjust the spacing as needed */
-    animation: scroll-right 20s linear infinite;
+    animation: scroll-bottom 25s linear infinite;
     position: relative;
 }
 
@@ -238,46 +274,21 @@ body {
     gap: 40px;
 }
 
-.icon-container3 {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    margin-top: 15px;
-    gap: 40px; /* Adjust the spacing as needed */
-    animation: scroll-left 25s linear infinite;
-    position: relative;
-}
-
-/* Seamless Duplication using ::before */
-.icon-container3::before {
-    content: "";
-    display: flex;
-    flex: 1 0 auto;
-    gap: 40px;
-}
-
-.icon-container3::after {
-    content: "";
-    display: flex;
-    flex: 1 0 auto;
-    gap: 40px;
-}
-
 /* Animation */
-@keyframes scroll-left {
+@keyframes scroll-top {
     0% {
         transform: translateX(-10px);
     }
     100% {
-        transform: translateX(-740px);
+        transform: translateX(-795px);
     }
 }
-@keyframes scroll-right {
+@keyframes scroll-bottom {
     0% {
-        transform: translateX(-740px);
+        transform: translateX(-10px);
     }
     100% {
-        transform: translateX(-10px);
+        transform: translateX(-850px);
     }
 }
 
@@ -476,6 +487,7 @@ footer {
 footer a {
     color: var(--blueHL);
     text-decoration: none;
+    margin: 0 10px;
 }
 
 footer a:hover {
