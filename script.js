@@ -1,4 +1,13 @@
 $(document).ready(function(){
+    const container = document.querySelector('.icon-container');
+
+    container.addEventListener('mouseover', () => {
+    container.style.animationPlayState = 'paused';
+    });
+
+    container.addEventListener('mouseout', () => {
+    container.style.animationPlayState = 'running';
+    });
     // Initialize popups and related elements as hidden
     $('.popup-content, .project1, .project2, .project3, .project4, .project5').hide();
 
@@ -27,7 +36,7 @@ $(document).ready(function(){
 
     // Typing animation setup
     new Typed(".typing", {
-        strings: ["a Programmer.", "a Problem Solver.", "your Next Hire.", "your Next Hire.", "your Next Hire."],
+        strings: ["a Computer Vision Specialist.", "a Programmer.", "a Problem Solver.", "your Next Hire.", "your Next Hire.", "your Next Hire."],
         typeSpeed: 100,
         backSpeed: 50,
         loop: true
