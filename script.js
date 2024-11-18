@@ -1,13 +1,16 @@
 $(document).ready(function(){
-    const container = document.querySelector('.icon-container');
 
-    container.addEventListener('mouseover', () => {
-    container.style.animationPlayState = 'paused';
+    const containers = document.querySelectorAll('.icon-container, .icon-container2, .icon-container3');
+
+    containers.forEach((container) => {
+        container.addEventListener('mouseover', () => {
+            container.style.animationPlayState = 'paused';
+        });
+        container.addEventListener('mouseout', () => {
+            container.style.animationPlayState = 'running';
+        });
     });
 
-    container.addEventListener('mouseout', () => {
-    container.style.animationPlayState = 'running';
-    });
     // Initialize popups and related elements as hidden
     $('.popup-content, .project1, .project2, .project3, .project4, .project5').hide();
 
