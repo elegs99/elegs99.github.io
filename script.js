@@ -39,9 +39,9 @@ $(document).ready(function(){
 
     // Typing animation setup
     new Typed(".typing", {
-        strings: ["a Software Engineer.", "a Problem Solver.", "your Next Hire.", "your Next Hire.", "your Next Hire."],
-        typeSpeed: 75,
-        backSpeed: 50,
+        strings: ["a Software Engineer.", "a Problem Solver.", "your Next Hire.^5000"],
+        typeSpeed: 60,
+        backSpeed: 40,
         loop: true
     });
 
