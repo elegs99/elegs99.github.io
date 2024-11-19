@@ -3,7 +3,6 @@
     --white: #ffffff;
     --background: #111111;
     --grey: #888888;
-    --navMenuButtonBorder: #2eb9eb54;
     --expirenceCardBackground: #191919;
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     --font-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
@@ -19,9 +18,8 @@ body {
     color: var(--white);
     font-family: var(--font-sans);
     line-height: 1.5;
-
     width: 100%;
-    max-width: 1000px; /* Adjust this value as needed */
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -34,8 +32,7 @@ body {
 
 /* Header and Navigation */
 .site-header {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .site-nav {
@@ -44,7 +41,7 @@ body {
     align-items: center;
     margin: 0 auto;
     font-family: var(--font-mono);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .site-nav a {
@@ -55,7 +52,9 @@ body {
 }
 
 .site-nav li {
+    font-size: 1.1rem;
     padding-bottom: 10px;
+    padding-left: 30px;
 }
 
 .site-nav a:hover {
@@ -76,6 +75,10 @@ body {
     .site-nav {
         flex-direction: column;
         align-items: flex-start;
+        padding-left: 1rem;
+    }
+
+    .site-nav li {
         padding-left: 1rem;
     }
 
@@ -114,8 +117,8 @@ body {
 .hero-content {
     display: flex;
     flex-direction: column;
-    align-items: left; /* Center content horizontally */
-    gap: 0px;
+    align-items: left;
+    gap: 0;
     padding-bottom: 10px;
 }
 
@@ -138,31 +141,28 @@ body {
     margin: -15px;
 }
 
-/* Link Container */
 .link-container {
     position: relative;
     display: inline-block;
 }
 
-/* Tooltip Text */
 .tooltiptext {
     visibility: hidden;
     opacity: 0;
     width: 200px;
-    background-color: black;
+    background-color: var(--expirenceCardBackground);
     color: #fff;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;
     position: absolute;
-    bottom: 101%; /* Position above the icon */
+    bottom: 101%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
     transition: opacity 0.3s ease;
 }
 
-/* Show Tooltip on Hover */
 .link-container:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
@@ -224,24 +224,9 @@ body {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    gap: 40px; /* Adjust the spacing as needed */
+    gap: 40px;
     animation: scroll-top 20s linear infinite;
     position: relative;
-}
-
-/* Seamless Duplication using ::before */
-.icon-container::before {
-    content: "";
-    display: flex;
-    flex: 1 0 auto;
-    gap: 40px;
-}
-
-.icon-container::after {
-    content: "";
-    display: flex;
-    flex: 1 0 auto;
-    gap: 40px;
 }
 
 .icon-container2 {
@@ -249,27 +234,11 @@ body {
     align-items: center;
     white-space: nowrap;
     margin-top: 15px;
-    gap: 40px; /* Adjust the spacing as needed */
+    gap: 40px;
     animation: scroll-bottom 25s linear infinite;
     position: relative;
 }
 
-/* Seamless Duplication using ::before */
-.icon-container2::before {
-    content: "";
-    display: flex;
-    flex: 1 0 auto;
-    gap: 40px;
-}
-
-.icon-container2::after {
-    content: "";
-    display: flex;
-    flex: 1 0 auto;
-    gap: 40px;
-}
-
-/* Animation */
 @keyframes scroll-top {
     0% {
         transform: translateX(-10px);
@@ -278,6 +247,7 @@ body {
         transform: translateX(-795px);
     }
 }
+
 @keyframes scroll-bottom {
     0% {
         transform: translateX(-10px);
@@ -287,7 +257,6 @@ body {
     }
 }
 
-/* Icon Item Styling */
 .icon-item {
     flex: 1;
     display: flex;
@@ -300,7 +269,6 @@ body {
     margin-right: 10px;
 }
 
-/* Fade Effect */
 .icon-container-wrapper::before,
 .icon-container-wrapper::after {
     content: "";
@@ -312,13 +280,11 @@ body {
     z-index: 1;
 }
 
-/* Left Fade */
 .icon-container-wrapper::before {
     left: 0;
     background: linear-gradient(to right, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
 }
 
-/* Right Fade */
 .icon-container-wrapper::after {
     right: 0;
     background: linear-gradient(to left, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
@@ -329,7 +295,6 @@ body {
     padding: 50px 0;
 }
 
-/* Project Cards */
 .project-cards {
     width: 100%;
     max-width: 1000px;
@@ -353,7 +318,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Image Container with Title Overlay */
 .image-container {
     position: relative;
     width: 100%;
@@ -372,7 +336,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 5px 5px;
+    padding: 5px;
     color: white;
     font-size: 1.4rem;
     font-weight: bold;
@@ -386,7 +350,6 @@ body {
     opacity: 1;
 }
 
-/* Project Details */
 .project-details {
     padding: 5px 15px;
 }
@@ -395,10 +358,9 @@ body {
     font-size: 1rem;
     color: var(--color-subtext);
     margin-bottom: 15px;
-    text-decoration: none; /* No underline for description text */
+    text-decoration: none;
 }
 
-/* Learn More Button */
 .learn-more-btn {
     transform: translateY(20px);
     opacity: 0;
@@ -415,29 +377,21 @@ body {
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-/* Button Hover Effect */
 .learn-more-btn:hover {
     color: var(--background);
     background-color: var(--blueHL);
     border-color: var(--background);
 }
 
-/* Project Card Hover State */
 .project-card:hover .learn-more-btn {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
 }
 
-/* Hover Effect for Overlay */
-.project-card:hover .title-overlay {
-    opacity: 1;
-}
-
-/* Link Styling for Project Details */
 .project-details a {
     color: var(--blueHL);
-    text-decoration: none; /* No underline */
+    text-decoration: none;
     font-weight: 600;
 }
 
@@ -469,10 +423,11 @@ body {
 }
 
 /* Footer */
-footer{
+footer {
     display: flex;
     justify-content: center;
 }
+
 .footer-container {
     text-align: center;
     padding: 20px 0;
@@ -501,9 +456,11 @@ footer{
     .home p {
         font-size: 1.2rem;
     }
+
     .body {
         max-width: 100%;
     }
+
     .hero, .projects, .skills {
         padding-right: 1rem;
         margin-right: 1rem;

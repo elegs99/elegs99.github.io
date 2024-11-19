@@ -3,69 +3,96 @@
     --white: #ffffff;
     --background: #111111;
     --grey: #888888;
-    --color-subtext: #888888;
+    --expirenceCardBackground: #191919;
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     --font-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+    --color-subtext: #888888;
 }
 
-/* General Styling */
+/* Body and General Layout */
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: var(--background);
     color: var(--white);
     font-family: var(--font-sans);
-    margin: 0;
-    padding: 0;
+    line-height: 1.5;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .content {
-    width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding-top: 4rem;
 }
 
 /* Header and Navigation */
-header {
-    background: var(--background);
-    padding: 1rem 0;
-    margin: 0 auto;
-    max-width: 1200px;
+.site-header {
+    margin: 10px 0;
 }
 
-nav {
+.site-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 auto;
     font-family: var(--font-mono);
+    font-size: 1.2rem;
 }
 
-nav a {
+.site-nav a {
     color: var(--white);
     text-decoration: none;
-    margin: 0 1rem;
-    font-size: 1.2rem;
+    padding: 1.2rem;
     transition: color 0.3s;
 }
 
-nav a:hover {
+.site-nav li {
+    padding-bottom: 10px;
+}
+
+.site-nav a:hover {
     color: var(--blueHL);
 }
 
-nav .logo {
+.logo {
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
-nav ul {
+.main-menu {
     display: flex;
     list-style: none;
-    margin: 0;
-    padding: 0;
+}
+
+@media screen and (max-width: 61rem) {
+    .site-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 1rem;
+    }
+
+    .main-menu {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding-left: 1rem;
+    }
+
+    .site-nav a {
+        padding: 0.5rem 0;
+        text-align: left;
+        width: auto;
+    }
 }
 
 /* Project Header Section */
 .project-header {
     text-align: center;
-    padding: 2rem 0;
 }
 
 .project-header h1 {
@@ -176,7 +203,7 @@ nav ul {
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 75%;
+    top: 65%;
     transform: scale(.8);
     width: auto;
     padding: 1rem;
@@ -202,35 +229,52 @@ nav ul {
     transform: scale(1);
 }
 
-/* Footer Section */
+/* Footer */
 footer {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-container {
     text-align: center;
-    padding: 2rem 0;
+    padding: 20px 0;
     border-top: 1px solid #313131;
+    margin-top: 2rem;
+    min-width: 80%;
+    margin: 0 auto;
     color: var(--color-subtext);
 }
 
-footer a {
+.footer-container a {
     color: var(--blueHL);
     text-decoration: none;
-    margin: 0 1rem;
+    margin: 0 10px;
 }
 
-footer a:hover {
+.footer-container a:hover {
     text-decoration: underline;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+    .site-nav{
+        width: 100%;
+    }
     .project-details {
         flex-direction: column;
     }
-
+    .media-container img {
+        width: 100%;
+        min-width: 100%;
+    }
     .media-container,
     .description-container {
+        width: 100%;
         flex: 1 1 100%;
     }
-
+    .description-container p {
+        text-align: center;
+    }
     .project-header h1 {
         font-size: 2rem;
     }
@@ -238,8 +282,8 @@ footer a:hover {
     .project-header .project-summary {
         font-size: 1rem;
     }
-
     .prev, .next {
+        top: 55%;
         padding: 0.8rem;
         font-size: 1.2rem;
     }
