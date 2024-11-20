@@ -32,13 +32,14 @@ body {
 /* Header and Navigation */
 .site-header {
     margin: 10px 0;
+    min-width: 1000px;
+    margin: 0 auto;
 }
 
 .site-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1000px;
     margin: 0 auto;
     font-family: var(--font-mono);
     font-size: 1.2rem;
@@ -52,7 +53,9 @@ body {
 }
 
 .site-nav li {
+    font-size: 1.1rem;
     padding-bottom: 10px;
+    padding-left: 30px;
 }
 
 .site-nav a:hover {
@@ -76,6 +79,10 @@ body {
         padding-left: 1rem;
     }
 
+    .site-nav li {
+        padding-left: 1rem;
+    }
+
     .main-menu {
         flex-direction: column;
         align-items: flex-start;
@@ -90,8 +97,36 @@ body {
     }
 }
 
+.return {
+    margin-top: 100px;
+}
+
+.return-button:hover {
+    background-color: #333;
+    color: var(--background);
+}
+
+.return-button {
+    width: fit-content;
+    display: inline-block;
+    padding: 0.2rem 0.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--grey);
+    border: 1px solid #333;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.return-button:hover {
+    background-color: var(--grey);
+    color: var(--background);
+}
+
 /* Project Header Section */
 .project-header {
+    margin-top: -100px;
     text-align: center;
 }
 
@@ -143,8 +178,9 @@ body {
 }
 
 .learn-more-btn {
+    width: fit-content;
     display: inline-block;
-    padding: 0.8rem 1.5rem;
+    padding: 0.6rem 1rem;
     font-size: 1rem;
     color: var(--blueHL);
     border: 1px solid var(--blueHL);
@@ -242,11 +278,10 @@ footer {
 
 .footer-container {
     text-align: center;
-    padding: 20px 0;
     border-top: 1px solid #313131;
-    margin-top: 2rem;
     min-width: 80%;
     margin: 0 auto;
+    margin-top: 5rem;
     color: var(--color-subtext);
 }
 
@@ -295,5 +330,12 @@ footer {
         top: 55%;
         padding: 0.8rem;
         font-size: 1.2rem;
+    }
+    .project-header {
+        margin-top: -75px;
+    }
+    .return {
+        margin-top: 25px;
+        margin-left: 1rem;
     }
 }
