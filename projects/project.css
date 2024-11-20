@@ -21,7 +21,6 @@ body {
     width: 100%;
     max-width: 1500px;
     margin: 0 auto;
-    padding: 0 1rem;
 }
 
 .content {
@@ -128,7 +127,6 @@ body {
 }
 
 .description-container {
-    flex: 1 1 50%;
     max-width: 500px;
     margin: 20px 0;
 }
@@ -274,10 +272,14 @@ footer {
         width: 100%;
         min-width: 100%;
     }
+    .project-header,
     .media-container,
-    .description-container {
-        width: 92%;
-        flex: 1 1 100%;
+    .description-container
+    {
+        max-width: 95%;
+        width: 95%;
+        margin: 0 auto;
+        justify-items: center;
     }
     .description-container p {
         text-align: center;

@@ -21,7 +21,6 @@ body {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 1rem;
 }
 
 .content {
@@ -461,9 +460,7 @@ footer {
     .body {
         max-width: 100%;
     }
-
     .hero, .projects, .skills {
-        padding-right: 1rem;
-        margin-right: 1rem;
+        padding: 1rem;
     }
 }
