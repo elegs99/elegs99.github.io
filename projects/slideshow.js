@@ -11,7 +11,7 @@ function plusSlides(n) {
 
 // Function to display the correct slide
 function showSlides(n) {
-  const slides = document.getElementsByClassName("epSlides");
+  const slides = document.getElementsByClassName("slides");
   if (n > slides.length) { slideIndex = 1; }
   if (n < 1) { slideIndex = slides.length; }
   for (let i = 0; i < slides.length; i++) {

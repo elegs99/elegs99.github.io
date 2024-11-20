@@ -336,7 +336,8 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 5px;
+    padding: 10px;
+    padding-left: 15px;
     color: white;
     font-size: 1.4rem;
     font-weight: bold;
