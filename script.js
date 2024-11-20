@@ -1,4 +1,16 @@
 $(document).ready(function(){
+
+    const containers = document.querySelectorAll('.icon-container, .icon-container2, .icon-container3');
+
+    containers.forEach((container) => {
+        container.addEventListener('mouseover', () => {
+            container.style.animationPlayState = 'paused';
+        });
+        container.addEventListener('mouseout', () => {
+            container.style.animationPlayState = 'running';
+        });
+    });
+
     // Initialize popups and related elements as hidden
     $('.popup-content, .project1, .project2, .project3, .project4, .project5').hide();
 
@@ -27,9 +39,9 @@ $(document).ready(function(){
 
     // Typing animation setup
     new Typed(".typing", {
-        strings: ["a Programmer.", "a Problem Solver.", "your Next Hire.", "your Next Hire.", "your Next Hire."],
-        typeSpeed: 100,
-        backSpeed: 50,
+        strings: ["a Software Engineer.", "a Problem Solver.", "your Next Hire.^5000"],
+        typeSpeed: 60,
+        backSpeed: 40,
         loop: true
     });
 
@@ -57,40 +69,3 @@ $(document).ready(function(){
         }
     });
 });
-
-// Slideshow functionality
-var slideIndex = [1, 2];  // Index for each slideshow
-var slideId = ["NiSlides", "ErSlides", "EmSlides", "jtvrSlides", "epSlides"];  // IDs for each slideshow
-
-// Initialize slideshows
-// showSlides(7, 5);
-showSlides(7, 4);
-showSlides(7, 3);
-showSlides(7, 2);
-showSlides(7, 1);
-showSlides(7, 0);
-
-// Functions to control next/previous slides
-function plusSlides(n, no) {
-  showSlides(slideIndex[no] += n, no);
-}
-
-// Function to display the correct slide
-function showSlides(n, no) {
-  var x = document.getElementsByClassName(slideId[no]);
-  if (n > x.length) { slideIndex[no] = 1; }
-  if (n < 1) { slideIndex[no] = x.length; }
-  for (var i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  x[slideIndex[no]-1].style.display = "block";
-}
-
-// Function to load images in the popup
-function loadPopupImages(popupElement) {
-    var lazyImages = $(popupElement).find('img[data-src][loading="lazy"]');
-    lazyImages.each(function() {
-        $(this).attr('src', $(this).data('src')); // Set the source of the image
-        $(this).removeAttr('loading'); // Remove the 'loading' attribute
-    });
-}

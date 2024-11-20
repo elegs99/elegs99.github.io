@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Ethan Legum portfolio website. 
+        I led the complete development lifecycle, focusing on integrating and optimizing machine learning models for high performance on various devices.
+        Key enhancements included utilizing GPU processing reducing estimation times and improving frame rates, achieving up to 60 fps on high-end devices. This project underscores my expertise in mobile development, machine learning integration, and real-time processing optimization.">
+        <title>Ethan Legum Portfolio Website</title>
+        <link rel="stylesheet" href="project.css">
+        <link rel="icon" href="../images/icon.webp">
+        <script src="slideshow.js" defer></script>
+    </head>
+    <body>
+        <!-- Header Section -->
+        <header class="site-header">
+            <nav class="site-nav">
+                <a href="../index.html#projects" class="logo">Ethan Legum</a>
+                <ul class="main-menu">
+                    <li><a href="../mywork.html">My Work</a></li>
+                    <li><a href="../contact.html">Contact Me</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="return">
+            <a href="../index.html#projects" class="return-button">&lt; Return to Projects</a>
+        </div>
+        <!-- Main Content Section -->
+        <main class="content">
+            <!-- Project Header -->
+            <section class="project-header">
+                <h1>Evolutionary Rockets</h1>
+                <p class="project-summary">
+                    2D simulation using machine learning to optimize rocket flight paths through generations of training.
+                </p>
+            </section>
+
+            <!-- Project Details -->
+            <section class="project-details">
+                <!-- Media on the left -->
+                <div class="media-container">
+                    <!-- Slideshow Section -->
+                    <div class="slideshow-container">
+                        <div class="slides">
+                            <div class="numbertext">1 / 4</div>
+                            <img src="../images/er/erSlide1.gif" alt="Slide 1">
+                            <div class="caption">DNA/flight path is completely random for the first generation</div>
+                        </div>
+                        <div class="slides">
+                            <div class="numbertext">2 / 4</div>
+                            <img src="../images/er/erSlide2.gif" alt="Slide 2" loading="lazy">
+                            <div class="caption">Over many generations the rockets propagate their DNA and refine the path to the target</div>
+                        </div>
+                        <div class="slides">
+                            <div class="numbertext">3 / 4</div>
+                            <img src="../images/er/erSlide3.gif" alt="Slide 3" loading="lazy">
+                            <div class="caption">Once the rockets have locked on to the target, they optimize the path with small mutations</div>
+                        </div>
+                        <div class="slides">
+                            <div class="numbertext">4 / 4</div>
+                            <img src="../images/er/erSlide4.gif" alt="Slide 4" loading="lazy">
+                            <div class="caption">The rockets will find a new path if we move the target from the last slide</div>
+                        </div>
+
+                        <!-- Navigation buttons -->
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    </div>
+                </div>
+
+                <!-- Description on the right -->
+                <div class="description-container">
+                    <p>
+                        Since early 2018, I've been interested in game programming, beginning with Unity-based projects. 
+                        My early work includes Evolutionary Rockets, a 2D simulation that facilitated my introduction to machine learning, particularly reinforcement learning. My early work includes 'Evolutionary Rockets,' a 2D simulation that facilitated my introduction to machine learning, particularly reinforcement learning. 
+                        This project features 40 rockets learning to navigate towards a target in an obstacle-filled environment, optimizing their path over successive generations.
+                    </p>
+                    <p> 
+                        You can try out the simulation through the webGL build provided on this website; just click the controller icon below to start.
+                    </p>
+                    <a href="https://github.com/elegs99/EvolutionaryRockets" target="_blank" class="learn-more-btn">View on GitHub</a>
+                    <a href="../EvolutionaryRockets/index.html" target="_blank" class="learn-more-btn">Play Game</a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2024 Ethan Legum. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/elegs99" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/ethan-l/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
