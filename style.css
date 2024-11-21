@@ -438,13 +438,14 @@ footer {
 }
 
 .footer-container a {
-    color: var(--blueHL);
+    color: var(--grey);
     text-decoration: none;
     margin: 0 10px;
 }
 
 .footer-container a:hover {
     text-decoration: underline;
+    color: var(--blueHL);
 }
 
 @media (max-width: 1100px) {

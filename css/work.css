@@ -194,7 +194,10 @@ body {
     .experience-container {
         padding-left: 5px;
     }
-
+    .circle {
+        left: -13px;
+        font-size: 1.4rem;
+    }
     .experience-entry {
         padding-left: 25px;
     }
@@ -366,13 +369,14 @@ footer {
 }
 
 .footer-container a {
-    color: var(--blueHL);
+    color: var(--grey);
     text-decoration: none;
     margin: 0 10px;
 }
 
 .footer-container a:hover {
     text-decoration: underline;
+    color: var(--blueHL);
 }
 
 @media (max-width: 1100px) {
