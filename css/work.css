@@ -95,198 +95,129 @@ body {
     }
 }
 
-/* Hero Section */
-.hero {
-    padding: 50px 0;
-    margin-top: 25px;
-    display: flex;
-    align-items: center;
+/* Experience Section */
+.experience {
+    margin-top: 50px;
+    padding: 25px 50px;
+}
+.experience h2{
+    margin-left: 60px;
 }
 
-.hero-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 0 2rem;
-    max-width: 1000px;
-    text-align: center;
-    border: 1px solid #333;
-    border-radius: 10px;
-}
-
-.hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    gap: 0;
-    padding-bottom: 10px;
-}
-
-.name-links {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.hero-name {
-    font-size: 2.4rem;
-    font-weight: bold;
-    text-align: left;
-}
-
-.external-links {
-    display: flex;
-    gap: 10px;
-    margin: -15px;
-}
-
-.link-container {
+.experience-container {
     position: relative;
-    display: inline-block;
+    margin: 0 auto;
+    padding-left: 5px;
 }
 
-.tooltiptext {
-    visibility: hidden;
-    opacity: 0;
-    width: 200px;
-    background-color: var(--expirenceCardBackground);
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-    border-radius: 6px;
+.experience-entry {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 50px;
+}
+
+.circle {
     position: absolute;
-    bottom: 101%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    transition: opacity 0.3s ease;
+    left: -15px;
+    top: 50%;
+    font-size: 1.8rem;
+    color: var(--blueHL); /* Light blue color for the bullet point icon */
+    z-index: 0;
 }
 
-.link-container:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+/* Line between circles using pseudo-element */
+.experience-entry::before {
+    content: '';
+    position: absolute;
+    left: -3px; /* Aligns with the center of the circle icon */
+    top: 60%; /* Starts from the bottom of the circle */
+    bottom: -71%; /* Extends down to the next entry */
+    width: 3px; /* Line width */
+    background-color: var(--blueHL); /* Light blue color for the line */
+    z-index: -1; /* Place the line behind the circles */
 }
 
-.link-btn {
-    display: inline-block;
-    padding: 5px 10px;
+/* Remove line for the last entry */
+.experience-entry:last-child::before {
+    display: none;
+}
+
+.experience-content {
+    padding: 5px 20px;
     border: 1px solid #333;
     border-radius: 8px;
-    text-decoration: none;
-    color: var(--white);
-    font-size: 25px;
-    font-weight: 600;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.link-btn:hover {
-    background-color: #333;
-    color: #fff;
-}
-
-.typing-line {
-    margin-top: -10px;
-    font-size: 1.5rem;
-    font-weight: 500;
-    text-align: left;
-}
-
-.typing {
+.company-name {
+    margin-top: 10px;
+    font-size: 1.8rem;
+    font-weight: bold;
     color: var(--blueHL);
+    margin-bottom: 10px;
+}
+
+.job-title {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--grey);
+    margin: 5px 0;
+}
+
+.date {
+    font-size: 0.9rem;
+    color: var(--color-subtext);
+    margin-bottom: 10px;
 }
 
 .short-description {
-    margin-top: -10px;
-    font-size: 1.2rem;
-    color: var(--color-subtext);
-    text-align: left;
-}
-
-/* Skills Section */
-.skills {
-    padding: 50px 0;
-}
-
-.skills-list {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.icon-container-wrapper {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.icon-container {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    gap: 40px;
-    animation: scroll-top 20s linear infinite;
-    position: relative;
-}
-
-.icon-container2 {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    margin-top: 15px;
-    gap: 40px;
-    animation: scroll-bottom 25s linear infinite;
-    position: relative;
-}
-
-@keyframes scroll-top {
-    0% {
-        transform: translateX(-10px);
-    }
-    100% {
-        transform: translateX(-795px);
-    }
-}
-
-@keyframes scroll-bottom {
-    0% {
-        transform: translateX(-10px);
-    }
-    100% {
-        transform: translateX(-850px);
-    }
-}
-
-.icon-item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--white);
+    margin-top: 10px;
 }
 
-.icon-item i {
-    margin-right: 10px;
+/* Icon Styling */
+.circle i {
+    position: relative;
+    top: 4px;
 }
 
-.icon-container-wrapper::before,
-.icon-container-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
+/* Responsive Layout Adjustments */
+@media screen and (max-width: 650px) {
+    .experience {
+        margin-top: 0px;
+        padding: 15px 25px;
+    }
+    .experience h2{
+        margin-left: 0;
+    }
+    .experience-container {
+        padding-left: 5px;
+    }
+    .circle {
+        left: -13px;
+        font-size: 1.4rem;
+    }
+    .experience-entry {
+        padding-left: 25px;
+    }
 
-.icon-container-wrapper::before {
-    left: 0;
-    background: linear-gradient(to right, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
-}
+    .experience-content {
+        padding: 15px;
+    }
 
-.icon-container-wrapper::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
+    .company-name {
+        margin-top: -5px;
+        font-size: 1.2rem;
+    }
+
+    .job-title {
+        font-size: 1rem;
+    }
+
+    .short-description {
+        font-size: 0.9rem;
+    }
 }
 
 /* Projects Section */
