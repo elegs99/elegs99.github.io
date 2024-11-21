@@ -97,41 +97,21 @@ body {
     }
 }
 
-.return {
-    margin-top: 100px;
-}
-
-.return-button:hover {
-    background-color: #333;
-    color: var(--background);
-}
-
-.return-button {
-    width: fit-content;
-    display: inline-block;
-    padding: 0.2rem 0.4rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--grey);
-    border: 1px solid #333;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.return-button:hover {
-    background-color: var(--grey);
-    color: var(--background);
-}
-
 /* Project Header Section */
 .project-header {
-    margin-top: -100px;
+    position: relative;
     text-align: center;
 }
 
+.header-container {
+    width: 500px;
+    margin: 0 auto;
+    position: relative;
+    display: inline-block;
+}
+
 .project-header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1rem;
 }
@@ -139,7 +119,33 @@ body {
 .project-header .project-summary {
     font-size: 1.2rem;
     color: var(--color-subtext);
+    align-items: center;
 }
+
+/* Project Navigation Buttons */
+.prev-project, .next-project {
+    position: absolute;
+    top: 20%;
+    font-size: 2rem;
+    color: var(--grey);
+    text-decoration: none;
+    padding: 0.5rem;
+    transition: all 0.3s, transform 0.3s;
+}
+
+.prev-project {
+    left: -3rem; /* Adjust to control distance from h1 */
+}
+
+.next-project {
+    right: -3rem; /* Adjust to control distance from h1 */
+}
+
+.prev-project:hover, .next-project:hover {
+    color: var(--blueHL);
+    transform: scale(1.1);
+}
+
 
 /* Project Details Section */
 .project-details {
@@ -234,11 +240,11 @@ body {
     font-size: 1rem;
 }
 
-/* Navigation Buttons */
+/* Slide Navigation Buttons */
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 65%;
+    top: 75%;
     transform: scale(.8);
     width: auto;
     padding: 1rem;
@@ -316,6 +322,11 @@ footer {
         width: 95%;
         margin: 0 auto;
         justify-items: center;
+    }
+    .header-container {
+        width: auto;
+        position: relative;
+        display: inline-block;
     }
     .description-container p {
         text-align: center;
