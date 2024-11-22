@@ -456,28 +456,31 @@ body {
     object-fit: cover;
 }
 
-.title-overlay {
+.title-background {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     padding: 10px;
     padding-left: 15px;
+    background: linear-gradient(to top, rgba(25, 25, 25, 1), rgba(25, 25, 25, 0.4), transparent);
+}
+
+.title {
     color: white;
     font-size: 1.4rem;
     font-weight: bold;
     text-align: left;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
-
-.project-card:hover .title-overlay {
-    opacity: 1;
-}
-
 .project-details {
-    padding: 5px 15px;
+    transform: translateY(30px);
+    padding: 0 10px;
+    padding-bottom: 20px;
+    transition: all 0.5s ease;
+}
+.project-card:hover .title,
+.project-card:hover .project-details {
+    transform: translateY(0px);
 }
 
 .project-details p {
@@ -500,7 +503,7 @@ body {
     border-radius: 8px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: all 0.5s ease;
 }
 
 .learn-more-btn:hover {
@@ -510,7 +513,7 @@ body {
 }
 
 .project-card:hover .learn-more-btn {
-    transform: translateY(0);
+    transform: translateY(0px);
     opacity: 1;
     visibility: visible;
 }

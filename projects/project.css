@@ -217,6 +217,12 @@ body {
     border-radius: 10px;
 }
 
+.slides video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
 /* Caption Styling */
 .caption {
     text-align: center;
@@ -311,6 +317,10 @@ footer {
         flex-direction: column;
     }
     .media-container img {
+        width: 100%;
+        min-width: 100%;
+    }
+    .media-container video {
         width: 100%;
         min-width: 100%;
     }
