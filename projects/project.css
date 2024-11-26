@@ -253,7 +253,7 @@ body {
     top: 75%;
     transform: scale(.8);
     width: auto;
-    padding: 1rem;
+    padding: 0.8rem;
     color: rgba(255, 255, 255, 0.2);
     background: rgba(0, 0, 0, 0.1);
     font-weight: bold;
@@ -309,7 +309,7 @@ footer {
 }
 
 /* Responsive Design */
-@media (max-width: 1600px) {
+@media (max-width: 1200px) {
     .site-nav{
         width: 100%;
     }
@@ -344,12 +344,14 @@ footer {
     .project-header h1 {
         font-size: 2rem;
     }
-
     .project-header .project-summary {
         font-size: 1rem;
     }
+    .numbertext {
+        padding: 0.4rem .7rem;
+    }   
     .prev, .next {
-        top: 55%;
+        top: 75%;
         padding: 0.8rem;
         font-size: 1.2rem;
     }
@@ -359,5 +361,17 @@ footer {
     .return {
         margin-top: 25px;
         margin-left: 1rem;
+    }
+}
+@media (max-width: 650px) {
+    .numbertext {
+        padding: 0.25rem .5rem;
+        font-size: .9rem;
+    }   
+     
+    .prev, .next {
+        top: 60%;
+        padding: 0.7rem;
+        font-size: 1.1rem;
     }
 }

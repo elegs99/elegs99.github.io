@@ -129,7 +129,7 @@ body {
 }
 
 .hero-name {
-    font-size: 2.4rem;
+    font-size: 2.5rem;
     font-weight: bold;
     text-align: left;
 }
@@ -170,12 +170,12 @@ body {
 
 .link-btn {
     display: inline-block;
-    padding: 5px 10px;
+    padding: 5px 12px;
     border: 1px solid #333;
     border-radius: 8px;
     text-decoration: none;
     color: var(--white);
-    font-size: 25px;
+    font-size: 1.8rem;
     font-weight: 600;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -187,7 +187,7 @@ body {
 
 .typing-line {
     margin-top: -10px;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 500;
     text-align: left;
 }
@@ -196,12 +196,37 @@ body {
     color: var(--blueHL);
 }
 
-.short-description {
+.hero .short-description {
     margin-top: -10px;
     font-size: 1.2rem;
     color: var(--color-subtext);
     text-align: left;
 }
+@media (max-width: 650px) {
+    .hero {
+        padding: 25px 0;
+        margin-top: 0px;
+    }
+    .hero-name {
+        font-size: 2.2rem;
+        font-weight: bold;
+        text-align: left;
+    }
+    .link-btn {
+        padding: 3px 10px;
+        font-size: 1.8rem;
+    }
+    .typing-line {
+        margin-top: -10px;
+        font-size: 1.3rem;
+    }
+    .hero .short-description {
+        margin-top: 0px;
+        font-size: 1rem;
+        color: var(--white);
+    }
+}
+
 
 /* Skills Section */
 .skills {
@@ -345,27 +370,27 @@ body {
 
 .company-name {
     margin-top: 10px;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: bold;
     color: var(--blueHL);
     margin-bottom: 10px;
 }
 
 .job-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-style: italic;
-    color: var(--grey);
+    color: var(--white);
     margin: 5px 0;
 }
 
 .date {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--color-subtext);
     margin-bottom: 10px;
 }
 
-.short-description {
-    font-size: 1rem;
+.experience .short-description {
+    font-size: 1.1rem;
     line-height: 1.6;
     color: var(--white);
     margin-top: 10px;
@@ -378,7 +403,7 @@ body {
 }
 
 /* Responsive Layout Adjustments */
-@media screen and (max-width: 650px) {
+@media (max-width: 650px) {
     .experience {
         margin-top: 0px;
         padding: 15px 25px;
@@ -405,7 +430,6 @@ body {
         margin-top: -5px;
         font-size: 1.2rem;
     }
-
     .job-title {
         font-size: 1rem;
     }
@@ -431,39 +455,61 @@ body {
 
 .project-card {
     position: relative;
-    border: 1px solid #27272a;
+    border: 1px solid #27272a; /* Keep the border the same */
+    border-radius: 10px;
+    outline: none;
+    transform-origin: center;
     border-radius: 10px;
     background-color: #191919;
     overflow: hidden;
     transition: transform 0.3s;
     text-decoration: none;
 }
-
+.project-card:focus,
+.project-card:hover {
+    outline: none;
+}
 .project-card:hover {
     transform: scale(1.05);
+    border: none;
+    outline: none;
+}
+
+.project-card img {
+    z-index: auto;
 }
 
 .image-container {
     position: relative;
+    z-index: 0;
     width: 100%;
     height: 200px;
     overflow: hidden;
 }
 
 .image-container img {
+    border: none;
+    outline: none;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 1;
 }
 
 .title-background {
+    z-index: 2;
     position: absolute;
-    bottom: 0;
+    bottom: -3px;
     left: 0;
     width: 100%;
-    padding: 10px;
-    padding-left: 15px;
-    background: linear-gradient(to top, rgba(25, 25, 25, 1), rgba(25, 25, 25, 0.4), transparent);
+    padding: 15px;
+    padding-left: 10px;
+    background: linear-gradient(to top, rgba(25, 25, 25, 1) 10%, rgba(25, 25, 25, 0), transparent);
+    transition: all 0.5s ease;
+}
+
+.project-card:hover .title-background {
+    padding: 5px
 }
 
 .title {
@@ -471,6 +517,7 @@ body {
     font-size: 1.4rem;
     font-weight: bold;
     text-align: left;
+    transition: all 0.5s ease;
 }
 .project-details {
     transform: translateY(30px);
@@ -480,7 +527,7 @@ body {
 }
 .project-card:hover .title,
 .project-card:hover .project-details {
-    transform: translateY(0px);
+    transform: translateY(5px);
 }
 
 .project-details p {
