@@ -286,7 +286,7 @@ body {
     flex: 1;
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: var(--white);
 }
 
@@ -314,6 +314,13 @@ body {
     right: 0;
     background: linear-gradient(to left, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
 }
+
+@media (max-width: 650px) {
+    .icon-item {
+        font-size: 1.2rem;
+    }
+}
+
 
 /* Experience Section */
 .experience {
