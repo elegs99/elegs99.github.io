@@ -260,16 +260,16 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 40px;
-    animation: scroll-bottom 25s linear infinite;
+    animation: scroll-bottom 20s linear infinite;
     position: relative;
 }
 
 @keyframes scroll-top {
     0% {
-        transform: translateX(-10px);
+        transform: translateX(-60px);
     }
     100% {
-        transform: translateX(-795px);
+        transform: translateX(-917px);
     }
 }
 
@@ -278,7 +278,7 @@ body {
         transform: translateX(-10px);
     }
     100% {
-        transform: translateX(-925px);
+        transform: translateX(-1015px);
     }
 }
 
@@ -318,6 +318,34 @@ body {
 @media (max-width: 650px) {
     .icon-item {
         font-size: 1.2rem;
+    }
+    .icon-item i {
+        margin-right: 8px;
+    }
+    .icon-container {
+        gap: 25px;
+        animation: scroll-top 20s linear infinite;
+    }
+    .icon-container2 {
+        gap: 25px;
+        animation: scroll-bottom 20s linear infinite;
+    }
+    @keyframes scroll-top {
+        0% {
+            transform: translateX(-40px);
+        }
+        100% {
+            transform: translateX(-708px);
+        }
+    }
+    
+    @keyframes scroll-bottom {
+        0% {
+            transform: translateX(0px);
+        }
+        100% {
+            transform: translateX(-795px);
+        }
     }
 }
 

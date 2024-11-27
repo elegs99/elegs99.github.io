@@ -10,15 +10,12 @@ $(document).ready(function(){
             container.style.animationPlayState = 'running';
         });
     });
-
-    setTimeout(() => {
-        var typed = new Typed('.typing', {
-          strings: ["a Problem Solver.", "a Software Engineer.", "your next Hire.^2000"],
-          loop: true,
-          typeSpeed: 60,
-          smartBackspace: true,
-          backSpeed: 40,
-          onLastStringBackspaced: () => typed.strPos = 0
-        });
-      }, 750)
+    var typed = new Typed('.typing', {
+        strings: ["a Problem Solver.", "a Software Engineer.^700", "your next Hire.^4900"],
+        loop: true,
+        typeSpeed: 50,
+        smartBackspace: true,
+        backSpeed: 30,
+        onLastStringBackspaced: () => typed.strPos = 0,
+    });
 });
