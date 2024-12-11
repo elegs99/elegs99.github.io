@@ -32,8 +32,6 @@ body {
 /* Header and Navigation */
 .site-header {
     margin: 10px 0;
-    min-width: 1000px;
-    margin: 0 auto;
 }
 
 .site-nav {
@@ -42,7 +40,7 @@ body {
     align-items: center;
     margin: 0 auto;
     font-family: var(--font-mono);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .site-nav a {
