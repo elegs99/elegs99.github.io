@@ -115,7 +115,7 @@ body {
 }
 
 .project-header .project-summary {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--color-subtext);
     align-items: center;
 }
@@ -176,7 +176,7 @@ body {
 
 
 .description-container p {
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: var(--color-subtext);
     margin-bottom: 1rem;
 }
@@ -343,7 +343,10 @@ footer {
         font-size: 2rem;
     }
     .project-header .project-summary {
-        font-size: 1rem;
+        font-size: 1.3rem;
+    }
+    .description-container p {
+        font-size: 1.2rem;
     }
     .numbertext {
         padding: 0.4rem .7rem;
@@ -365,8 +368,19 @@ footer {
     .numbertext {
         padding: 0.25rem .5rem;
         font-size: .9rem;
-    }   
-     
+    }
+    .prev-project, .next-project {
+        top: 15%;
+    }
+    .project-header h1 {
+        font-size: 1.8rem;
+    }
+    .project-header .project-summary {
+        font-size: 1rem;
+    }
+    .description-container p {
+        font-size: 1rem;
+    }
     .prev, .next {
         top: 60%;
         padding: 0.7rem;

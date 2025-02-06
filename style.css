@@ -250,7 +250,7 @@ body {
     align-items: center;
     white-space: nowrap;
     gap: 40px;
-    animation: scroll-top 20s linear infinite;
+    animation: scroll-top 35s linear infinite;
     position: relative;
 }
 
@@ -260,7 +260,7 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 40px;
-    animation: scroll-bottom 20s linear infinite;
+    animation: scroll-bottom 35s linear infinite;
     position: relative;
 }
 
@@ -269,7 +269,7 @@ body {
         transform: translateX(-60px);
     }
     100% {
-        transform: translateX(-917px);
+        transform: translateX(-920px);
     }
 }
 
@@ -278,7 +278,7 @@ body {
         transform: translateX(-10px);
     }
     100% {
-        transform: translateX(-1015px);
+        transform: translateX(-1018px);
     }
 }
 
