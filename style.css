@@ -250,7 +250,7 @@ body {
     align-items: center;
     white-space: nowrap;
     gap: 55px;
-    animation: scroll-top 35s linear infinite;
+    animation: scroll-top 3s linear infinite;
     position: relative;
 }
 
@@ -260,7 +260,7 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 45px;
-    animation: scroll-bottom 35s linear infinite;
+    animation: scroll-bottom 3s linear infinite;
     position: relative;
 }
 
@@ -269,16 +269,17 @@ body {
         transform: translateX(-60px);
     }
     100% {
-        transform: translateX(-920px);
+        transform: translateX(-1025px);
     }
 }
+
 
 @keyframes scroll-bottom {
     0% {
         transform: translateX(50px);
     }
     100% {
-        transform: translateX(-885px);
+        transform: translateX(-918px);
     }
 }
 
@@ -324,7 +325,7 @@ body {
         margin-right: 6px;
     }
     .icon-container {
-        gap: 25px;
+        gap: 35px;
         animation: scroll-top 30s linear infinite;
     }
     .icon-container2 {
@@ -336,7 +337,7 @@ body {
             transform: translateX(-40px);
         }
         100% {
-            transform: translateX(-708px);
+            transform: translateX(-718px);
         }
     }
     
@@ -345,7 +346,7 @@ body {
             transform: translateX(0px);
         }
         100% {
-            transform: translateX(-745px);
+            transform: translateX(-678px);
         }
     }
 }
