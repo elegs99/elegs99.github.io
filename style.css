@@ -249,7 +249,7 @@ body {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    gap: 40px;
+    gap: 55px;
     animation: scroll-top 35s linear infinite;
     position: relative;
 }
@@ -259,7 +259,7 @@ body {
     align-items: center;
     white-space: nowrap;
     margin-top: 15px;
-    gap: 40px;
+    gap: 45px;
     animation: scroll-bottom 35s linear infinite;
     position: relative;
 }
@@ -275,10 +275,10 @@ body {
 
 @keyframes scroll-bottom {
     0% {
-        transform: translateX(-10px);
+        transform: translateX(50px);
     }
     100% {
-        transform: translateX(-945px);
+        transform: translateX(-885px);
     }
 }
 
