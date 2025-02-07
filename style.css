@@ -250,7 +250,7 @@ body {
     align-items: center;
     white-space: nowrap;
     gap: 40px;
-    animation: scroll-top 35s linear infinite;
+    animation: scroll-top 3s linear infinite;
     position: relative;
 }
 
@@ -260,7 +260,7 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 40px;
-    animation: scroll-bottom 35s linear infinite;
+    animation: scroll-bottom 3s linear infinite;
     position: relative;
 }
 
@@ -317,18 +317,19 @@ body {
 
 @media (max-width: 650px) {
     .icon-item {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .icon-item i {
-        margin-right: 8px;
+        font-size: 1rem;
+        margin-right: 6px;
     }
     .icon-container {
         gap: 25px;
-        animation: scroll-top 20s linear infinite;
+        animation: scroll-top 30s linear infinite;
     }
     .icon-container2 {
         gap: 25px;
-        animation: scroll-bottom 20s linear infinite;
+        animation: scroll-bottom 30s linear infinite;
     }
     @keyframes scroll-top {
         0% {
@@ -344,7 +345,7 @@ body {
             transform: translateX(0px);
         }
         100% {
-            transform: translateX(-795px);
+            transform: translateX(-745px);
         }
     }
 }
