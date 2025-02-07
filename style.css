@@ -250,7 +250,7 @@ body {
     align-items: center;
     white-space: nowrap;
     gap: 55px;
-    animation: scroll-top 3s linear infinite;
+    animation: scroll-top 35s linear infinite;
     position: relative;
 }
 
@@ -260,7 +260,7 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 45px;
-    animation: scroll-bottom 3s linear infinite;
+    animation: scroll-bottom 35s linear infinite;
     position: relative;
 }
 
