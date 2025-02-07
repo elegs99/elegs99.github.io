@@ -260,7 +260,7 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 45px;
-    animation: scroll-bottom 35s linear infinite;
+    animation: scroll-bottom 40s linear infinite;
     position: relative;
 }
 
@@ -326,11 +326,11 @@ body {
     }
     .icon-container {
         gap: 35px;
-        animation: scroll-top 30s linear infinite;
+        animation: scroll-top 20s linear infinite;
     }
     .icon-container2 {
         gap: 25px;
-        animation: scroll-bottom 30s linear infinite;
+        animation: scroll-bottom 25s linear infinite;
     }
     @keyframes scroll-top {
         0% {
