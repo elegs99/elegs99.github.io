@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDD3G4WHKS"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-XDD3G4WHKS');
+        </script>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Analytics - Ethan Legum Portfolio</title>
+        <link rel="stylesheet" href="css/analytics.css">
+        <link rel="icon" href="images/icon.webp">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Add these scripts right before the closing </head> tag -->
+        <script src="https://apis.google.com/js/client:platform.js"></script>
+        <script src="https://accounts.google.com/gsi/client"></script>
+    </head>
+    <body>
+        <!-- Header Section -->
+        <header class="site-header">
+            <nav class="site-nav">
+                <a href="index.html" class="logo">Ethan Legum</a>
+                <ul class="main-menu">
+                    <li><a href="index.html#projects">Portfolio</a></li>
+                    <li><a href="contact.html">Contact Me</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="analytics-dashboard">
+            <h1>Website Analytics Dashboard</h1>
+            
+            <!-- Real-time Section -->
+            <section class="analytics-section">
+                <h2>Real-time Activity</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card pulse">
+                        <h3>Active Users</h3>
+                        <div class="metric" id="active-users">--</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Today's Visitors</h3>
+                        <div class="metric" id="today-visitors">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Traffic Overview -->
+            <section class="analytics-section">
+                <h2>Traffic Overview</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card wide">
+                        <h3>Visitor Trends</h3>
+                        <canvas id="visitors-chart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Traffic Sources</h3>
+                        <canvas id="sources-chart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Device Distribution</h3>
+                        <canvas id="devices-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Page Performance -->
+            <section class="analytics-section">
+                <h2>Page Performance</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Most Visited Pages</h3>
+                        <canvas id="pages-chart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Average Time on Page</h3>
+                        <canvas id="engagement-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Section -->
+        <footer>
+            <div class="footer-container">
+                <p>&copy; 2024 Ethan Legum. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/elegs99" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/ethan-l/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+
+        <script src="js/analytics-charts.js"></script>
+    </body>
+</html> 
