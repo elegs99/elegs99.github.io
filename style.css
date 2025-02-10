@@ -137,7 +137,7 @@ body {
 .external-links {
     display: flex;
     gap: 10px;
-    margin: -15px;
+    margin: 5px;
 }
 
 .link-container {
@@ -213,8 +213,8 @@ body {
         text-align: left;
     }
     .link-btn {
-        padding: 3px 10px;
-        font-size: 1.8rem;
+        padding: 3px 8px;
+        font-size: 1.6rem;
     }
     .typing-line {
         margin-top: -10px;
@@ -354,53 +354,71 @@ body {
 
 /* Experience Section */
 .experience {
-    margin-top: 50px;
-    padding: 25px 50px;
-}
-.experience h2{
-    margin-left: 60px;
+    padding: 50px 0;
 }
 
-.experience-container {
+/* Use CSS Grid to create two columns:
+   - First (50px) is for the marker.
+   - Second is for the experience content. */
+.timeline {
     position: relative;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    row-gap: 50px;  /* Controls vertical spacing between items */
     margin: 0 auto;
-    padding-left: 5px;
+    width: 100%;
+    max-width: 1000px;
 }
 
-.experience-entry {
+/* Create a continuous vertical line in the timeline's first column.
+   The line is centered in the 50px column (50px / 2 = 25px). */
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 23%;
+    bottom: 23%;
+    left: 23px;  /* Center of the left column */
+    width: 4px;
+    background-color: var(--blueHL);
+    z-index: 1;
+}
+
+/* Let the timeline-item use the grid of the timeline container */
+.timeline-item {
+    display: contents; /* Its children fill the grid cells defined by .timeline */
+}
+
+/* Updated Timeline Marker for a Target Look */
+.timeline-marker {
+    grid-column: 1;
+    width: 20px;
+    height: 20px;
+    background-color: var(--background); /* Use background color for the outer ring */
+    border: 3px solid var(--blueHL);       /* The blue ring */
+    border-radius: 50%;
     position: relative;
-    margin-bottom: 30px;
-    padding-left: 50px;
+    justify-self: center;  /* Center horizontally */
+    align-self: center;    /* Center vertically */
+    z-index: 2;
 }
 
-.circle {
+.timeline-marker::after {
+    content: "";
     position: absolute;
-    left: -15px;
     top: 50%;
-    font-size: 1.8rem;
-    color: var(--blueHL); /* Light blue color for the bullet point icon */
-    z-index: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;           /* Size of the inner dot */
+    height: 10px;
+    background-color: var(--blueHL);
+    border-radius: 50%;
 }
 
-/* Line between circles using pseudo-element */
-.experience-entry::before {
-    content: '';
-    position: absolute;
-    left: -3px; /* Aligns with the center of the circle icon */
-    top: 60%; /* Starts from the bottom of the circle */
-    bottom: -71%; /* Extends down to the next entry */
-    width: 3px; /* Line width */
-    background-color: var(--blueHL); /* Light blue color for the line */
-    z-index: -1; /* Place the line behind the circles */
-}
-
-/* Remove line for the last entry */
-.experience-entry:last-child::before {
-    display: none;
-}
-
+/* Experience content styling */
 .experience-content {
-    padding: 5px 20px;
+    grid-column: 2;
+    background-color: var(--expirenceCardBackground);
+    padding: 15px;
     border: 1px solid #333;
     border-radius: 8px;
 }
@@ -442,27 +460,8 @@ body {
 /* Responsive Layout Adjustments */
 @media (max-width: 650px) {
     .experience {
-        margin-top: 0px;
-        padding: 15px 25px;
+        padding: 15px 15px;
     }
-    .experience h2{
-        margin-left: 0;
-    }
-    .experience-container {
-        padding-left: 5px;
-    }
-    .circle {
-        left: -13px;
-        font-size: 1.4rem;
-    }
-    .experience-entry {
-        padding-left: 25px;
-    }
-
-    .experience-content {
-        padding: 15px;
-    }
-
     .company-name {
         margin-top: -5px;
         font-size: 1.2rem;
@@ -470,11 +469,11 @@ body {
     .job-title {
         font-size: 1rem;
     }
-
-    .short-description {
-        font-size: 0.9rem;
+    .experience .short-description{
+        font-size: 1rem;
     }
 }
+
 
 /* Projects Section */
 .projects {
