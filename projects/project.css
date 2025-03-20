@@ -24,14 +24,16 @@ body {
 }
 
 .content {
-    max-width: 100%;
+    max-width: 95%;
     margin: 0 auto;
-    padding-top: 4rem;
+    padding-top: 2rem;
 }
 
 /* Header and Navigation */
 .site-header {
-    margin: 10px 0;
+    max-width: 1500px;
+    width: 100%;
+    margin: 10px auto;
 }
 
 .site-nav {
@@ -162,7 +164,7 @@ body {
 .media-container img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .description-container {
@@ -289,7 +291,7 @@ footer {
 .footer-container {
     text-align: center;
     border-top: 1px solid #313131;
-    min-width: 80%;
+    min-width: 85%;
     margin: 0 auto;
     margin-top: 5rem;
     color: var(--color-subtext);
@@ -357,7 +359,7 @@ footer {
         font-size: 1.2rem;
     }
     .project-header {
-        margin-top: -75px;
+        margin-top: -50px;
     }
     .return {
         margin-top: 25px;

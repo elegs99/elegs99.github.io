@@ -31,7 +31,9 @@ body {
 
 /* Header and Navigation */
 .site-header {
-    margin: 10px 0;
+    max-width: 1000px;
+    width: 100%;
+    margin: 10px auto;
 }
 
 .site-nav {
