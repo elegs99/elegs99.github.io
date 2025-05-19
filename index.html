@@ -16,18 +16,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Ethan Legum portfolio website. 
         I create intelligent AI-driven systems and immersive digital experiences that solve real-world challenges. 
-        With a Master’s in Computer Vision and expertise in AI, data handling, and interactive technologies, I thrive at the intersection of innovation and impact. 
-        I’ve built scalable solutions across AI, full-stack, and VR, from architecting generative AI models to optimizing real-time pose tracking and delivering high-quality multiplayer experiences. 
+        With a Master's in Computer Vision and expertise in AI, data handling, and interactive technologies, I thrive at the intersection of innovation and impact. 
+        I've built scalable solutions across AI, full-stack, and VR, from architecting generative AI models to optimizing real-time pose tracking and delivering high-quality multiplayer experiences. 
         Leading a cross-functional team of five developers, I shipped a multiplayer VR app in just six months, improving user engagement by 30% and reducing motion sickness by optimizing VR interactions. 
-        I’ve also designed and implemented machine learning pipelines to increase fraud detection accuracy by 17%, directly impacting product reliability and user trust.
-        I’m eager to bring my technical expertise and leadership skills to a forward-thinking team solving complex challenges. If you’re looking for an engineer who can bridge AI, full-stack, and VR to create high-impact solutions.">
+        I've also designed and implemented machine learning pipelines to increase fraud detection accuracy by 17%, directly impacting product reliability and user trust.
+        I'm eager to bring my technical expertise and leadership skills to a forward-thinking team solving complex challenges. If you're looking for an engineer who can bridge AI, full-stack, and VR to create high-impact solutions.">
         <title>Ethan Legum Portfolio Website</title>
         <link rel="stylesheet" href="style.css">
         <link rel="icon" href="images/icon.webp">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
         <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="script.js"></script>
+        <script src="light-mode.js"></script>
+        <script src="animations.js"></script>
     </head>
     <body>
         <!-- Header Section -->
@@ -38,6 +39,9 @@
                     <li><a href="#projects">Portfolio</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
             </nav>
         </header>
 
@@ -75,16 +79,16 @@
                         </div>
                     </div>
                     <!-- Typing Animation Line -->
-                    <p class="typing-line">I'm <span class="typing">a Problem Solver.</span></p>
+                    <p class="typing-line">I'm <span class="typing">your next Hire.</span></p>
                     <!-- Short Description -->
                     <p class="short-description">As a Computer Vision Master's graduate with expertise in machine learning, data engineering, and full-stack development, I'm ready to solve your toughest technical challenges.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section class="skills" id="skills">
-            <h2>Development Skills</h2>
+        <!-- Experience Section -->
+        <section class="experience" id="experience">
+            <h2>Development Expertise</h2>
             <div class="skills-list">
                 <div class="icon-container-wrapper">
                     <div class="icon-container">
@@ -136,36 +140,104 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section class="experience" id="experience">
-            <h2>Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="experience-content">
-                        <p class="company-name">VR Game Developer</p>
-                        <p class="job-title">SLEDDVR &nbsp|&nbsp C#, Unity, Unity Gaming Services</p>
-                        <p class="date">January 2023 - Present</p>
-                        <p class="short-description">
-                            Solo-developed and launched a VR game featuring custom movement mechanics and procedural terrain generation, managed backend services with Unity Gaming Services for efficient server interactions, and created 3D models and marketing assets, resulting in over 950 downloads in the first month.
-                        </p>
+            <div class="expertise-grid">
+                <!-- Video Game & VR Development -->
+                <div class="expertise-card">
+                    <div class="expertise-header">
+                        <h3>Game Dev</h3>
+                        <span class="years">7+ Years</span>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">Unity</span>
+                        <span class="tech-tag">Blender</span>
+                        <span class="tech-tag">XR Frameworks</span>
+                    </div>
+                    <div class="notable-projects">
+                        <h4>Relevant Projects:</h4>
+                        <ul>
+                            <li><a href="projects/sr.html" class="project-link">SLEDDVR</a> - Solo-developed physics-based VR racing game with 2,800+ downloads.</li>
+                            <li><a href="projects/em.html" class="project-link">EasyMeshVR</a> - Open-source collaborative 3D mesh editing platform.</li>
+                            <li><a href="projects/jtvr.html" class="project-link">Jedi Droid Attack</a> - VR expirence featuring Force powers and lightsaber combat.</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="experience-content">
-                        <p class="company-name">Computer Vision Engineer</p>
-                        <p class="job-title">PopID &nbsp|&nbsp Python, Java, Kotlin, Android Studio</p>
-                        <p class="date">June 2023 - August 2024</p>
-                        <p class="short-description">
-                            Integrated biometric recognition packages into a Kotlin Android app, enhanced drive-thru liveness detection software to boost facial matching by 57%, and developed backend APIs to integrate biometric payment systems with Android point-of-sale systems.
-                        </p>
+
+                <!-- Full Stack Web Development -->
+                <div class="expertise-card">
+                    <div class="expertise-header">
+                        <h3>Web Dev</h3>
+                        <span class="years">5+ Years</span>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">React</span>
+
+                    </div>
+                    <div class="notable-projects">
+                        <h4>Relevant Projects:</h4>
+                        <ul>
+                            <li><a href="https://github.com/elegs99/elegs99.github.io" class="project-link" target="_blank">Personal Portfolio Website</a> - Modern, responsive design with interactive elements.</li>
+                            <li><a href="projects/ni.html" class="project-link">Nutrition Intuition</a> - Full-stack web app for tracking food nutrition, with a user-friendly interface.</li>
+                            <li><a href="EvolutionaryRockets/index.html" class="project-link" target="_blank">Evolutionary Rockets</a> - Web-based simulation with reinforcement learning.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Full Stack Web Development -->
+                <div class="expertise-card">
+                    <div class="expertise-header">
+                        <h3>AI/ML</h3>
+                        <span class="years">5+ Years</span>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">TensorFlow</span>
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Keras</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">NumPy</span>
+                    </div>
+                    <div class="notable-projects">
+                        <h4>Relevant Projects:</h4>
+                        <ul>
+                            <li><a href="projects/ep.html" class="project-link">EffectivePose</a> - Android app achieving 60 fps real-time body pose estimation.</li>
+                            <li><a href="projects/er.html" class="project-link">Evolutionary Rockets</a> - Web-based simulation with reinforcement learning.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- App Development -->
+                <div class="expertise-card">
+                    <div class="expertise-header">
+                        <h3>Mobile App Dev</h3>
+                        <span class="years">2+ Years</span>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">React Native</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Kotlin</span>
+                        <span class="tech-tag">Android Studio</span>
+                    </div>
+                    <div class="notable-projects">
+                        <h4>Relevant Projects:</h4>
+                        <ul>
+                            <li><a href="projects/ep.html" class="project-link">EffectivePose</a> - Android app achieving 60 fps real-time body pose estimation.</li>
+                            <li><a href="projects/ni.html" class="project-link">Nutrition Intuition</a> - Full-stack mobile app for tracking food nutrition, with a user-friendly interface.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>  
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills" id="skills">
+            <!-- <h2>Development Skills</h2> -->
+        </section>
 
         <!-- Projects Section -->
         <section class="projects" id="projects">
@@ -263,11 +335,7 @@
         <!-- Footer Section -->
         <footer>
             <div class="footer-container">
-                <p>&copy; 2024 Ethan Legum. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="https://github.com/elegs99" target="_blank">GitHub</a>
-                    <a href="https://www.linkedin.com/in/ethan-l/" target="_blank">LinkedIn</a>
-                </div>
+                <p>&copy; 2025 Ethan Legum. All rights reserved.</p>
             </div>
         </footer>
     </body>

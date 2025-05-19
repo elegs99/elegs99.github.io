@@ -11,7 +11,7 @@ $(document).ready(function(){
         });
     });
     var typed = new Typed('.typing', {
-        strings: ["a Problem Solver.", "a Software Engineer.", "your next Hire.^9900"],
+        strings: ["your next Hire.^9900", "a Problem Solver.", "a Software Engineer."],
         loop: true,
         typeSpeed: 40,
         smartBackspace: true,

@@ -9,6 +9,15 @@
     --color-subtext: #888888;
 }
 
+/* Light mode variables */
+:root[data-theme="light"] {
+    --background: #ffffff;
+    --white: #111111;
+    --grey: #666666;
+    --expirenceCardBackground: #f5f5f5;
+    --color-subtext: #666666;
+}
+
 /* Body and General Layout */
 body {
     display: flex;
@@ -34,6 +43,7 @@ body {
     max-width: 1000px;
     width: 100%;
     margin: 10px auto;
+    position: relative;
 }
 
 .site-nav {
@@ -43,6 +53,7 @@ body {
     margin: 0 auto;
     font-family: var(--font-mono);
     font-size: 1.4rem;
+    position: relative;
 }
 
 .site-nav a {
@@ -70,6 +81,7 @@ body {
 .main-menu {
     display: flex;
     list-style: none;
+    margin-right: 100px;
 }
 
 @media screen and (max-width: 61rem) {
@@ -77,6 +89,7 @@ body {
         flex-direction: column;
         align-items: flex-start;
         padding-left: 1rem;
+        margin-right: 10px;
     }
 
     .site-nav li {
@@ -154,7 +167,7 @@ body {
     padding: 5px 10px;
     width: fit-content;
     background-color: var(--expirenceCardBackground);
-    color: #fff;
+    color: var(--white);
     text-align: center;
     border-radius: 6px;
     position: absolute;
@@ -252,7 +265,7 @@ body {
     align-items: center;
     white-space: nowrap;
     gap: 55px;
-    animation: scroll-top 35s linear infinite;
+    animation: scroll-top 50s linear infinite;
     position: relative;
 }
 
@@ -262,7 +275,7 @@ body {
     white-space: nowrap;
     margin-top: 15px;
     gap: 45px;
-    animation: scroll-bottom 40s linear infinite;
+    animation: scroll-bottom 60s linear infinite;
     position: relative;
 }
 
@@ -310,12 +323,12 @@ body {
 
 .icon-container-wrapper::before {
     left: 0;
-    background: linear-gradient(to right, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
+    background: linear-gradient(to right, var(--background), rgba(17, 17, 17, 0));
 }
 
 .icon-container-wrapper::after {
     right: 0;
-    background: linear-gradient(to left, rgba(17, 17, 17, 1), rgba(17, 17, 17, 0));
+    background: linear-gradient(to left, var(--background), rgba(17, 17, 17, 0));
 }
 
 @media (max-width: 650px) {
@@ -328,11 +341,11 @@ body {
     }
     .icon-container {
         gap: 35px;
-        animation: scroll-top 20s linear infinite;
+        animation: scroll-top 30s linear infinite;
     }
     .icon-container2 {
         gap: 25px;
-        animation: scroll-bottom 25s linear infinite;
+        animation: scroll-bottom 45s linear infinite;
     }
     @keyframes scroll-top {
         0% {
@@ -453,12 +466,6 @@ body {
     margin-top: 10px;
 }
 
-/* Icon Styling */
-.circle i {
-    position: relative;
-    top: 4px;
-}
-
 /* Responsive Layout Adjustments */
 @media (max-width: 650px) {
     .experience {
@@ -480,6 +487,7 @@ body {
 /* Projects Section */
 .projects {
     padding: 50px 0;
+    padding-top: 0px;
 }
 
 .project-cards {
@@ -547,16 +555,21 @@ body {
 }
 
 .project-card:hover .title-background {
-    padding: 5px
+    padding: 2px
 }
 
 .title {
-    color: white;
+    color: var(--white);
     font-size: 1.4rem;
     font-weight: bold;
     text-align: left;
     transition: all 0.5s ease;
 }
+
+:root[data-theme="light"] .title {
+    color: var(--white);
+}
+
 .project-details {
     transform: translateY(30px);
     padding: 0 10px;
@@ -580,21 +593,21 @@ body {
     opacity: 0;
     display: inline-block;
     visibility: hidden;
-    padding: 5px 10px;
+    padding: 2px 6px;
     font-size: 0.8rem;
     font-weight: 600;
-    color: var(--blueHL);
-    border: 1px solid var(--blueHL);
+    color: rgba(26, 170, 223, 0.7);
+    border: 1px solid rgba(26, 170, 223, 0.7);
     border-radius: 8px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 .learn-more-btn:hover {
-    color: var(--background);
-    background-color: var(--blueHL);
-    border-color: var(--background);
+    color: var(--blueHL);
+    background-color: var(--background);
+    border-color: var(--blueHL);
 }
 
 .project-card:hover .learn-more-btn {
@@ -616,7 +629,7 @@ body {
 /* Contact Section */
 .contact-container {
     text-align: center;
-    padding: 50px 0;
+    padding-top: 50px;
     width: 90%;
     max-width: 1000px;
     margin: 0 auto;
@@ -630,10 +643,12 @@ body {
     border: 1px solid #333;
     border-radius: 8px;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .contact-container a:hover {
     background-color: #333;
+    color: var(--white);
 }
 
 /* Footer */
@@ -648,6 +663,7 @@ footer {
     min-width: 80%;
     margin: 2rem auto;
     margin-top: 5rem;
+    margin-bottom: 0rem;
     color: var(--color-subtext);
 }
 
@@ -677,4 +693,231 @@ footer {
     .hero, .projects, .skills {
         padding: 1rem;
     }
+}
+
+/* Expertise Section Styles */
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.expertise-card {
+    background: var(--expirenceCardBackground);
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 1.5rem;
+    height: fit-content; /* Makes card only as tall as its content */
+}
+
+.expertise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.expertise-header h3 {
+    margin: 0;
+    font-size: 1.7rem;
+    color: var(--white);
+    font-weight: bold;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+.years {
+    background: var(--background);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border: 1px solid #333;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.years::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        transparent,
+        var(--blueHL),
+        transparent
+    );
+    opacity: 0;
+}
+
+.expertise-card:hover .years::before {
+    animation: shimmer 0.5s ease-out forwards;
+    opacity: 1;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+    background: var(--background);
+    padding: 0.3rem 0.8rem;
+    border: 1px solid #333;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    color: var(--color-subtext);
+}
+
+.notable-projects h4 {
+    margin: 0 0 0.8rem 0;
+    color: var(--color-subtext);
+    font-size: 1.1rem;
+}
+
+.notable-projects ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notable-projects li {
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--color-subtext);
+}
+
+.project-link {
+    color: rgba(26, 170, 223, 0.7);
+    text-decoration: underline;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0px 0px;
+    border-radius: 4px;
+}
+
+.project-link:hover {
+    color: var(--blueHL);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .expertise-grid {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+    
+    .expertise-card {
+        margin-bottom: 1rem;
+    }
+    
+    .expertise-header h3 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Theme Toggle Styles */
+.theme-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(125, 125, 125, 1) 0%, rgba(125, 125, 125, 0.3) 50%, var(--background) 90%);
+    transform: scale(0.1);
+    opacity: 0;
+    transition: all 0.6s ease-in-out;
+    z-index: -1;
+}
+
+.theme-toggle:hover::after {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    color: var(--white);
+    transition: color 0.3s;
+}
+
+@media (max-width: 61rem) {
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Project card light mode styles */
+:root[data-theme="light"] .project-card {
+    background-color: var(--expirenceCardBackground);
+    border: 1px solid #e0e0e0;
+}
+
+:root[data-theme="light"] .title-background {
+    background: linear-gradient(to top, var(--expirenceCardBackground) 10%, rgba(245, 245, 245, 0), transparent);
+}
+
+:root[data-theme="light"] .project-details p {
+    color: var(--color-subtext);
+}
+
+:root[data-theme="light"] .learn-more-btn {
+    color: rgba(26, 170, 223, 0.7);
+    border: 1px solid rgba(26, 170, 223, 0.7);
+}
+
+:root[data-theme="light"] .learn-more-btn:hover {
+    color: var(--blueHL);
+    border-color: var(--blueHL);
+}
+
+/* Light mode styles for tooltips and contact button */
+:root[data-theme="light"] .tooltiptext {
+    background-color: var(--expirenceCardBackground);
+    color: var(--white);
+    border: 1px solid #e0e0e0;
+}
+
+:root[data-theme="light"] .contact-container a {
+    background-color: var(--expirenceCardBackground);
+    border: 1px solid #e0e0e0;
+    color: var(--white);
+}
+
+:root[data-theme="light"] .contact-container a:hover {
+    background-color: #e0e0e0;
+    color: var(--white);
 }
