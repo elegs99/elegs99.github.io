@@ -84,7 +84,50 @@ body {
     margin-right: 100px;
 }
 
+/* Theme Toggle Styles */
+.theme-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 5px;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(125, 125, 125, 1) 0%, rgba(125, 125, 125, 0.3) 50%, var(--background) 90%);
+    transform: scale(0.1);
+    opacity: 0;
+    transition: all 0.6s ease-in-out;
+    z-index: -1;
+}
+
+.theme-toggle:hover::after {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+    color: var(--white);
+    transition: color 0.3s;
+}
+
 @media screen and (max-width: 61rem) {
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+    }
     .site-nav {
         flex-direction: column;
         align-items: flex-start;
@@ -242,248 +285,6 @@ body {
     }
 }
 
-
-/* Skills Section */
-.skills {
-    padding: 50px 0;
-}
-
-.skills-list {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.icon-container-wrapper {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.icon-container {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    gap: 55px;
-    animation: scroll-top 50s linear infinite;
-    position: relative;
-}
-
-.icon-container2 {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    margin-top: 15px;
-    gap: 45px;
-    animation: scroll-bottom 60s linear infinite;
-    position: relative;
-}
-
-@keyframes scroll-top {
-    0% {
-        transform: translateX(-60px);
-    }
-    100% {
-        transform: translateX(-1025px);
-    }
-}
-
-
-@keyframes scroll-bottom {
-    0% {
-        transform: translateX(50px);
-    }
-    100% {
-        transform: translateX(-918px);
-    }
-}
-
-.icon-item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    font-size: 1.4rem;
-    color: var(--white);
-}
-
-.icon-item i {
-    margin-right: 10px;
-}
-
-.icon-container-wrapper::before,
-.icon-container-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.icon-container-wrapper::before {
-    left: 0;
-    background: linear-gradient(to right, var(--background), rgba(17, 17, 17, 0));
-}
-
-.icon-container-wrapper::after {
-    right: 0;
-    background: linear-gradient(to left, var(--background), rgba(17, 17, 17, 0));
-}
-
-@media (max-width: 650px) {
-    .icon-item {
-        font-size: 1.1rem;
-    }
-    .icon-item i {
-        font-size: 1rem;
-        margin-right: 6px;
-    }
-    .icon-container {
-        gap: 35px;
-        animation: scroll-top 30s linear infinite;
-    }
-    .icon-container2 {
-        gap: 25px;
-        animation: scroll-bottom 45s linear infinite;
-    }
-    @keyframes scroll-top {
-        0% {
-            transform: translateX(-40px);
-        }
-        100% {
-            transform: translateX(-718px);
-        }
-    }
-    
-    @keyframes scroll-bottom {
-        0% {
-            transform: translateX(0px);
-        }
-        100% {
-            transform: translateX(-678px);
-        }
-    }
-}
-
-
-/* Experience Section */
-.experience {
-    padding: 50px 15px;
-}
-
-/* Use CSS Grid to create two columns:
-   - First (50px) is for the marker.
-   - Second is for the experience content. */
-.timeline {
-    position: relative;
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    row-gap: 50px;  /* Controls vertical spacing between items */
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1000px;
-}
-
-/* Create a continuous vertical line in the timeline's first column.
-   The line is centered in the 50px column (50px / 2 = 25px). */
-.timeline::before {
-    content: "";
-    position: absolute;
-    top: 23%;
-    bottom: 23%;
-    left: 23px;  /* Center of the left column */
-    width: 4px;
-    background-color: var(--blueHL);
-    z-index: 1;
-}
-
-/* Let the timeline-item use the grid of the timeline container */
-.timeline-item {
-    display: contents; /* Its children fill the grid cells defined by .timeline */
-}
-
-/* Updated Timeline Marker for a Target Look */
-.timeline-marker {
-    grid-column: 1;
-    width: 20px;
-    height: 20px;
-    background-color: var(--background); /* Use background color for the outer ring */
-    border: 3px solid var(--blueHL);       /* The blue ring */
-    border-radius: 50%;
-    position: relative;
-    justify-self: center;  /* Center horizontally */
-    align-self: center;    /* Center vertically */
-    z-index: 2;
-}
-
-.timeline-marker::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;           /* Size of the inner dot */
-    height: 10px;
-    background-color: var(--blueHL);
-    border-radius: 50%;
-}
-
-/* Experience content styling */
-.experience-content {
-    grid-column: 2;
-    background-color: var(--expirenceCardBackground);
-    padding: 15px;
-    border: 1px solid #333;
-    border-radius: 8px;
-}
-
-.company-name {
-    margin-top: 10px;
-    font-size: 1.7rem;
-    font-weight: bold;
-    color: var(--blueHL);
-    margin-bottom: 10px;
-}
-
-.job-title {
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--white);
-    margin: 5px 0;
-}
-
-.date {
-    font-size: 1rem;
-    color: var(--color-subtext);
-    margin-bottom: 10px;
-}
-
-.experience .short-description {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--white);
-    margin-top: 10px;
-}
-
-/* Responsive Layout Adjustments */
-@media (max-width: 650px) {
-    .experience {
-        padding: 15px 15px;
-    }
-    .company-name {
-        margin-top: -5px;
-        font-size: 1.2rem;
-    }
-    .job-title {
-        font-size: 1rem;
-    }
-    .experience .short-description{
-        font-size: 1rem;
-    }
-}
-
-
 /* Projects Section */
 .projects {
     padding: 50px 0;
@@ -626,72 +427,132 @@ body {
     text-decoration: underline;
 }
 
-/* Contact Section */
-.contact-container {
-    text-align: center;
+/* Experience Section */
+.experience {
+    padding: 25px 15px;
     padding-top: 50px;
-    width: 90%;
+}
+
+/* Skills Section */
+.skills {
+    padding: 50px 0;
+}
+
+.skills-list {
+    width: 100%;
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.contact-container a {
-    display: inline-block;
-    padding: 10px 20px;
-    color: var(--white);
-    background-color: var(--background);
-    border: 1px solid #333;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.3s ease;
+.icon-container-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
 }
 
-.contact-container a:hover {
-    background-color: #333;
-    color: var(--white);
-}
-
-/* Footer */
-footer {
+.icon-container {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    gap: 55px;
+    animation: scroll-top 50s linear infinite;
+    position: relative;
 }
 
-.footer-container {
-    text-align: center;
-    border-top: 1px solid #313131;
-    min-width: 80%;
-    margin: 2rem auto;
-    margin-top: 5rem;
-    margin-bottom: 0rem;
-    color: var(--color-subtext);
+.icon-container2 {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    margin-top: 15px;
+    gap: 45px;
+    animation: scroll-bottom 60s linear infinite;
+    position: relative;
 }
 
-.footer-container a {
-    color: var(--grey);
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.footer-container a:hover {
-    text-decoration: underline;
-    color: var(--blueHL);
-}
-
-@media (max-width: 1100px) {
-    .home h1 {
-        font-size: 2rem;
+@keyframes scroll-top {
+    0% {
+        transform: translateX(-60px);
     }
-
-    .home p {
-        font-size: 1.2rem;
+    100% {
+        transform: translateX(-1025px);
     }
+}
 
-    .body {
-        max-width: 100%;
+
+@keyframes scroll-bottom {
+    0% {
+        transform: translateX(50px);
     }
-    .hero, .projects, .skills {
-        padding: 1rem;
+    100% {
+        transform: translateX(-918px);
+    }
+}
+
+.icon-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    color: var(--white);
+}
+
+.icon-item i {
+    margin-right: 10px;
+}
+
+.icon-container-wrapper::before,
+.icon-container-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.icon-container-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--background), rgba(17, 17, 17, 0));
+}
+
+.icon-container-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--background), rgba(17, 17, 17, 0));
+}
+
+@media (max-width: 650px) {
+    .icon-item {
+        font-size: 1.1rem;
+    }
+    .icon-item i {
+        font-size: 1rem;
+        margin-right: 6px;
+    }
+    .icon-container {
+        gap: 35px;
+        animation: scroll-top 30s linear infinite;
+    }
+    .icon-container2 {
+        gap: 25px;
+        animation: scroll-bottom 45s linear infinite;
+    }
+    @keyframes scroll-top {
+        0% {
+            transform: translateX(-40px);
+        }
+        100% {
+            transform: translateX(-718px);
+        }
+    }
+    
+    @keyframes scroll-bottom {
+        0% {
+            transform: translateX(0px);
+        }
+        100% {
+            transform: translateX(-678px);
+        }
     }
 }
 
@@ -699,10 +560,9 @@ footer {
 .expertise-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2rem;
-    padding: 2rem 0;
+    gap: 1rem;
+    padding: 2rem 0rem;
     width: 100%;
-    margin: 0 auto;
     max-width: 1000px;
 }
 
@@ -710,7 +570,7 @@ footer {
     background: var(--expirenceCardBackground);
     border: 1px solid #333;
     border-radius: 10px;
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
     height: fit-content; /* Makes card only as tall as its content */
 }
 
@@ -822,7 +682,7 @@ footer {
 @media (max-width: 768px) {
     .expertise-grid {
         grid-template-columns: 1fr;
-        width: 90%;
+        width: 100%;
     }
     
     .expertise-card {
@@ -834,49 +694,152 @@ footer {
     }
 }
 
-/* Theme Toggle Styles */
-.theme-toggle {
-    position: absolute;
-    right: 0;
-    top: 0;
+/* Contact Section */
+.contact {
+    margin-top: 50px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 25px;
+    margin: 0 auto;
+    background-color: var(--background);
+}
+
+.contact-container {
+    border: 1px solid #333;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    color: var(--white);
+    font-family: var(--font-sans);
+    background-color: var(--expirenceCardBackground);
+}
+
+.contact-header {
+    margin-bottom: 30px;
+}
+
+.contact-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--white);
+    margin: 10px;
+}
+
+.contact-description {
+    color: var(--color-subtext);
+    font-size: 1rem;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--expirenceCardBackground);
+}
+
+.link-item a {
+    text-decoration: none;
+    background-color: var(--expirenceCardBackground);
+}
+
+.link-item {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 10px;
+    width: 30%;
+    border-radius: 8px;
+    background-color: var(--expirenceCardBackground);
 }
 
-.theme-toggle::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(125, 125, 125, 1) 0%, rgba(125, 125, 125, 0.3) 50%, var(--background) 90%);
-    transform: scale(0.1);
-    opacity: 0;
-    transition: all 0.6s ease-in-out;
-    z-index: -1;
-}
-
-.theme-toggle:hover::after {
-    transform: scale(1);
-    opacity: 1;
-}
-
-.theme-toggle i {
-    font-size: 1.2rem;
+.contact-icon {
+    font-size: 3rem;
     color: var(--white);
-    transition: color 0.3s;
 }
 
-@media (max-width: 61rem) {
-    .theme-toggle {
-        width: 40px;
-        height: 40px;
+.contact-link-title {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: -15px;
+}
+
+.contact-link-value {
+    font-size: 1rem;
+    color: var(--color-subtext);
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 600px) {
+    .contact {
+        margin-top: 0px;
+        padding: 25px 15px;
+    }
+    .contact-container {
+        padding: 20px;
+    }
+
+    .contact-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .link-item {
+        width: 100%;
+    }
+
+    .contact-icon {
+        font-size: 2.5rem;
+    }
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-container {
+    text-align: center;
+    border-top: 1px solid #313131;
+    min-width: 80%;
+    margin: 2rem auto;
+    margin-top: 5rem;
+    margin-bottom: 0rem;
+    color: var(--color-subtext);
+}
+
+.footer-container a {
+    color: var(--grey);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-container a:hover {
+    text-decoration: underline;
+    color: var(--blueHL);
+}
+
+@media (max-width: 1100px) {
+    .home h1 {
+        font-size: 2rem;
+    }
+
+    .home p {
+        font-size: 1.2rem;
+    }
+
+    .body {
+        max-width: 100%;
+    }
+    .hero, .projects, .skills {
+        padding: 1rem;
     }
 }
 
@@ -909,15 +872,4 @@ footer {
     background-color: var(--expirenceCardBackground);
     color: var(--white);
     border: 1px solid #e0e0e0;
-}
-
-:root[data-theme="light"] .contact-container a {
-    background-color: var(--expirenceCardBackground);
-    border: 1px solid #e0e0e0;
-    color: var(--white);
-}
-
-:root[data-theme="light"] .contact-container a:hover {
-    background-color: #e0e0e0;
-    color: var(--white);
 }
