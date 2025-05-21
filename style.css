@@ -719,7 +719,7 @@ body {
     padding: 25px;
     border-radius: 10px;
     text-align: center;
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     color: var(--white);
     font-family: var(--font-sans);
