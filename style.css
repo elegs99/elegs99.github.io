@@ -32,6 +32,10 @@ body {
     margin: 0 auto;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .content {
     max-width: 100%;
     margin: 0 auto;
@@ -778,7 +782,7 @@ body {
 @media screen and (max-width: 600px) {
     .contact {
         margin-top: 0px;
-        padding: 25px 15px;
+        padding: 25px 90px;
     }
     .contact-container {
         padding: 20px;

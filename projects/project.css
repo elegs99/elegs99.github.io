@@ -38,6 +38,10 @@ body {
     margin: 0 auto;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .content {
     max-width: 95%;
     margin: 0 auto;
@@ -322,6 +326,7 @@ footer {
     color: var(--grey);
     text-decoration: none;
     margin: 0 10px;
+    padding-bottom: 25px;
 }
 
 .footer-container a:hover {
