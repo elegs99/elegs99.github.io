@@ -24,6 +24,15 @@
     --hover-text: rgba(255, 255, 255, 1);
 }
 
+:root::-webkit-scrollbar {
+    display: none;
+}
+  
+:root {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 /* Body and General Layout */
 body {
     display: flex;
@@ -36,10 +45,6 @@ body {
     width: 100%;
     max-width: 1500px;
     margin: 0 auto;
-}
-
-body::-webkit-scrollbar {
-    display: none;
 }
 
 .content {
