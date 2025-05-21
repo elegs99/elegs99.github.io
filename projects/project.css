@@ -402,6 +402,9 @@ footer {
     .prev-project, .next-project {
         top: 15%;
     }
+    .project-header {
+        margin-top: -50px;
+    }
     .project-header h1 {
         font-size: 1.8rem;
     }
