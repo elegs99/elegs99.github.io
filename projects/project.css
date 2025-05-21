@@ -116,6 +116,7 @@ body {
 .project-header {
     position: relative;
     text-align: center;
+    margin-top: -50px;
 }
 
 .header-container {
@@ -377,9 +378,6 @@ footer {
         top: 75%;
         padding: 0.8rem;
         font-size: 1.2rem;
-    }
-    .project-header {
-        margin-top: -50px;
     }
     .return {
         margin-top: 25px;
