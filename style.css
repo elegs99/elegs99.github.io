@@ -787,10 +787,11 @@ body {
 @media screen and (max-width: 600px) {
     .contact {
         margin-top: 0px;
-        padding: 25px 90px;
+        padding: 25px;
     }
     .contact-container {
         padding: 20px;
+        width: 65%;
     }
 
     .contact-links {
