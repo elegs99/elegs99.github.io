@@ -18,6 +18,15 @@
     --color-subtext: #666666;
 }
 
+:root::-webkit-scrollbar {
+    display: none;
+}
+  
+:root {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 /* Body and General Layout */
 body {
     display: flex;
@@ -30,10 +39,6 @@ body {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-}
-
-body::-webkit-scrollbar {
-    display: none;
 }
 
 .content {
