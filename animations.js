@@ -7,6 +7,8 @@ $(document).ready(function(){
                 speed: options.speed || 50, // pixels per second
                 pauseOnHover: options.pauseOnHover !== false,
                 responsive: options.responsive !== false,
+                momentumDecay: options.momentumDecay || 0.95, // How quickly momentum decays
+                maxMomentumSpeed: options.maxMomentumSpeed || 2.0, // Max speed multiplier for momentum
                 ...options
             };
             
@@ -22,6 +24,12 @@ $(document).ready(function(){
             this.dragStartPosition = 0;
             this.minDragBoundary = 0;
             this.maxDragBoundary = 0;
+            
+            // Momentum properties
+            this.velocity = 0;
+            this.lastDragTime = 0;
+            this.lastDragX = 0;
+            this.isMomentumActive = false;
             
             this.init();
         }
@@ -84,13 +92,13 @@ $(document).ready(function(){
         setupEventListeners() {
             if (this.options.pauseOnHover) {
                 this.container.addEventListener('mouseenter', () => {
-                    if (!this.isDragging) {
+                    if (!this.isDragging && !this.isMomentumActive) {
                         this.pause();
                     }
                 });
                 
                 this.container.addEventListener('mouseleave', () => {
-                    if (!this.isDragging) {
+                    if (!this.isDragging && !this.isMomentumActive) {
                         this.resume();
                     }
                 });
@@ -112,12 +120,18 @@ $(document).ready(function(){
         
         startDragging(event) {
             this.isDragging = true;
+            this.isMomentumActive = false;
             this.pause();
             
             // Get the starting position
             const clientX = event.clientX || (event.touches && event.touches[0].clientX);
             this.dragStartX = clientX;
             this.dragStartPosition = this.currentPosition;
+            
+            // Initialize momentum tracking
+            this.lastDragTime = Date.now();
+            this.lastDragX = clientX;
+            this.velocity = 0;
             
             // Change cursor
             this.container.style.cursor = 'grabbing';
@@ -130,7 +144,22 @@ $(document).ready(function(){
             if (!this.isDragging) return;
             
             const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+            const currentTime = Date.now();
             const deltaX = clientX - this.dragStartX;
+            
+            // Calculate velocity for momentum
+            if (currentTime > this.lastDragTime) {
+                const timeDelta = currentTime - this.lastDragTime;
+                const distanceDelta = clientX - this.lastDragX;
+                this.velocity = distanceDelta / timeDelta; // pixels per millisecond
+                
+                // Clamp velocity to reasonable bounds
+                this.velocity = Math.max(-this.options.maxMomentumSpeed, 
+                                       Math.min(this.options.maxMomentumSpeed, this.velocity));
+            }
+            
+            this.lastDragTime = currentTime;
+            this.lastDragX = clientX;
             
             // Calculate new position
             let newPosition = this.dragStartPosition + deltaX;
@@ -161,14 +190,56 @@ $(document).ready(function(){
             
             this.isDragging = false;
             
-            // Snap to valid position if needed
-            this.snapToValidPosition();
-            
-            // Reset cursor
+            // Start momentum animation if velocity is significant
+            if (Math.abs(this.velocity) > 0.01) {
+                this.startMomentum();
+            } else {
+                // Snap to valid position if needed
+                this.snapToValidPosition();
+                
+                // Reset cursor
+                this.container.style.cursor = 'grab';
+                
+                // Resume scrolling
+                this.resume();
+            }
+        }
+        
+        startMomentum() {
+            this.isMomentumActive = true;
             this.container.style.cursor = 'grab';
+            this.animateMomentum();
+        }
+        
+        animateMomentum() {
+            if (!this.isMomentumActive) return;
             
-            // Resume scrolling
-            this.resume();
+            // Apply velocity
+            this.currentPosition += this.velocity * 16; // Assuming 60fps (16ms per frame)
+            
+            // Decay velocity
+            this.velocity *= this.options.momentumDecay;
+            
+            // Handle boundaries during momentum
+            if (this.currentPosition <= this.minDragBoundary) {
+                this.currentPosition = this.maxDragBoundary + (this.currentPosition - this.minDragBoundary);
+            } else if (this.currentPosition >= this.maxDragBoundary) {
+                this.currentPosition = this.minDragBoundary + (this.currentPosition - this.maxDragBoundary);
+            }
+            
+            // Update transform
+            this.container.style.transform = `translateX(${this.currentPosition}px)`;
+            
+            // Stop momentum when velocity is too low
+            if (Math.abs(this.velocity) < 0.01) {
+                this.isMomentumActive = false;
+                this.snapToValidPosition();
+                this.resume();
+                return;
+            }
+            
+            // Continue momentum animation
+            requestAnimationFrame(() => this.animateMomentum());
         }
         
         snapToValidPosition() {
@@ -190,7 +261,7 @@ $(document).ready(function(){
         
         resume() {
             this.isPaused = false;
-            if (!this.animationId) {
+            if (!this.animationId && !this.isMomentumActive) {
                 this.animate();
             }
         }
@@ -239,7 +310,9 @@ $(document).ready(function(){
         new SkillsScroller(iconContainer, {
             speed: 30, // Slower speed for top row
             pauseOnHover: true,
-            responsive: true, 
+            responsive: true,
+            momentumDecay: 0.92, // Slightly more springy
+            maxMomentumSpeed: 2.5, // Allow higher momentum speeds
         });
     }
     
@@ -248,6 +321,8 @@ $(document).ready(function(){
             speed: 25, // Even slower speed for bottom row
             pauseOnHover: true,
             responsive: true,
+            momentumDecay: 0.92, // Slightly more springy
+            maxMomentumSpeed: 2.5, // Allow higher momentum speeds
         });
     }
 
