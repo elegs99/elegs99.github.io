@@ -310,7 +310,7 @@ body {
     color: var(--color-subtext);
     text-align: left;
 }
-@media (max-width: 650px) {
+@media (max-width: 700px) {
     .hero {
         margin-top: 10px;
     }
@@ -334,9 +334,11 @@ body {
     .external-links {
         display: flex;
         flex-direction: row;
+        width: 100%;
+        align-items: center;
+        justify-content: space-around;
         margin: 0;
-        margin-bottom: 20px;
-        gap: 30px;
+        margin-bottom: 10px;
     }
     .tooltiptext {
         display: none;
