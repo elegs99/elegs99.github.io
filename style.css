@@ -241,12 +241,6 @@ body {
     width: 100%;
 }
 
-.hero-name {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: left;
-}
-
 .external-links {
     display: flex;
     gap: 10px;
@@ -262,15 +256,18 @@ body {
     visibility: hidden;
     opacity: 0;
     white-space: nowrap;
-    padding: 5px 10px;
-    width: fit-content;
+    padding: 2px 5px;
     background-color: var(--expirenceCardBackground);
     color: var(--white);
-    text-align: center;
+    text-align: left;
     border-radius: 6px;
     position: absolute;
     bottom: 101%;
-    left: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    min-width: fit-content;
+    box-sizing: border-box;
     z-index: 1;
     transition: opacity 0.3s ease;
 }
@@ -298,8 +295,7 @@ body {
 }
 
 .typing-line {
-    margin-top: -10px;
-    font-size: 1.8rem;
+    font-size: var(--text-size-header);
     font-weight: 500;
     text-align: left;
 }
@@ -318,12 +314,6 @@ body {
     .hero {
         padding: 25px 0;
         margin-top: 0px;
-    }
-    .hero-name {
-        font-size: 2.2rem;
-        font-weight: bold;
-        text-align: left;
-        margin-bottom: 15px;
     }
     .link-btn {
         padding: 2px 10px;
@@ -756,7 +746,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 25px;
     margin: 0 auto;
     background-color: var(--background);
 }
@@ -766,8 +755,7 @@ body {
     padding: 25px;
     border-radius: 10px;
     text-align: center;
-    width: 100%;
-    max-width: 600px;
+    width: 85%;
     color: var(--white);
     font-family: var(--font-sans);
     background-color: var(--expirenceCardBackground);
