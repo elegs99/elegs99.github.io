@@ -19,5 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Add click event listener
-    themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
 });
