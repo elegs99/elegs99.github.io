@@ -64,9 +64,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 auto;
     font-family: var(--font-mono);
-    font-size: 1.4rem;
+    max-width: 90%;
+    box-sizing: border-box;
 }
 
 .site-nav a {
@@ -77,9 +77,12 @@ body {
 }
 
 .site-nav li {
-    font-size: 1.1rem;
-    padding-bottom: 10px;
-    padding-left: 30px;
+    font-size: 1.6rem;
+    margin-right: -1rem;
+}
+
+.site-nav li a {
+    color: var(--color-subtext);
 }
 
 .site-nav a:hover {
@@ -88,7 +91,7 @@ body {
 
 .logo {
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
 }
 
 .main-menu {
@@ -100,22 +103,30 @@ body {
     .site-nav {
         flex-direction: column;
         align-items: flex-start;
-        padding-left: 1rem;
+        width: 100%;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 1rem;
+        padding: 0;
     }
 
     .site-nav li {
-        padding-left: 1rem;
+        padding-left: 1.4rem;
+        font-size: 1.4rem;
+    }
+    .logo {
+        font-size: 1.6rem;
     }
 
     .main-menu {
         flex-direction: column;
         align-items: flex-start;
-        width: 100%;
+        width: 50%;
         padding-left: 1rem;
     }
 
     .site-nav a {
-        padding: 0.5rem 0;
+        padding: 0.2rem 0;
         text-align: left;
         width: auto;
     }
@@ -159,11 +170,11 @@ body {
 }
 
 .prev-project {
-    left: -3rem; /* Adjust to control distance from h1 */
+    left: -2rem; /* Adjust to control distance from h1 */
 }
 
 .next-project {
-    right: -3rem; /* Adjust to control distance from h1 */
+    right: -2rem; /* Adjust to control distance from h1 */
 }
 
 .prev-project:hover, .next-project:hover {
