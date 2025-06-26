@@ -9,6 +9,7 @@ $(document).ready(function(){
                 responsive: options.responsive !== false,
                 momentumDecay: options.momentumDecay || 0.95, // How quickly momentum decays
                 maxMomentumSpeed: options.maxMomentumSpeed || 2.0, // Max speed multiplier for momentum
+                minDragDistance: options.minDragDistance || 10, // Minimum distance to start dragging
                 ...options
             };
             
@@ -30,6 +31,10 @@ $(document).ready(function(){
             this.lastDragTime = 0;
             this.lastDragX = 0;
             this.isMomentumActive = false;
+            
+            // Touch detection properties
+            this.touchStartY = 0;
+            this.hasMovedEnough = false;
             
             this.init();
         }
@@ -121,34 +126,58 @@ $(document).ready(function(){
         }
         
         startDragging(event) {
-            this.isDragging = true;
-            this.isMomentumActive = false;
-            this.pause();
-            
             // Get the starting position
             const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+            const clientY = event.clientY || (event.touches && event.touches[0].clientY);
+            
             this.dragStartX = clientX;
+            this.touchStartY = clientY;
             this.dragStartPosition = this.currentPosition;
+            this.hasMovedEnough = false;
             
             // Initialize momentum tracking
             this.lastDragTime = Date.now();
             this.lastDragX = clientX;
             this.velocity = 0;
             
-            // Change cursor
-            this.container.style.cursor = 'grabbing';
-            console.log('grabbing');
-            
-            // Prevent default behavior
-            event.preventDefault();
+            // Don't start dragging immediately - wait for sufficient movement
+            // This prevents triggering on page scrolls
         }
         
         handleDrag(event) {
+            const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+            const clientY = event.clientY || (event.touches && event.touches[0].clientY);
+            
+            // Calculate total movement
+            const deltaX = Math.abs(clientX - this.dragStartX);
+            const deltaY = Math.abs(clientY - this.touchStartY);
+            
+            // Check if we should start dragging (sufficient horizontal movement and not too much vertical)
+            if (!this.isDragging && !this.hasMovedEnough) {
+                if (deltaX >= this.options.minDragDistance && deltaX > deltaY) {
+                    // Start dragging - this is a horizontal drag
+                    this.isDragging = true;
+                    this.isMomentumActive = false;
+                    this.pause();
+                    this.hasMovedEnough = true;
+                    
+                    // Change cursor
+                    this.container.style.cursor = 'grabbing';
+                    console.log('grabbing');
+                    
+                    // Prevent default behavior
+                    event.preventDefault();
+                } else if (deltaY > deltaX && deltaY > this.options.minDragDistance) {
+                    // This is a vertical scroll, don't start dragging
+                    this.hasMovedEnough = true;
+                    return;
+                }
+            }
+            
             if (!this.isDragging) return;
             
-            const clientX = event.clientX || (event.touches && event.touches[0].clientX);
             const currentTime = Date.now();
-            const deltaX = clientX - this.dragStartX;
+            const actualDeltaX = clientX - this.dragStartX;
             
             // Calculate velocity for momentum
             if (currentTime > this.lastDragTime) {
@@ -165,7 +194,7 @@ $(document).ready(function(){
             this.lastDragX = clientX;
             
             // Calculate new position
-            let newPosition = this.dragStartPosition + deltaX;
+            let newPosition = this.dragStartPosition + actualDeltaX;
             
             // Handle infinite dragging by resetting position when reaching boundaries
             if (newPosition <= this.minDragBoundary) {
@@ -189,9 +218,15 @@ $(document).ready(function(){
         }
         
         endDragging() {
+            // If we never started dragging (e.g., it was just a page scroll), do nothing
+            if (!this.hasMovedEnough) {
+                return;
+            }
+            
             if (!this.isDragging) return;
             
             this.isDragging = false;
+            this.hasMovedEnough = false;
             
             // Start momentum animation if velocity is significant
             if (Math.abs(this.velocity) > 0.01) {
