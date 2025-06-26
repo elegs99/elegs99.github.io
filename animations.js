@@ -94,12 +94,14 @@ $(document).ready(function(){
                 this.container.addEventListener('mouseenter', () => {
                     if (!this.isDragging && !this.isMomentumActive) {
                         this.pause();
+                        console.log('pause');
                     }
                 });
                 
                 this.container.addEventListener('mouseleave', () => {
                     if (!this.isDragging && !this.isMomentumActive) {
                         this.resume();
+                        console.log('resume');
                     }
                 });
             }
@@ -135,6 +137,7 @@ $(document).ready(function(){
             
             // Change cursor
             this.container.style.cursor = 'grabbing';
+            console.log('grabbing');
             
             // Prevent default behavior
             event.preventDefault();
@@ -199,6 +202,7 @@ $(document).ready(function(){
                 
                 // Reset cursor
                 this.container.style.cursor = 'grab';
+                console.log('grab');
                 
                 // Resume scrolling
                 this.resume();
@@ -277,16 +281,28 @@ $(document).ready(function(){
         animate(timestamp = 0) {
             if (!this.isScrolling) return;
             
+            // Handle invalid timestamps (can happen on some mobile browsers)
+            if (timestamp < 0) {
+                this.animationId = requestAnimationFrame((timestamp) => this.animate(timestamp));
+                return;
+            }
+            
             if (this.lastTimestamp === 0) {
                 this.lastTimestamp = timestamp;
             }
             
             const deltaTime = timestamp - this.lastTimestamp;
+            
+            // Cap delta time to prevent large jumps on mobile when animation is throttled
+            // This prevents the position from jumping too far when the animation loop is interrupted
+            const maxDeltaTime = 100; // Maximum 100ms between frames
+            const clampedDeltaTime = Math.min(deltaTime, maxDeltaTime);
+            
             this.lastTimestamp = timestamp;
             
-            if (!this.isPaused && deltaTime > 0) {
+            if (!this.isPaused && clampedDeltaTime > 0) {
                 let speed = this.options.speed;
-                const pixelsPerFrame = (speed / 1000) * deltaTime;
+                const pixelsPerFrame = (speed / 1000) * clampedDeltaTime;
                 this.currentPosition -= pixelsPerFrame;
                 
                 // Reset position when we reach the reset point

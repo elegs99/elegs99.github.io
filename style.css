@@ -523,7 +523,7 @@ body {
     position: relative;
     cursor: grab;
     min-height: 30px;
-    width: 300%;
+    min-width: 300%;
 }
 
 .icon-container2 {
@@ -535,7 +535,7 @@ body {
     position: relative;
     cursor: grab;
     min-height: 30px;
-    width: 300%;
+    min-width: 300%;
 }
 
 .icon-item {
