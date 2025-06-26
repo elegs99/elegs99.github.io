@@ -9,7 +9,6 @@ $(document).ready(function(){
                 responsive: options.responsive !== false,
                 momentumDecay: options.momentumDecay || 0.95, // How quickly momentum decays
                 maxMomentumSpeed: options.maxMomentumSpeed || 2.0, // Max speed multiplier for momentum
-                minDragDistance: options.minDragDistance || 10, // Minimum distance to start dragging
                 ...options
             };
             
@@ -31,10 +30,6 @@ $(document).ready(function(){
             this.lastDragTime = 0;
             this.lastDragX = 0;
             this.isMomentumActive = false;
-            
-            // Touch detection properties
-            this.touchStartY = 0;
-            this.hasMovedEnough = false;
             
             this.init();
         }
@@ -126,58 +121,34 @@ $(document).ready(function(){
         }
         
         startDragging(event) {
+            this.isDragging = true;
+            this.isMomentumActive = false;
+            this.pause();
+            
             // Get the starting position
             const clientX = event.clientX || (event.touches && event.touches[0].clientX);
-            const clientY = event.clientY || (event.touches && event.touches[0].clientY);
-            
             this.dragStartX = clientX;
-            this.touchStartY = clientY;
             this.dragStartPosition = this.currentPosition;
-            this.hasMovedEnough = false;
             
             // Initialize momentum tracking
             this.lastDragTime = Date.now();
             this.lastDragX = clientX;
             this.velocity = 0;
             
-            // Don't start dragging immediately - wait for sufficient movement
-            // This prevents triggering on page scrolls
+            // Change cursor
+            this.container.style.cursor = 'grabbing';
+            console.log('grabbing');
+            
+            // Prevent default behavior
+            event.preventDefault();
         }
         
         handleDrag(event) {
-            const clientX = event.clientX || (event.touches && event.touches[0].clientX);
-            const clientY = event.clientY || (event.touches && event.touches[0].clientY);
-            
-            // Calculate total movement
-            const deltaX = Math.abs(clientX - this.dragStartX);
-            const deltaY = Math.abs(clientY - this.touchStartY);
-            
-            // Check if we should start dragging (sufficient horizontal movement and not too much vertical)
-            if (!this.isDragging && !this.hasMovedEnough) {
-                if (deltaX >= this.options.minDragDistance && deltaX > deltaY) {
-                    // Start dragging - this is a horizontal drag
-                    this.isDragging = true;
-                    this.isMomentumActive = false;
-                    this.pause();
-                    this.hasMovedEnough = true;
-                    
-                    // Change cursor
-                    this.container.style.cursor = 'grabbing';
-                    console.log('grabbing');
-                    
-                    // Prevent default behavior
-                    event.preventDefault();
-                } else if (deltaY > deltaX && deltaY > this.options.minDragDistance) {
-                    // This is a vertical scroll, don't start dragging
-                    this.hasMovedEnough = true;
-                    return;
-                }
-            }
-            
             if (!this.isDragging) return;
             
+            const clientX = event.clientX || (event.touches && event.touches[0].clientX);
             const currentTime = Date.now();
-            const actualDeltaX = clientX - this.dragStartX;
+            const deltaX = clientX - this.dragStartX;
             
             // Calculate velocity for momentum
             if (currentTime > this.lastDragTime) {
@@ -194,7 +165,7 @@ $(document).ready(function(){
             this.lastDragX = clientX;
             
             // Calculate new position
-            let newPosition = this.dragStartPosition + actualDeltaX;
+            let newPosition = this.dragStartPosition + deltaX;
             
             // Handle infinite dragging by resetting position when reaching boundaries
             if (newPosition <= this.minDragBoundary) {
@@ -218,15 +189,9 @@ $(document).ready(function(){
         }
         
         endDragging() {
-            // If we never started dragging (e.g., it was just a page scroll), do nothing
-            if (!this.hasMovedEnough) {
-                return;
-            }
-            
             if (!this.isDragging) return;
             
             this.isDragging = false;
-            this.hasMovedEnough = false;
             
             // Start momentum animation if velocity is significant
             if (Math.abs(this.velocity) > 0.01) {
@@ -316,26 +281,18 @@ $(document).ready(function(){
         animate(timestamp = 0) {
             if (!this.isScrolling) return;
             
-            // Handle invalid timestamps (can happen on some mobile browsers)
-            if (timestamp < 0) {
-                this.animationId = requestAnimationFrame((timestamp) => this.animate(timestamp));
-                return;
-            }
-            
             if (this.lastTimestamp === 0) {
                 this.lastTimestamp = timestamp;
             }
             
             const deltaTime = timestamp - this.lastTimestamp;
-            
-            // Cap delta time to prevent large jumps on mobile when animation is throttled
-            // This prevents the position from jumping too far when the animation loop is interrupted
-            const maxDeltaTime = 100; // Maximum 100ms between frames
-            const clampedDeltaTime = Math.min(deltaTime, maxDeltaTime);
-            
             this.lastTimestamp = timestamp;
             
-            if (!this.isPaused && clampedDeltaTime > 0) {
+            if (!this.isPaused && deltaTime > 0) {
+                // Cap deltaTime to prevent large jumps when animation is throttled (mobile scrolling)
+                const maxDeltaTime = 100; // Maximum 100ms between frames
+                const clampedDeltaTime = Math.min(deltaTime, maxDeltaTime);
+                
                 let speed = this.options.speed;
                 const pixelsPerFrame = (speed / 1000) * clampedDeltaTime;
                 this.currentPosition -= pixelsPerFrame;
