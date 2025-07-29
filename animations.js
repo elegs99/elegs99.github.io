@@ -71,14 +71,19 @@ $(document).ready(function(){
             // We want to reset when the next instance of the first skill reaches the starting position
             // The starting position is where the first skill begins (0)
             // The next instance starts at position: totalWidth + gap
-            this.resetPosition = -(totalWidth + gap) - responsiveResetOffset;
+            const newResetPosition = -(totalWidth + gap) - responsiveResetOffset;
+            
+            // Only reset if the current position has exceeded the new reset position
+            // or if this is the first time calculating (no previous reset position)
+            if (this.resetPosition === undefined || this.currentPosition <= newResetPosition) {
+                this.currentPosition = 0;
+                this.container.style.transform = `translateX(0px)`;
+            }
+            
+            this.resetPosition = newResetPosition;
             
             // Calculate drag boundaries
             this.calculateDragBoundaries();
-            
-            // Reset position to start
-            this.currentPosition = 0;
-            this.container.style.transform = `translateX(0px)`;
         }
         
         calculateDragBoundaries() {
@@ -106,16 +111,18 @@ $(document).ready(function(){
                 });
             }
             
-            // Only enable dragging on desktop (non-touch devices)
-            if (!('ontouchstart' in window)) {
-                // Mouse events for dragging
-                this.container.addEventListener('mousedown', (e) => this.startDragging(e));
-                document.addEventListener('mousemove', (e) => this.handleDrag(e));
-                document.addEventListener('mouseup', () => this.endDragging());
-                
-                // Prevent text selection during drag
-                this.container.addEventListener('selectstart', (e) => e.preventDefault());
-            }
+            // Mouse events for dragging
+            this.container.addEventListener('mousedown', (e) => this.startDragging(e));
+            document.addEventListener('mousemove', (e) => this.handleDrag(e));
+            document.addEventListener('mouseup', () => this.endDragging());
+            
+            // Touch events for mobile - use non-passive since we need preventDefault
+            this.container.addEventListener('touchstart', (e) => this.startDragging(e), { passive: false });
+            document.addEventListener('touchmove', (e) => this.handleDrag(e), { passive: false });
+            document.addEventListener('touchend', () => this.endDragging());
+            
+            // Prevent text selection during drag
+            this.container.addEventListener('selectstart', (e) => e.preventDefault());
         }
         
         startDragging(event) {
@@ -187,7 +194,10 @@ $(document).ready(function(){
         }
         
         endDragging() {
-            if (!this.isDragging) return;
+            if (!this.isDragging){
+                this.resume();
+                return;
+            } 
             
             this.isDragging = false;
             
