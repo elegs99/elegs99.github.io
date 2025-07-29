@@ -106,18 +106,16 @@ $(document).ready(function(){
                 });
             }
             
-            // Mouse events for dragging
-            this.container.addEventListener('mousedown', (e) => this.startDragging(e));
-            document.addEventListener('mousemove', (e) => this.handleDrag(e));
-            document.addEventListener('mouseup', () => this.endDragging());
-            
-            // Touch events for mobile - use non-passive since we need preventDefault
-            this.container.addEventListener('touchstart', (e) => this.startDragging(e), { passive: false });
-            document.addEventListener('touchmove', (e) => this.handleDrag(e), { passive: false });
-            document.addEventListener('touchend', () => this.endDragging());
-            
-            // Prevent text selection during drag
-            this.container.addEventListener('selectstart', (e) => e.preventDefault());
+            // Only enable dragging on desktop (non-touch devices)
+            if (!('ontouchstart' in window)) {
+                // Mouse events for dragging
+                this.container.addEventListener('mousedown', (e) => this.startDragging(e));
+                document.addEventListener('mousemove', (e) => this.handleDrag(e));
+                document.addEventListener('mouseup', () => this.endDragging());
+                
+                // Prevent text selection during drag
+                this.container.addEventListener('selectstart', (e) => e.preventDefault());
+            }
         }
         
         startDragging(event) {
