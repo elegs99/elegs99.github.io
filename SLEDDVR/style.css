@@ -470,6 +470,7 @@ body {
     .media-item:nth-child(5) { grid-area: small4; }
     .media-item:nth-child(6) { grid-area: small4; }
     
+    
     .download-info {
         flex-direction: column;
         align-items: center;
