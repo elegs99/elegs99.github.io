@@ -346,7 +346,7 @@ body {
     gap: 1rem;
     background-color: var(--blueHL);
     color: white;
-    padding: 1.5rem 3rem;
+    padding: 1rem 2.5rem;
     border-radius: 12px;
     text-decoration: none;
     font-size: var(--text-size-large);
