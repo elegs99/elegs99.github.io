@@ -167,12 +167,13 @@ body {
 }
 
 .cta-primary {
-    background-color: lightgrey; /*var(--blueHL)*/
-    color: white;
+    background-color: transparent;
+    color: var(--white);
+    border: 2px solid var(--blueHL);
 }
 
 .cta-primary:hover {
-    background-color: lightgrey; /*1590c0*/
+    background-color: var(--blueHL);
 }
 
 .cta-secondary {
