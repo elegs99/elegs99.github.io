@@ -583,6 +583,31 @@ body {
     }
 }
 
+/* Mobile scroll-triggered hover effects */
+@media (max-width: 768px) {
+    /* Project card scroll effects */
+    .project-card.scroll-in-view .title-background {
+        padding: 2px;
+    }
+    
+    .project-card.scroll-in-view .title,
+    .project-card.scroll-in-view .project-details {
+        transform: translateY(5px);
+    }
+    
+    .project-card.scroll-in-view .learn-more-btn {
+        transform: translateY(5px);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Experience card scroll effects */
+    .expertise-card.scroll-in-view .years::before {
+        animation: shimmer 0.5s ease-out forwards;
+        opacity: 1;
+    }
+}
+
 @media (max-width: 650px) {
     .icon-item {
         font-size: 1.1rem;
@@ -823,7 +848,7 @@ body {
     }
     .contact-container {
         padding: 20px;
-        width: 65%;
+        width: 75%;
     }
 
     .contact-links {
