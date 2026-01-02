@@ -116,6 +116,13 @@ $(document).ready(function(){
             document.addEventListener('mousemove', (e) => this.handleDrag(e));
             document.addEventListener('mouseup', () => this.endDragging());
             
+            // Handle case where mouse leaves window during drag
+            window.addEventListener('mouseleave', () => {
+                if (this.isDragging) {
+                    this.endDragging();
+                }
+            });
+            
             // Touch events for mobile - use non-passive since we need preventDefault
             this.container.addEventListener('touchstart', (e) => this.startDragging(e), { passive: false });
             document.addEventListener('touchmove', (e) => this.handleDrag(e), { passive: false });
@@ -131,7 +138,13 @@ $(document).ready(function(){
             this.pause();
             
             // Get the starting position
-            const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+            let clientX = event.clientX || (event.touches && event.touches[0].clientX);
+            
+            // Validate clientX - if invalid, use 0 as fallback
+            if (clientX === undefined || clientX === null || isNaN(clientX)) {
+                clientX = 0;
+            }
+            
             this.dragStartX = clientX;
             this.dragStartPosition = this.currentPosition;
             
@@ -151,12 +164,23 @@ $(document).ready(function(){
         handleDrag(event) {
             if (!this.isDragging) return;
             
-            const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+            let clientX = event.clientX || (event.touches && event.touches[0].clientX);
+            
+            // Use last valid clientX if current is invalid (mouse left document area)
+            if (clientX === undefined || clientX === null || isNaN(clientX)) {
+                if (this.lastDragX !== undefined && this.lastDragX !== null && !isNaN(this.lastDragX)) {
+                    clientX = this.lastDragX;
+                } else {
+                    // If no valid last position, skip this update
+                    return;
+                }
+            }
+            
             const currentTime = Date.now();
             const deltaX = clientX - this.dragStartX;
             
             // Calculate velocity for momentum
-            if (currentTime > this.lastDragTime) {
+            if (currentTime > this.lastDragTime && this.lastDragX !== undefined && this.lastDragX !== null && !isNaN(this.lastDragX)) {
                 const timeDelta = currentTime - this.lastDragTime;
                 const distanceDelta = clientX - this.lastDragX;
                 this.velocity = distanceDelta / timeDelta; // pixels per millisecond
@@ -201,10 +225,16 @@ $(document).ready(function(){
             
             this.isDragging = false;
             
+            // Ensure velocity is valid (not null/NaN/undefined)
+            const validVelocity = (this.velocity !== null && this.velocity !== undefined && !isNaN(this.velocity)) ? this.velocity : 0;
+            
             // Start momentum animation if velocity is significant
-            if (Math.abs(this.velocity) > 0.01) {
+            if (Math.abs(validVelocity) > 0.01) {
+                this.velocity = validVelocity;
                 this.startMomentum();
             } else {
+                // Reset velocity to 0 if invalid
+                this.velocity = 0;
                 // Snap to valid position if needed
                 this.snapToValidPosition();
                 
