@@ -6,6 +6,7 @@
 html {
     width: 100%;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -458,6 +459,7 @@ body {
     text-align: center;
     transform: translateY(20px);
     transition: all 0.3s ease;
+    background-color: var(--background);
 }
 
 .learn-more-btn:hover {
@@ -606,6 +608,21 @@ body {
         animation: shimmer 0.5s ease-out forwards;
         opacity: 1;
     }
+    
+    .expertise-card.scroll-in-view .years::before {
+        left: 100%;
+    }
+    
+    .expertise-card.scroll-in-view .years {
+        border-color: var(--blueHL);
+        color: var(--blueHL);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
+    }
+    
+    :root[data-theme="light"] .expertise-card.scroll-in-view .years {
+        box-shadow: 0 4px 12px rgba(26, 170, 223, 0.15);
+    }
 }
 
 @media (max-width: 650px) {
@@ -675,9 +692,27 @@ body {
     font-size: 0.9rem;
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: default;
 }
 
 .years::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(26, 170, 223, 0.1),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.years::after {
     content: '';
     position: absolute;
     top: 0;
@@ -693,15 +728,38 @@ body {
     opacity: 0;
 }
 
-.expertise-card:hover .years::before {
+.expertise-card:hover .years::after {
     animation: shimmer 0.5s ease-out forwards;
     opacity: 1;
+}
+
+.expertise-card:hover .years {
+    border-color: var(--blueHL);
+    color: var(--blueHL);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
+}
+
+.years:hover {
+    border-color: var(--blueHL);
+    color: var(--blueHL);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
+}
+
+.years:hover::before {
+    left: 100%;
+}
+
+:root[data-theme="light"] .expertise-card:hover .years,
+:root[data-theme="light"] .years:hover {
+    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.15);
 }
 
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.6rem;
     margin-bottom: 1.5rem;
 }
 
@@ -709,9 +767,15 @@ body {
     background: var(--background);
     padding: 0.3rem 0.8rem;
     border: 1px solid #333;
-    border-radius: 18px;
+    border-radius: 20px;
     font-size: 0.9rem;
-    color: var(--color-subtext);
+    font-weight: 500;
+    color: var(--white);
+}
+
+:root[data-theme="light"] .tech-tag {
+    background: var(--expirenceCardBackground);
+    border-color: #e0e0e0;
 }
 
 .notable-projects h4 {
@@ -770,99 +834,56 @@ body {
     align-items: center;
     margin: 0 auto;
     background-color: var(--background);
+    padding: 20px 0;
 }
 
 .contact-container {
-    border: 1px solid #333;
-    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid var(--blueHL);
+    padding: 15px 30px;
     border-radius: 10px;
     text-align: center;
-    width: 85%;
+    width: fit-content;
+    text-decoration: none;
     color: var(--white);
     font-family: var(--font-sans);
-    background-color: var(--expirenceCardBackground);
-}
-
-.contact-header {
-    margin-bottom: 30px;
-}
-
-.contact-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--white);
-    margin: 10px;
-}
-
-.contact-description {
-    color: var(--color-subtext);
     font-size: 1rem;
-}
-
-.contact-links {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 5px;
+    font-weight: 500;
     background-color: var(--expirenceCardBackground);
+    transition: all 0.3s ease;
 }
 
-.link-item a {
-    text-decoration: none;
-    background-color: var(--expirenceCardBackground);
+.contact-container:hover {
+    color: var(--blueHL);
+    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.3);
+    transform: translateY(-2px);
 }
 
-.link-item {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 30%;
-    border-radius: 8px;
-    background-color: var(--expirenceCardBackground);
+.contact-container i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
 }
 
-.contact-icon {
-    font-size: 3rem;
-    color: var(--white);
-}
-
-.contact-link-title {
-    color: var(--white);
-    font-weight: bold;
-    font-size: 1.4rem;
-    margin-bottom: -15px;
-}
-
-.contact-link-value {
-    font-size: 1rem;
-    color: var(--color-subtext);
+.contact-container:hover i {
+    transform: translateY(-3px);
 }
 
 /* Responsive Adjustments */
 @media screen and (max-width: 600px) {
     .contact {
-        margin-top: 0px;
-        padding: 25px;
+        margin-top: 30px;
+        padding: 15px 0;
     }
+    
     .contact-container {
-        padding: 20px;
-        width: 75%;
+        padding: 12px 20px;
+        font-size: 0.9rem;
     }
-
-    .contact-links {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .link-item {
-        width: 100%;
-    }
-
-    .contact-icon {
-        font-size: 2.5rem;
+    
+    .contact-container i {
+        font-size: 1rem;
     }
 }
 
