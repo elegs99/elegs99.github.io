@@ -6,7 +6,7 @@
     
     // Check if device is mobile
     function isMobile() {
-        return window.innerWidth <= 768;
+        return window.innerWidth <= 650;
     }
     
     // Only initialize if on mobile

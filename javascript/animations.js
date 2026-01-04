@@ -99,14 +99,14 @@ $(document).ready(function(){
                 this.container.addEventListener('mouseenter', () => {
                     if (!this.isDragging && !this.isMomentumActive) {
                         this.pause();
-                        console.log('pause');
+                        //console.log('pause');
                     }
                 });
                 
                 this.container.addEventListener('mouseleave', () => {
                     if (!this.isDragging && !this.isMomentumActive) {
                         this.resume();
-                        console.log('resume');
+                        //console.log('resume');
                     }
                 });
             }
@@ -155,7 +155,7 @@ $(document).ready(function(){
             
             // Change cursor
             this.container.style.cursor = 'grabbing';
-            console.log('grabbing');
+            //console.log('grabbing');
             
             // Prevent default behavior
             event.preventDefault();
@@ -240,7 +240,7 @@ $(document).ready(function(){
                 
                 // Reset cursor
                 this.container.style.cursor = 'grab';
-                console.log('grab');
+                //console.log('grab');
                 
                 // Resume scrolling
                 this.resume();

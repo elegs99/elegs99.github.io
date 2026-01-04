@@ -4,12 +4,12 @@ A modern, responsive personal portfolio website showcasing my work in AI/ML, Gam
 
 ## Features
 
-- 🎨 Modern and responsive design
-- 🌓 Light/Dark theme toggle
-- 📱 Mobile-friendly interface
-- 🎮 Interactive project showcases
-- 🔍 SEO optimized
-- 📊 Google Analytics integration
+- Modern and responsive design
+- Light/Dark theme toggle
+- Mobile-friendly interface
+- Interactive project showcases
+- SEO optimized
+- Google Analytics integration
 
 ## Tech Stack
 
@@ -18,19 +18,6 @@ A modern, responsive personal portfolio website showcasing my work in AI/ML, Gam
 - JavaScript
 - jQuery
 - Font Awesome Icons
-- Typed.js for typing animations
-
-## Project Sections
-
-- **Hero Section**: Introduction with social links and typing animation
-- **Development Expertise**: Showcase of technical skills and years of experience
-- **Projects**: Interactive cards featuring:
-  - SLEDDVR (VR Game)
-  - EffectivePose (Android App)
-  - EasyMeshVR (VR Collaboration Tool)
-  - Jedi Droid Attack (VR Game)
-  - Nutrition Intuition (Web App)
-  - Evolutionary Rockets (Web Simulation)
 
 ## Contact
 
@@ -40,5 +27,4 @@ Feel free to reach out through:
 - GitHub: [github.com/elegs99](https://github.com/elegs99)
 
 ## License
-
-© 2025 Ethan Legum. All rights reserved. 
+© 2026 Ethan Legum. All rights reserved. 
