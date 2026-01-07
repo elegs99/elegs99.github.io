@@ -371,14 +371,4 @@ $(document).ready(function(){
             maxMomentumSpeed: 2.5, // Allow higher momentum speeds
         });
     }
-
-    // Typing animation
-    var typed = new Typed('.typing', {
-        strings: ["your next Hire.^6000", "a Problem Solver.", "a Software Engineer."],
-        loop: true,
-        typeSpeed: 40,
-        smartBackspace: true,
-        backSpeed: 30,
-        onLastStringBackspaced: () => typed.strPos = 0,
-    });
 });

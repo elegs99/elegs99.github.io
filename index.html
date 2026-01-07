@@ -15,12 +15,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <meta name="description" content="Ethan Legum portfolio website. 
-        I create intelligent AI-driven systems and immersive digital experiences that solve real-world challenges. 
-        With a Master's in Computer Vision and expertise in AI, data handling, and interactive technologies, I thrive at the intersection of innovation and impact. 
-        I've built scalable solutions across AI, full-stack, and VR, from architecting generative AI models to optimizing real-time pose tracking and delivering high-quality multiplayer experiences. 
-        Leading a cross-functional team of five developers, I shipped a multiplayer VR app in just six months, improving user engagement by 30% and reducing motion sickness by optimizing VR interactions. 
-        I've also designed and implemented machine learning pipelines to increase fraud detection accuracy by 17%, directly impacting product reliability and user trust.
-        I'm eager to bring my technical expertise and leadership skills to a forward-thinking team solving complex challenges. If you're looking for an engineer who can bridge AI, full-stack, and VR to create high-impact solutions.">
+        I am a software engineer and AI specialist with a Master's degree in Computer Vision, building intelligent, production-grade systems that solve complex real-world problems. My work spans artificial intelligence, machine learning, computer vision, full-stack development, and immersive technologies including virtual reality (VR) and real-time interactive systems.
+        I design, build, and deploy scalable AI-driven software, from generative AI models and biometric authentication systems to real-time pose tracking, computer vision pipelines, and high-performance distributed applications. My experience includes end-to-end ownership of systems involving data ingestion, model training, optimization, deployment, and user-facing interfaces across web, mobile, and VR platforms.
+        Professionally, I have driven the adoption of facial recognition and biometric payment systems by integrating computer vision models into Android-based POS hardware, enabling secure, touchless transactions across hundreds of retail locations. I have improved AI accuracy in real-world environments through rigorous testing and optimization, increasing successful face-matching rates in drive-thru scenarios by over 50%. I have also built full-stack applications and immersive multiplayer experiences, including a solo-developed VR game featuring procedurally generated worlds and cloud-based leaderboards used by thousands of players.
+        My technical skill set includes AI and machine learning, deep learning, computer vision, data engineering, backend and frontend development, cloud infrastructure, real-time systems, VR/AR, and interactive 3D applications. I thrive at the intersection of research and deployment—turning cutting-edge ideas into reliable, scalable products.
+        I am actively seeking challenging software engineering, AI, machine learning, or computer vision roles where I can tackle meaningful problems, work on ambitious systems, and deliver measurable impact. I hold a Master’s degree in Computer Vision and am open to relocation anywhere in the world to work with teams solving interesting, high-leverage problems using software.">
         <title>Ethan Legum Portfolio Website</title>
         <link rel="stylesheet" href="style.css">
         <link rel="icon" href="icons/icon.webp">
@@ -47,38 +46,48 @@
         <section class="hero" id="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <!-- Name and Links -->
-                    <div class="name-links">
-                        <!-- Typing Animation Line -->
-                        <p class="typing-line">I'm <span class="typing">your next Hire.</span></p>
-                        <div class="external-links">
-                            <!-- Email Link -->
-                            <div class="link-container">
-                                <a href="mailto:ethanlegum@gmail.com" target="_blank" class="link-btn">
-                                    <i class="fa-regular fa-envelope"></i>
-                                </a>
-                                <span class="tooltiptext">ethanlegum@gmail.com</span>
-                            </div>
-                        
-                            <!-- GitHub Link -->
-                            <div class="link-container">
-                                <a href="https://github.com/elegs99" target="_blank" class="link-btn">
-                                    <i class="fa-brands fa-github"></i>
-                                </a>
-                                <span class="tooltiptext">github.com/elegs99</span>
-                            </div>
-                        
-                            <!-- LinkedIn Link -->
-                            <div class="link-container">
-                                <a href="https://www.linkedin.com/in/ethan-l/" target="_blank" class="link-btn">
-                                    <i class="fa-brands fa-linkedin"></i>
-                                </a>
-                                <span class="tooltiptext">linkedin.com/in/ethan-l</span>
+                    <!-- Profile Picture and Text Container -->
+                    <div class="hero-top">
+                        <img src="images/profile.jpg" alt="Ethan Legum" class="profile-picture">
+                        <div class="hero-text-content">
+                            <h1 class="hero-greeting">Hey, I'm Ethan 👋</h1>
+                            <p class="availability-status">
+                                <span class="status-dot"></span>Available for work; Willing to relocate
+                            </p>
+                            
+                            <!-- Social Media Icons -->
+                            <div class="external-links">
+                                <!-- Email Link -->
+                                <div class="link-container">
+                                    <a href="mailto:ethanlegum@gmail.com" target="_blank" class="link-btn">
+                                        <i class="fa-regular fa-envelope"></i>
+                                    </a>
+                                    <span class="tooltiptext">ethanlegum@gmail.com</span>
+                                </div>
+                            
+                                <!-- GitHub Link -->
+                                <div class="link-container">
+                                    <a href="https://github.com/elegs99" target="_blank" class="link-btn">
+                                        <i class="fa-brands fa-github"></i>
+                                    </a>
+                                    <span class="tooltiptext">github.com/elegs99</span>
+                                </div>
+                            
+                                <!-- LinkedIn Link -->
+                                <div class="link-container">
+                                    <a href="https://www.linkedin.com/in/ethan-l/" target="_blank" class="link-btn">
+                                        <i class="fa-brands fa-linkedin"></i>
+                                    </a>
+                                    <span class="tooltiptext">linkedin.com/in/ethan-l</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Short Description -->
-                    <p class="short-description">As a Computer Vision Master's graduate with expertise in machine learning, data engineering, and full-stack development, I'm ready to solve your toughest technical challenges.</p>
+                    
+                    <!-- Description with Highlighted Phrases -->
+                    <p class="hero-description">
+                        I'm an <span class="highlight">AI & Full-Stack Systems Engineer</span> with a <span class="highlight">Master's in Computer Vision</span>. I build, deploy, and scale real-world software: from <span class="highlight">production AI systems</span>, <span class="highlight">biometric platforms</span>, and <span class="highlight">full-stack applications</span> to <span class="highlight">immersive VR experiences</span>.
+                    </p>
                 </div>
             </div>
         </section>
@@ -89,7 +98,7 @@
             <div class="project-cards">
                 <!-- GetTogether Project Card -->
                 <!--href="projects/gt.html"-->
-                <a class="project-card" style="cursor: default;">
+                <a href="https://apps.apple.com/us/app/gettogether-meet-eat-repeat/id6752873456" class="project-card" target="_blank">
                     <div class="image-container">
                         <img src="images/gt/gtDemoPic.jpg" alt="GetTogether Image">
                         <div class="title-background"></div>
@@ -97,7 +106,7 @@
                     <div class="project-details">
                         <div class="title">GetTogether</div>
                         <p>Full-stack cross-platform mobile app for ranking restaurants with groups using Google Maps API and Firebase.</p>
-                        <div class="learn-more-btn" style="cursor: not-allowed;">Coming soon</div>
+                        <div class="learn-more-btn">Download Now</div>
                     </div>
                 </a>
 
@@ -109,7 +118,7 @@
                     </div>
                     <div class="project-details">
                         <div class="title">SLEDDVR</div>
-                        <p>Solo-developed a virtual reality racing game in Unity, with over 3,000 downloads.</p>
+                        <p>Solo-developed a virtual reality racing game in Unity, with thousands of downloads.</p>
                         <div class="learn-more-btn">Learn More</div>
                     </div>
                 </a>
