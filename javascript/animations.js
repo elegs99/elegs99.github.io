@@ -56,15 +56,16 @@ $(document).ready(function(){
         }
         
         initialize() {
-            // Use requestAnimationFrame to ensure layout is calculated
-            requestAnimationFrame(() => {
-                this.setupEventListeners();
+            this.setupEventListeners();
+            // Wait 250ms for responsive styles to be applied before initial calculation
+            // This is especially important on mobile where styles may not be ready immediately
+            setTimeout(() => {
                 // Calculate distance first, then start scrolling after measurement completes
                 this.calculateScrollDistance(() => {
                     // Start scrolling after initial measurement is complete
                     this.startScrolling();
                 });
-            });
+            }, 250);
         }
         
         calculateScrollDistance(callback) {
