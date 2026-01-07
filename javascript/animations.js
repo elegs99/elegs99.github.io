@@ -41,6 +41,7 @@ $(document).ready(function(){
             // Resize handler cleanup
             this.resizeHandler = null;
             this.resizeTimeout = null;
+            this.resizeDelayTimeout = null;
             this.lastWidth = window.innerWidth;
             
             this.init();
@@ -242,18 +243,29 @@ $(document).ready(function(){
                     return;
                 }
                 
-                this.lastWidth = currentWidth;
-                
                 // Clear any pending resize calculations
                 if (this.resizeTimeout) {
                     cancelAnimationFrame(this.resizeTimeout);
+                    this.resizeTimeout = null;
+                }
+                if (this.resizeDelayTimeout) {
+                    clearTimeout(this.resizeDelayTimeout);
+                    this.resizeDelayTimeout = null;
                 }
                 
                 // Wait for browser to recalculate layout with responsive styles
+                // Use multiple RAFs and a small timeout to ensure CSS media queries are applied
                 this.resizeTimeout = requestAnimationFrame(() => {
-                    // Double RAF to ensure layout is fully settled after responsive breakpoint changes
                     requestAnimationFrame(() => {
-                        this.calculateScrollDistance();
+                        // Add a small delay to ensure responsive styles are fully applied
+                        this.resizeDelayTimeout = setTimeout(() => {
+                            requestAnimationFrame(() => {
+                                // Update lastWidth only after styles should be applied
+                                this.lastWidth = currentWidth;
+                                this.resizeDelayTimeout = null;
+                                this.calculateScrollDistance();
+                            });
+                        }, 50); // Small delay to allow CSS media queries to process
                     });
                 });
             };
@@ -503,6 +515,11 @@ $(document).ready(function(){
             if (this.resizeTimeout) {
                 cancelAnimationFrame(this.resizeTimeout);
                 this.resizeTimeout = null;
+            }
+            
+            if (this.resizeDelayTimeout) {
+                clearTimeout(this.resizeDelayTimeout);
+                this.resizeDelayTimeout = null;
             }
         }
     }
