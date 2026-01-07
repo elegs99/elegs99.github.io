@@ -1,5 +1,6 @@
 $(document).ready(function(){
     // Skills Scrolling Animation
+    // Robust implementation with proper state management and measurement accuracy
     class SkillsScroller {
         constructor(container, options = {}) {
             this.container = container;
@@ -7,86 +8,182 @@ $(document).ready(function(){
                 speed: options.speed || 50, // pixels per second
                 pauseOnHover: options.pauseOnHover !== false,
                 responsive: options.responsive !== false,
-                momentumDecay: options.momentumDecay || 0.95, // How quickly momentum decays
-                maxMomentumSpeed: options.maxMomentumSpeed || 2.0, // Max speed multiplier for momentum
+                momentumDecay: options.momentumDecay || 0.95,
+                maxMomentumSpeed: options.maxMomentumSpeed || 2.0,
                 ...options
             };
             
-            this.isScrolling = true;
+            // Animation state
+            this.isScrolling = false;
             this.isPaused = false;
             this.isDragging = false;
+            this.isMomentumActive = false;
             this.currentPosition = 0;
             this.animationId = null;
             this.lastTimestamp = 0;
             
-            // Dragging properties
+            // Measurement state
+            this.resetPosition = null;
+            this.totalSetWidth = null;
+            this.isMeasuring = false;
+            
+            // Dragging state
             this.dragStartX = 0;
             this.dragStartPosition = 0;
             this.minDragBoundary = 0;
             this.maxDragBoundary = 0;
             
-            // Momentum properties
+            // Momentum state
             this.velocity = 0;
             this.lastDragTime = 0;
             this.lastDragX = 0;
-            this.isMomentumActive = false;
+            
+            // Resize handler cleanup
+            this.resizeHandler = null;
+            this.resizeTimeout = null;
             
             this.init();
         }
         
         init() {
-            this.calculateScrollDistance();
-            this.setupEventListeners();
-            this.startScrolling();
-            
-            // Recalculate on window resize
-            window.addEventListener('resize', () => {
-                this.calculateScrollDistance();
+            // Ensure DOM is ready and styles are applied
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => this.initialize());
+            } else {
+                this.initialize();
+            }
+        }
+        
+        initialize() {
+            // Use requestAnimationFrame to ensure layout is calculated
+            requestAnimationFrame(() => {
+                this.setupEventListeners();
+                // Calculate distance first, then start scrolling after measurement completes
+                this.calculateScrollDistance(() => {
+                    // Start scrolling after initial measurement is complete
+                    this.startScrolling();
+                });
             });
         }
         
-        calculateScrollDistance() {
-            // Get all items
-            const items = Array.from(this.container.children);
-            const itemCount = items.length / 3; // Since we have 3 copies
-            
-            // Calculate total width of one complete set
-            let totalWidth = 0;
-            for (let i = 0; i < itemCount; i++) {
-                totalWidth += items[i].offsetWidth;
+        calculateScrollDistance(callback) {
+            // Prevent concurrent measurements
+            if (this.isMeasuring) {
+                // If already measuring, queue the callback
+                if (callback) {
+                    const checkInterval = setInterval(() => {
+                        if (!this.isMeasuring) {
+                            clearInterval(checkInterval);
+                            callback();
+                        }
+                    }, 10);
+                }
+                return;
             }
+            this.isMeasuring = true;
             
-            // Add gaps between items - read the actual computed gap from CSS
-            const computedStyle = window.getComputedStyle(this.container);
-            const gap = parseInt(computedStyle.gap) || 0;
-            totalWidth += gap * (itemCount - 1);
-            
-            // Calculate responsive reset offset based on screen width
-            const isMobile = window.innerWidth <= 650;
-            const responsiveResetOffset = isMobile ? 
-                (this.container.classList.contains('icon-container') ? 12 : 15) : 
-                (this.container.classList.contains('icon-container') ? -2 : 2);
-                        
-            // Calculate the reset position
-            // We want to reset when the next instance of the first skill reaches the starting position
-            // The starting position is where the first skill begins (0)
-            // The next instance starts at position: totalWidth + gap
-            const newResetPosition = -(totalWidth + gap) - responsiveResetOffset;
-            
-            // Only reset if the current position has exceeded the new reset position
-            // or if this is the first time calculating (no previous reset position)
-            if (this.resetPosition === undefined || this.currentPosition <= newResetPosition) {
+            try {
+                // Get all items
+                const items = Array.from(this.container.children);
+                if (items.length === 0) {
+                    this.isMeasuring = false;
+                    if (callback) callback();
+                    return;
+                }
+                
+                const itemCount = items.length / 3; // Since we have 3 copies
+                if (itemCount === 0) {
+                    this.isMeasuring = false;
+                    if (callback) callback();
+                    return;
+                }
+                
+                // Store current state to restore after measurement
+                const wasScrolling = this.isScrolling;
+                const savedPosition = this.currentPosition;
+                const savedTransform = this.container.style.transform;
+                
+                // Temporarily pause and reset to natural position for accurate measurement
+                this.isScrolling = false;
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                }
+                
+                // Reset transform to measure natural layout
+                this.container.style.transform = 'translateX(0px)';
                 this.currentPosition = 0;
-                this.container.style.transform = `translateX(0px)`;
+                
+                // Force layout recalculation
+                void this.container.offsetHeight;
+                
+                // Wait for next frame to ensure layout is settled
+                requestAnimationFrame(() => {
+                    // Calculate total width by summing item widths and margins
+                    let totalSetWidth = 0;
+                    
+                    // Get computed margin-right from the first item
+                    const firstItemStyle = window.getComputedStyle(items[0]);
+                    const marginRight = parseFloat(firstItemStyle.marginRight) || 0;
+                    
+                    // Sum up all item widths and margins in the first set
+                    for (let i = 0; i < itemCount; i++) {
+                        const item = items[i];
+                        if (!item) continue;
+                        
+                        // Get the actual rendered width (includes padding and border)
+                        const itemWidth = item.offsetWidth;
+                        totalSetWidth += itemWidth;
+                        
+                        // Add margin after each item (including the last one)
+                        totalSetWidth += marginRight;
+                    }
+                    
+                    // Round to avoid sub-pixel issues, but keep precision for smooth animation
+                    this.totalSetWidth = Math.round(totalSetWidth * 100) / 100;
+                    
+                    // Calculate the reset position
+                    // Reset when we've scrolled exactly one set width
+                    this.resetPosition = -this.totalSetWidth;
+                    
+                    // Restore previous state
+                    this.container.style.transform = savedTransform;
+                    this.currentPosition = savedPosition;
+                    this.isScrolling = wasScrolling;
+                    
+                    // Force another layout recalculation
+                    void this.container.offsetHeight;
+                    
+                    // Recalculate drag boundaries
+                    this.calculateDragBoundaries();
+                    
+                    // If we were scrolling, restart animation
+                    // Check if animation loop is actually running, if not, restart it
+                    if (wasScrolling && !this.isPaused && !this.isDragging && !this.isMomentumActive) {
+                        // Ensure animation loop is running
+                        if (!this.animationId) {
+                            this.lastTimestamp = 0; // Reset timestamp for accurate delta calculation
+                            this.animate();
+                        }
+                    }
+                    
+                    this.isMeasuring = false;
+                    
+                    // Call callback if provided
+                    if (callback) {
+                        callback();
+                    }
+                });
+            } catch (error) {
+                console.error('Error calculating scroll distance:', error);
+                this.isMeasuring = false;
+                if (callback) callback();
             }
-            
-            this.resetPosition = newResetPosition;
-            
-            // Calculate drag boundaries
-            this.calculateDragBoundaries();
         }
         
         calculateDragBoundaries() {
+            if (this.resetPosition === null) return;
+            
             // Min boundary: Don't show the end (reset position)
             this.minDragBoundary = this.resetPosition;
             
@@ -95,18 +192,22 @@ $(document).ready(function(){
         }
         
         setupEventListeners() {
+            // Clean up any existing listeners if re-initializing
+            if (this.resizeHandler) {
+                window.removeEventListener('resize', this.resizeHandler);
+            }
+            
+            // Pause on hover
             if (this.options.pauseOnHover) {
                 this.container.addEventListener('mouseenter', () => {
                     if (!this.isDragging && !this.isMomentumActive) {
                         this.pause();
-                        //console.log('pause');
                     }
                 });
                 
                 this.container.addEventListener('mouseleave', () => {
                     if (!this.isDragging && !this.isMomentumActive) {
                         this.resume();
-                        //console.log('resume');
                     }
                 });
             }
@@ -123,13 +224,31 @@ $(document).ready(function(){
                 }
             });
             
-            // Touch events for mobile - use non-passive since we need preventDefault
+            // Touch events for mobile
             this.container.addEventListener('touchstart', (e) => this.startDragging(e), { passive: false });
             document.addEventListener('touchmove', (e) => this.handleDrag(e), { passive: false });
             document.addEventListener('touchend', () => this.endDragging());
             
             // Prevent text selection during drag
             this.container.addEventListener('selectstart', (e) => e.preventDefault());
+            
+            // Resize handler with proper debouncing
+            this.resizeHandler = () => {
+                // Clear any pending resize calculations
+                if (this.resizeTimeout) {
+                    cancelAnimationFrame(this.resizeTimeout);
+                }
+                
+                // Wait for browser to recalculate layout with responsive styles
+                this.resizeTimeout = requestAnimationFrame(() => {
+                    // Double RAF to ensure layout is fully settled after responsive breakpoint changes
+                    requestAnimationFrame(() => {
+                        this.calculateScrollDistance();
+                    });
+                });
+            };
+            
+            window.addEventListener('resize', this.resizeHandler);
         }
         
         startDragging(event) {
@@ -140,7 +259,7 @@ $(document).ready(function(){
             // Get the starting position
             let clientX = event.clientX || (event.touches && event.touches[0].clientX);
             
-            // Validate clientX - if invalid, use 0 as fallback
+            // Validate clientX
             if (clientX === undefined || clientX === null || isNaN(clientX)) {
                 clientX = 0;
             }
@@ -155,7 +274,6 @@ $(document).ready(function(){
             
             // Change cursor
             this.container.style.cursor = 'grabbing';
-            //console.log('grabbing');
             
             // Prevent default behavior
             event.preventDefault();
@@ -166,12 +284,11 @@ $(document).ready(function(){
             
             let clientX = event.clientX || (event.touches && event.touches[0].clientX);
             
-            // Use last valid clientX if current is invalid (mouse left document area)
+            // Use last valid clientX if current is invalid
             if (clientX === undefined || clientX === null || isNaN(clientX)) {
                 if (this.lastDragX !== undefined && this.lastDragX !== null && !isNaN(this.lastDragX)) {
                     clientX = this.lastDragX;
                 } else {
-                    // If no valid last position, skip this update
                     return;
                 }
             }
@@ -183,11 +300,14 @@ $(document).ready(function(){
             if (currentTime > this.lastDragTime && this.lastDragX !== undefined && this.lastDragX !== null && !isNaN(this.lastDragX)) {
                 const timeDelta = currentTime - this.lastDragTime;
                 const distanceDelta = clientX - this.lastDragX;
-                this.velocity = distanceDelta / timeDelta; // pixels per millisecond
                 
-                // Clamp velocity to reasonable bounds
-                this.velocity = Math.max(-this.options.maxMomentumSpeed, 
-                                       Math.min(this.options.maxMomentumSpeed, this.velocity));
+                if (timeDelta > 0) {
+                    this.velocity = distanceDelta / timeDelta; // pixels per millisecond
+                    
+                    // Clamp velocity to reasonable bounds
+                    this.velocity = Math.max(-this.options.maxMomentumSpeed, 
+                                           Math.min(this.options.maxMomentumSpeed, this.velocity));
+                }
             }
             
             this.lastDragTime = currentTime;
@@ -197,19 +317,21 @@ $(document).ready(function(){
             let newPosition = this.dragStartPosition + deltaX;
             
             // Handle infinite dragging by resetting position when reaching boundaries
-            if (newPosition <= this.minDragBoundary) {
-                // Reset to beginning and adjust drag start
-                newPosition = this.maxDragBoundary + (newPosition - this.minDragBoundary);
-                this.dragStartPosition = newPosition;
-                this.dragStartX = clientX;
-            } else if (newPosition >= this.maxDragBoundary) {
-                // Reset to end and adjust drag start
-                newPosition = this.minDragBoundary + (newPosition - this.maxDragBoundary);
-                this.dragStartPosition = newPosition;
-                this.dragStartX = clientX;
+            if (this.resetPosition !== null) {
+                if (newPosition <= this.minDragBoundary) {
+                    // Reset to beginning and adjust drag start
+                    newPosition = this.maxDragBoundary + (newPosition - this.minDragBoundary);
+                    this.dragStartPosition = newPosition;
+                    this.dragStartX = clientX;
+                } else if (newPosition >= this.maxDragBoundary) {
+                    // Reset to end and adjust drag start
+                    newPosition = this.minDragBoundary + (newPosition - this.maxDragBoundary);
+                    this.dragStartPosition = newPosition;
+                    this.dragStartX = clientX;
+                }
             }
             
-            // Update position
+            // Update position with sub-pixel precision
             this.currentPosition = newPosition;
             this.container.style.transform = `translateX(${this.currentPosition}px)`;
             
@@ -218,14 +340,14 @@ $(document).ready(function(){
         }
         
         endDragging() {
-            if (!this.isDragging){
+            if (!this.isDragging) {
                 this.resume();
                 return;
-            } 
+            }
             
             this.isDragging = false;
             
-            // Ensure velocity is valid (not null/NaN/undefined)
+            // Ensure velocity is valid
             const validVelocity = (this.velocity !== null && this.velocity !== undefined && !isNaN(this.velocity)) ? this.velocity : 0;
             
             // Start momentum animation if velocity is significant
@@ -233,14 +355,13 @@ $(document).ready(function(){
                 this.velocity = validVelocity;
                 this.startMomentum();
             } else {
-                // Reset velocity to 0 if invalid
+                // Reset velocity
                 this.velocity = 0;
                 // Snap to valid position if needed
                 this.snapToValidPosition();
                 
                 // Reset cursor
                 this.container.style.cursor = 'grab';
-                //console.log('grab');
                 
                 // Resume scrolling
                 this.resume();
@@ -256,25 +377,28 @@ $(document).ready(function(){
         animateMomentum() {
             if (!this.isMomentumActive) return;
             
-            // Apply velocity
-            this.currentPosition += this.velocity * 16; // Assuming 60fps (16ms per frame)
+            // Apply velocity (assuming 60fps = 16ms per frame)
+            this.currentPosition += this.velocity * 16;
             
             // Decay velocity
             this.velocity *= this.options.momentumDecay;
             
             // Handle boundaries during momentum
-            if (this.currentPosition <= this.minDragBoundary) {
-                this.currentPosition = this.maxDragBoundary + (this.currentPosition - this.minDragBoundary);
-            } else if (this.currentPosition >= this.maxDragBoundary) {
-                this.currentPosition = this.minDragBoundary + (this.currentPosition - this.maxDragBoundary);
+            if (this.resetPosition !== null) {
+                if (this.currentPosition <= this.minDragBoundary) {
+                    this.currentPosition = this.maxDragBoundary + (this.currentPosition - this.minDragBoundary);
+                } else if (this.currentPosition >= this.maxDragBoundary) {
+                    this.currentPosition = this.minDragBoundary + (this.currentPosition - this.maxDragBoundary);
+                }
             }
             
-            // Update transform
+            // Update transform with sub-pixel precision
             this.container.style.transform = `translateX(${this.currentPosition}px)`;
             
             // Stop momentum when velocity is too low
             if (Math.abs(this.velocity) < 0.01) {
                 this.isMomentumActive = false;
+                this.velocity = 0;
                 this.snapToValidPosition();
                 this.resume();
                 return;
@@ -286,14 +410,17 @@ $(document).ready(function(){
         
         snapToValidPosition() {
             // If we're at or past the reset position, snap to the beginning
-            if (this.currentPosition <= this.resetPosition) {
+            if (this.resetPosition !== null && this.currentPosition <= this.resetPosition) {
                 this.currentPosition = 0;
                 this.container.style.transform = `translateX(0px)`;
             }
         }
         
         startScrolling() {
+            if (this.isScrolling) return; // Already scrolling
+            
             this.isScrolling = true;
+            this.lastTimestamp = 0; // Reset timestamp for accurate delta calculation
             this.animate();
         }
         
@@ -303,7 +430,8 @@ $(document).ready(function(){
         
         resume() {
             this.isPaused = false;
-            if (!this.animationId && !this.isMomentumActive) {
+            if (this.isScrolling && !this.animationId && !this.isMomentumActive) {
+                this.lastTimestamp = 0; // Reset timestamp for accurate delta calculation
                 this.animate();
             }
         }
@@ -317,34 +445,55 @@ $(document).ready(function(){
         }
         
         animate(timestamp = 0) {
-            if (!this.isScrolling) return;
+            if (!this.isScrolling) {
+                this.animationId = null;
+                return;
+            }
             
+            // Initialize timestamp on first frame
             if (this.lastTimestamp === 0) {
                 this.lastTimestamp = timestamp;
+                this.animationId = requestAnimationFrame((ts) => this.animate(ts));
+                return;
             }
             
             const deltaTime = timestamp - this.lastTimestamp;
             this.lastTimestamp = timestamp;
             
-            if (!this.isPaused && deltaTime > 0) {
-                // Cap deltaTime to prevent large jumps when animation is throttled (mobile scrolling)
+            if (!this.isPaused && deltaTime > 0 && !this.isDragging && !this.isMomentumActive) {
+                // Cap deltaTime to prevent large jumps when animation is throttled
                 const maxDeltaTime = 100; // Maximum 100ms between frames
                 const clampedDeltaTime = Math.min(deltaTime, maxDeltaTime);
                 
-                let speed = this.options.speed;
+                const speed = this.options.speed;
                 const pixelsPerFrame = (speed / 1000) * clampedDeltaTime;
                 this.currentPosition -= pixelsPerFrame;
                 
                 // Reset position when we reach the reset point
-                // This ensures the next instance of the first skill appears in the same position
-                if (this.currentPosition <= this.resetPosition) {
+                if (this.resetPosition !== null && this.currentPosition <= this.resetPosition) {
                     this.currentPosition = 0;
                 }
                 
+                // Update transform with sub-pixel precision
                 this.container.style.transform = `translateX(${this.currentPosition}px)`;
             }
             
-            this.animationId = requestAnimationFrame((timestamp) => this.animate(timestamp));
+            this.animationId = requestAnimationFrame((ts) => this.animate(ts));
+        }
+        
+        // Cleanup method for proper resource management
+        destroy() {
+            this.stop();
+            
+            if (this.resizeHandler) {
+                window.removeEventListener('resize', this.resizeHandler);
+                this.resizeHandler = null;
+            }
+            
+            if (this.resizeTimeout) {
+                cancelAnimationFrame(this.resizeTimeout);
+                this.resizeTimeout = null;
+            }
         }
     }
     
@@ -354,21 +503,21 @@ $(document).ready(function(){
     
     if (iconContainer) {
         new SkillsScroller(iconContainer, {
-            speed: 30, // Slower speed for top row
+            speed: 30,
             pauseOnHover: true,
             responsive: true,
-            momentumDecay: 0.92, // Slightly more springy
-            maxMomentumSpeed: 2.5, // Allow higher momentum speeds
+            momentumDecay: 0.92,
+            maxMomentumSpeed: 2.5,
         });
     }
     
     if (iconContainer2) {
         new SkillsScroller(iconContainer2, {
-            speed: 25, // Even slower speed for bottom row
+            speed: 25,
             pauseOnHover: true,
             responsive: true,
-            momentumDecay: 0.92, // Slightly more springy
-            maxMomentumSpeed: 2.5, // Allow higher momentum speeds
+            momentumDecay: 0.92,
+            maxMomentumSpeed: 2.5,
         });
     }
 

@@ -510,7 +510,6 @@ body {
     display: flex;
     align-items: center;
     white-space: nowrap;
-    gap: 55px;
     position: relative;
     cursor: grab;
     min-height: 30px;
@@ -522,7 +521,6 @@ body {
     align-items: center;
     white-space: nowrap;
     margin-top: 15px;
-    gap: 45px;
     position: relative;
     cursor: grab;
     min-height: 30px;
@@ -535,6 +533,14 @@ body {
     align-items: center;
     font-size: 1.4rem;
     color: var(--white);
+}
+
+.icon-container > .icon-item {
+    margin-right: 55px;
+}
+
+.icon-container2 > .icon-item {
+    margin-right: 45px;
 }
 
 .icon-item i {
@@ -633,11 +639,11 @@ body {
         font-size: 1rem;
         margin-right: 6px;
     }
-    .icon-container {
-        gap: 35px;
+    .icon-container > .icon-item {
+        margin-right: 35px;
     }
-    .icon-container2 {
-        gap: 25px;
+    .icon-container2 > .icon-item {
+        margin-right: 25px;
     }
 }
 
