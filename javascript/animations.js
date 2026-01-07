@@ -41,6 +41,7 @@ $(document).ready(function(){
             // Resize handler cleanup
             this.resizeHandler = null;
             this.resizeTimeout = null;
+            this.lastWidth = window.innerWidth;
             
             this.init();
         }
@@ -234,6 +235,15 @@ $(document).ready(function(){
             
             // Resize handler with proper debouncing
             this.resizeHandler = () => {
+                const currentWidth = window.innerWidth;
+                
+                // Only recalculate if width has changed
+                if (currentWidth === this.lastWidth) {
+                    return;
+                }
+                
+                this.lastWidth = currentWidth;
+                
                 // Clear any pending resize calculations
                 if (this.resizeTimeout) {
                     cancelAnimationFrame(this.resizeTimeout);
