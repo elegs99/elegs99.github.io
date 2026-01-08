@@ -1,6 +1,5 @@
 $(document).ready(function(){
     // Skills Scrolling Animation
-    // Robust implementation with proper state management and measurement accuracy
     class SkillsScroller {
         constructor(container, options = {}) {
             this.container = container;
@@ -57,15 +56,14 @@ $(document).ready(function(){
         
         initialize() {
             this.setupEventListeners();
-            // Wait 250ms for responsive styles to be applied before initial calculation
+            // Wait for responsive styles to be applied before initial calculation
             // This is especially important on mobile where styles may not be ready immediately
             setTimeout(() => {
                 // Calculate distance first, then start scrolling after measurement completes
                 this.calculateScrollDistance(() => {
-                    // Start scrolling after initial measurement is complete
                     this.startScrolling();
                 });
-            }, 250);
+            }, 50);
         }
         
         calculateScrollDistance(callback) {
@@ -249,12 +247,12 @@ $(document).ready(function(){
                     this.resizeDelayTimeout = null;
                 }
                 
-                // Wait 250ms for responsive styles to be applied before recalculating
+                // Wait for responsive styles to be applied before recalculating
                 this.resizeDelayTimeout = setTimeout(() => {
                     this.lastWidth = currentWidth;
                     this.resizeDelayTimeout = null;
                     this.calculateScrollDistance();
-                }, 250);
+                }, 50);
             };
             
             window.addEventListener('resize', this.resizeHandler);
@@ -528,5 +526,40 @@ $(document).ready(function(){
             momentumDecay: 0.92,
             maxMomentumSpeed: 2.5,
         });
+    }
+    
+    // Status dot pulse animation
+    const statusDot = document.querySelector('.status-dot');
+    const availabilityStatus = document.querySelector('.availability-status');
+    
+    if (statusDot) {
+        let isPulsing = false;
+        const animationDuration = 1200; // 1.2 seconds to match CSS animation
+        
+        // Function to trigger pulse animation
+        function triggerPulse() {
+            // Don't trigger if already pulsing
+            if (isPulsing) return;
+            
+            isPulsing = true;
+            statusDot.classList.remove('pulse');
+            // Force reflow to restart animation
+            void statusDot.offsetWidth;
+            statusDot.classList.add('pulse');
+            
+            // Allow next pulse after animation completes
+            setTimeout(() => {
+                isPulsing = false;
+            }, animationDuration);
+        }
+        
+        // Pulse every 15 seconds
+        setInterval(triggerPulse, 15000);
+        
+        // Pulse on hover over status dot or availability text
+        if (availabilityStatus) {
+            availabilityStatus.addEventListener('mouseenter', triggerPulse);
+        }
+        statusDot.addEventListener('mouseenter', triggerPulse);
     }
 });
