@@ -272,7 +272,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.hero-greeting:hover .hand-emoji {
+.hand-emoji.waving {
     animation: wave 1s ease-out;
 }
 
@@ -431,7 +431,7 @@ body {
         margin-top: 0.5rem;
         justify-content: center;
         width: 100%;
-        gap: 20px;
+        gap: 12px;
     }
     .tooltiptext {
         display: none;
