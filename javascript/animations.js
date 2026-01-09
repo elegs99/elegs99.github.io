@@ -528,6 +528,7 @@ $(document).ready(function(){
         });
     }
     
+
     // Status dot pulse animation
     const statusDot = document.querySelector('.status-dot');
     const availabilityStatus = document.querySelector('.availability-status');
@@ -563,6 +564,7 @@ $(document).ready(function(){
         statusDot.addEventListener('mouseenter', triggerPulse);
     }
 
+    
     // Hand wave animation - ensure it completes at least one cycle
     const heroGreeting = document.querySelector('.hero-greeting');
     const handEmoji = document.querySelector('.hand-emoji');
@@ -570,8 +572,9 @@ $(document).ready(function(){
     
     if (heroGreeting && handEmoji && profilePicture) {
         let waveTimeout = null;
-        const waveDuration = 1000; // 0.6 seconds to match CSS animation
+        const waveDuration = 1000; // Match 1 second CSS animation
         
+        // Greeting text trigger
         heroGreeting.addEventListener('mouseenter', () => {
             // Clear any pending timeout
             if (waveTimeout) {
@@ -589,7 +592,7 @@ $(document).ready(function(){
                 waveTimeout = null;
             }, waveDuration);
         });
-
+        // Profile picture trigger
         profilePicture.addEventListener('mouseenter', () => {
             // Clear any pending timeout
             if (waveTimeout) {

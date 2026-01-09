@@ -31,7 +31,6 @@
 :root {
     scrollbar-width: none;
     -ms-overflow-style: none;
-    
 }
 
 /* Body and General Layout */
@@ -336,12 +335,15 @@ footer {
     color: var(--grey);
     text-decoration: none;
     margin: 0 10px;
-    padding-bottom: 25px;
 }
 
 .footer-container a:hover {
     text-decoration: underline;
     color: var(--blueHL);
+}
+
+.social-links {
+    padding-bottom: 25px;
 }
 
 /* Responsive Design */
