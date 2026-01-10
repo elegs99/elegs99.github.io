@@ -569,6 +569,16 @@ body {
     border-color: var(--blueHL);
 }
 
+.learn-more-btn .arrow {
+    margin-left: 0px;
+    transition: margin-left 0.5s ease;
+}
+
+.learn-more-btn:hover .arrow {
+    margin-left: 5px;
+    transition: margin-left 0.2s ease;
+}
+
 .project-card:hover .learn-more-btn {
     transform: translateY(5px);
     opacity: 1;
@@ -847,27 +857,15 @@ body {
     box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
 }
 
-.years:hover {
-    border-color: var(--blueHL);
-    color: var(--blueHL);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
-}
-
-.years:hover::before {
-    left: 100%;
-}
-
-:root[data-theme="light"] .expertise-card:hover .years,
-:root[data-theme="light"] .years:hover {
-    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.15);
+:root[data-theme="light"] .expertise-card:hover .years{
+    box-shadow: 0 4px 12px rgba(26, 170, 223, .5);
 }
 
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
 .tech-tag {
