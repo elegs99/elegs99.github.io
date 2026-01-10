@@ -4,20 +4,15 @@
 (function() {
     'use strict';
     
-    // Check if device is mobile
-    function isMobile() {
-        return window.innerWidth <= 650;
-    }
-    
     // Only initialize if on mobile
-    if (!isMobile()) {
+    if (!window.innerWidth <= 650) {
         return;
     }
     
     // Multiple intersection observers for more consistent triggering
     const observerOptions = {
         root: null,
-        rootMargin: '-30% 0px -50% 0px', // Equal dead zones on top and bottom
+        rootMargin: '-30% 0px -50% 0px', // dead zones on top and bottom
         threshold: [0.1, 0.3, 0.5] // Multiple thresholds for more responsive detection
     };
     
