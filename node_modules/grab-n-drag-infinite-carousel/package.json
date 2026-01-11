@@ -1,0 +1,54 @@
+{
+  "name": "grab-n-drag-infinite-carousel",
+  "version": "1.0.0",
+  "description": "A lightweight, dependency-free infinite scrolling carousel component with grab-and-drag interaction, momentum scrolling, and seamless looping",
+  "main": "grab-n-drag-infinite-carousel.js",
+  "style": "grab-n-drag-infinite-carousel.css",
+  "types": "grab-n-drag-infinite-carousel.d.ts",
+  "files": [
+    "grab-n-drag-infinite-carousel.js",
+    "grab-n-drag-infinite-carousel.min.js",
+    "grab-n-drag-infinite-carousel.css",
+    "grab-n-drag-infinite-carousel.min.css",
+    "grab-n-drag-infinite-carousel.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run minify:js && npm run minify:css",
+    "minify:js": "terser grab-n-drag-infinite-carousel.js -o grab-n-drag-infinite-carousel.min.js -c -m --source-map \"url='grab-n-drag-infinite-carousel.min.js.map'\"",
+    "minify:css": "postcss grab-n-drag-infinite-carousel.css -o grab-n-drag-infinite-carousel.min.css --use cssnano",
+    "test": "node test/test-runner.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "carousel",
+    "slider",
+    "infinite-scroll",
+    "infinite",
+    "scroll",
+    "drag",
+    "touch",
+    "vanilla-js",
+    "zero-dependencies",
+    "lightweight",
+    "momentum",
+    "grab-and-drag"
+  ],
+  "author": "Ethan Legum",
+  "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elegs99/Open-Source-Grab-n-Drag-Infinite-Scroll-Carousel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/elegs99/Open-Source-Grab-n-Drag-Infinite-Scroll-Carousel/issues"
+  },
+  "homepage": "https://github.com/elegs99/Open-Source-Grab-n-Drag-Infinite-Scroll-Carousel#readme",
+  "devDependencies": {
+    "cssnano": "^6.0.1",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
+    "terser": "^5.26.0"
+  }
+}

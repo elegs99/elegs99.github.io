@@ -30,12 +30,14 @@
         <link rel="stylesheet" href="style.css">
         <link rel="icon" href="icons/icon.webp">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <link rel="stylesheet" href="node_modules/grab-n-drag-infinite-carousel/grab-n-drag-infinite-carousel.css">
         <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="javascript/light-mode.js"></script>
         <script src="javascript/animations.js"></script>
         <script src="javascript/scroll-hover.js"></script>
         <script src="javascript/current-year.js"></script>
+        <script src="node_modules/grab-n-drag-infinite-carousel/grab-n-drag-infinite-carousel.js"></script>
     </head>
     <body>
         <!-- Header Section -->
@@ -206,53 +208,25 @@
             <h2>Development Expertise</h2>
             <!-- Skills Scrolling List -->
             <div class="skills-list">
-                <div class="icon-container-wrapper">
-                    <div class="icon-container">
-                        <div class="icon-item"><i class="fa-brands fa-python"></i> Python</div>
-                        <div class="icon-item"><i class="fa-brands fa-java"></i> Java</div>
-                        <div class="icon-item"><i class="fa-solid fa-code"></i> C#</div>
-                        <div class="icon-item"><i class="fa-brands fa-html5"></i> HTML</div>
-                        <div class="icon-item"><i class="fa-brands fa-css3-alt"></i> CSS</div>
-                        <div class="icon-item"><i class="fa-brands fa-js"></i> JavaScript</div>
-                        <div class="icon-item"><i class="fa-solid fa-database"></i> SQL</div>
-
-                        <div class="icon-item"><i class="fa-brands fa-python"></i> Python</div>
-                        <div class="icon-item"><i class="fa-brands fa-java"></i> Java</div>
-                        <div class="icon-item"><i class="fa-solid fa-code"></i> C#</div>
-                        <div class="icon-item"><i class="fa-brands fa-html5"></i> HTML</div>
-                        <div class="icon-item"><i class="fa-brands fa-css3-alt"></i> CSS</div>
-                        <div class="icon-item"><i class="fa-brands fa-js"></i> JavaScript</div>
-                        <div class="icon-item"><i class="fa-solid fa-database"></i> SQL</div>
-
-                        <div class="icon-item"><i class="fa-brands fa-python"></i> Python</div>
-                        <div class="icon-item"><i class="fa-brands fa-java"></i> Java</div>
-                        <div class="icon-item"><i class="fa-solid fa-code"></i> C#</div>
-                        <div class="icon-item"><i class="fa-brands fa-html5"></i> HTML</div>
-                        <div class="icon-item"><i class="fa-brands fa-css3-alt"></i> CSS</div>
-                        <div class="icon-item"><i class="fa-brands fa-js"></i> JavaScript</div>
-                        <div class="icon-item"><i class="fa-solid fa-database"></i> SQL</div>
+                <div class="infinite-scroll-wrapper">
+                    <div class="infinite-scroll-container" id="skillsCarousel1">
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-python"></i> Python</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-java"></i> Java</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-solid fa-code"></i> C#</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-html5"></i> HTML</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-css3-alt"></i> CSS</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-js"></i> JavaScript</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-solid fa-database"></i> SQL</div>
                     </div>
-                    <div class="icon-container2">
-                        <div class="icon-item"><i class="fa-brands fa-react"></i> React Native</div>
-                        <div class="icon-item"><i class="fa-brands fa-android"></i> Android</div>
-                        <div class="icon-item"><i class="fa-brands fa-unity"></i> Unity</div>
-                        <div class="icon-item"><i class="fa-solid fa-terminal"></i> TensorFlow</div>
-                        <div class="icon-item"><i class="fa-solid fa-fire-flame-curved fa-flip-horizontal"></i> PyTorch</div>
-                        <div class="icon-item"><i class="fa-brands fa-kaggle"></i> Kaggle</div>
-
-                        <div class="icon-item"><i class="fa-brands fa-react"></i> React Native</div>
-                        <div class="icon-item"><i class="fa-brands fa-android"></i> Android</div>
-                        <div class="icon-item"><i class="fa-brands fa-unity"></i> Unity</div>
-                        <div class="icon-item"><i class="fa-solid fa-terminal"></i> TensorFlow</div>
-                        <div class="icon-item"><i class="fa-solid fa-fire-flame-curved fa-flip-horizontal"></i> PyTorch</div>
-                        <div class="icon-item"><i class="fa-brands fa-kaggle"></i> Kaggle</div>
-
-                        <div class="icon-item"><i class="fa-brands fa-react"></i> React Native</div>
-                        <div class="icon-item"><i class="fa-brands fa-android"></i> Android</div>
-                        <div class="icon-item"><i class="fa-brands fa-unity"></i> Unity</div>
-                        <div class="icon-item"><i class="fa-solid fa-terminal"></i> TensorFlow</div>
-                        <div class="icon-item"><i class="fa-solid fa-fire-flame-curved fa-flip-horizontal"></i> PyTorch</div>
-                        <div class="icon-item"><i class="fa-brands fa-kaggle"></i> Kaggle</div>
+                </div>
+                <div class="infinite-scroll-wrapper" style="margin-top: 15px;">
+                    <div class="infinite-scroll-container" id="skillsCarousel2">
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-react"></i> React Native</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-android"></i> Android</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-unity"></i> Unity</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-solid fa-terminal"></i> TensorFlow</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-solid fa-fire-flame-curved fa-flip-horizontal"></i> PyTorch</div>
+                        <div class="infinite-scroll-item icon-item"><i class="fa-brands fa-kaggle"></i> Kaggle</div>
                     </div>
                 </div>
             </div>
@@ -378,6 +352,33 @@
                     const yearsOfExperience = currentYear - startYear;
                     element.textContent = `${yearsOfExperience}+ Years`;
                 });
+
+                // Initialize skills carousels
+                const carousel1 = document.querySelector('#skillsCarousel1');
+                const carousel2 = document.querySelector('#skillsCarousel2');
+
+                // Get background color from CSS variable for fade effect
+                const rootStyles = getComputedStyle(document.documentElement);
+
+                if (carousel1) {
+                    new InfiniteScrollCarousel(carousel1, {
+                        speed: 25,
+                        pauseOnHover: true,
+                        momentumDecay: 0.92,
+                        maxMomentumSpeed: 2.5,
+                        fadeColor: 'var(--background)',
+                    });
+                }
+
+                if (carousel2) {
+                    new InfiniteScrollCarousel(carousel2, {
+                        speed: 25,
+                        pauseOnHover: true,
+                        momentumDecay: 0.92,
+                        maxMomentumSpeed: 2.5,
+                        fadeColor: 'var(--background)',
+                    });
+                }
             });
         </script>
     </body>

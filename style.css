@@ -602,55 +602,21 @@ body {
 }
 
 /* Skills Section */
-.skills {
-    padding: 50px 0;
-}
 
-.skills-list {
-    width: 100%;
-    max-width: 1000px;
-}
-
-.icon-container-wrapper {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-}
-
-.icon-container {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    position: relative;
-    cursor: grab;
-    min-height: 30px;
-    min-width: 300%;
-}
-
-.icon-container2 {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    margin-top: 15px;
-    position: relative;
-    cursor: grab;
-    min-height: 30px;
-    min-width: 300%;
-}
-
+/* Icon item styling */
 .icon-item {
-    flex: 1;
     display: flex;
     align-items: center;
     font-size: 1.4rem;
     color: var(--white);
+    white-space: nowrap;
 }
 
-.icon-container > .icon-item {
+#skillsCarousel1 .infinite-scroll-item {
     margin-right: 55px;
 }
 
-.icon-container2 > .icon-item {
+#skillsCarousel2 .infinite-scroll-item {
     margin-right: 45px;
 }
 
@@ -658,42 +624,10 @@ body {
     margin-right: 10px;
 }
 
-.icon-container-wrapper::before,
-.icon-container-wrapper::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.icon-container-wrapper::before {
-    left: 0;
-    background: linear-gradient(to right, var(--background), rgba(17, 17, 17, 0));
-}
-
-.icon-container-wrapper::after {
-    right: 0;
-    background: linear-gradient(to left, var(--background), rgba(17, 17, 17, 0));
-}
-
-/* Mobile-specific fixes for icon containers */
+/* Mobile-specific fixes for icon items */
 @media (max-width: 768px) {
-    .icon-container-wrapper {
-        overflow: hidden;
-        width: 100%;
-    }
-    
-    .icon-container,
-    .icon-container2 {
-        width: 300%;
-    }
-    
     .icon-item {
         font-size: 1.1rem;
-        flex-shrink: 0;
     }
     
     .icon-item i {
@@ -1035,7 +969,7 @@ footer {
     .body {
         max-width: 100%;
     }
-    .hero, .projects, .skills {
+    .hero, .projects {
         padding: 1rem;
     }
 }
