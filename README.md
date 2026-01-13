@@ -24,7 +24,6 @@ A modern, responsive personal portfolio website showcasing my work in AI/ML, Gam
 Feel free to reach out through:
 - Email: ethanlegum@gmail.com
 - LinkedIn: [linkedin.com/in/ethan-l](https://www.linkedin.com/in/ethan-l)
-- GitHub: [github.com/elegs99](https://github.com/elegs99)
 
 ## License
 © 2026 Ethan Legum. All rights reserved. 
