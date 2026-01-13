@@ -1,6 +1,7 @@
 /* CSS Reset and Base Styles */
 * {
     box-sizing: border-box;
+    max-width: 100%;
 }
 
 html {
@@ -15,12 +16,6 @@ body {
     min-height: 100vh;
 }
 
-/* Ensure all elements respect container boundaries */
-* {
-    max-width: 100%;
-}
-
-
 a {
     text-decoration: none;
 }
@@ -34,11 +29,11 @@ a {
 }
 
 :root {
-    --blueHL: #1aaadf;
-    --white: #ffffff;
+    --primary: #1aaadf;
     --background: #111111;
+    --text-primary: #ffffff;
     --grey: #888888;
-    --expirenceCardBackground: #191919;
+    --card-background: #191919;
     --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
     --font-mono: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
     --color-subtext: #888888;
@@ -53,10 +48,11 @@ a {
 
 /* Light mode variables */
 :root[data-theme="light"] {
+    --primary: #1aaadf;
     --background: #f5f5f5;
-    --white: #111111;
+    --text-primary: #111111;
     --grey: #666666;
-    --expirenceCardBackground: #eeeeee;
+    --card-background: #eeeeee;
     --color-subtext: #666666;
 }
 
@@ -75,7 +71,7 @@ body {
     flex-direction: column;
     justify-content: center;
     background-color: var(--background);
-    color: var(--white);
+    color: var(--text-primary);
     font-family: var(--font-sans);
     line-height: 1.5;
     width: 100%;
@@ -113,7 +109,7 @@ body {
 }
 
 .site-nav a {
-    color: var(--white);
+    color: var(--text-primary);
     text-decoration: none;
     padding: 1.2rem;
     transition: color 0.3s;
@@ -126,7 +122,7 @@ body {
 }
 
 .site-nav a:hover {
-    color: var(--blueHL);
+    color: var(--primary);
 }
 
 .logo {
@@ -176,7 +172,7 @@ body {
 
 .theme-toggle i {
     font-size: 1.4rem;
-    color: var(--white);
+    color: var(--text-primary);
     transition: color 0.3s;
 }
 
@@ -246,7 +242,7 @@ body {
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
-    border: 5px solid var(--expirenceCardBackground);
+    border: 5px solid var(--card-background);
 }
 
 .hero-text-content {
@@ -261,7 +257,7 @@ body {
 .hero-greeting {
     font-size: 2.5rem;
     font-weight: bold;
-    color: var(--white);
+    color: var(--text-primary);
     margin: 0;
     line-height: 1.2;
 }
@@ -301,7 +297,7 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--blueHL);
+    background-color: var(--primary);
     display: inline-block;
     flex-shrink: 0;
     position: relative;
@@ -316,7 +312,7 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: var(--blueHL);
+    background-color: var(--primary);
     transform: translate(-50%, -50%) scale(1);
     opacity: 0;
     pointer-events: none;
@@ -343,7 +339,7 @@ body {
 
 .hero-description {
     font-size: 1.2rem;
-    color: var(--white);
+    color: var(--text-primary);
     line-height: 1.6;
     margin: 0;
     padding: 0.1rem 0.1rem;
@@ -367,8 +363,8 @@ body {
     opacity: 0;
     white-space: nowrap;
     padding: 2px 5px;
-    background-color: var(--expirenceCardBackground);
-    color: var(--white);
+    background-color: var(--card-background);
+    color: var(--text-primary);
     text-align: left;
     border-radius: 6px;
     position: absolute;
@@ -393,17 +389,17 @@ body {
     justify-content: center;
     width: 44px;
     height: 44px;
-    border: 1px solid var(--white);
+    border: 1px solid var(--text-primary);
     border-radius: 8px;
     text-decoration: none;
-    color: var(--white);
+    color: var(--text-primary);
     font-size: 1.2rem;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-    background-color: var(--expirenceCardBackground);
+    background-color: var(--card-background);
 }
 
 .link-btn:hover {
-    background-color: var(--blueHL);
+    background-color: var(--primary);
     color: var(--background);
 }
 
@@ -518,7 +514,7 @@ body {
 }
 
 .title {
-    color: var(--white);
+    color: var(--text-primary);
     font-size: 1.4rem;
     font-weight: bold;
     text-align: left;
@@ -526,7 +522,7 @@ body {
 }
 
 :root[data-theme="light"] .title {
-    color: var(--white);
+    color: var(--text-primary);
 }
 
 .project-details {
@@ -560,13 +556,13 @@ body {
     text-align: center;
     transform: translateY(20px);
     transition: all 0.3s ease;
-    background-color: var(--expirenceCardBackground);
+    background-color: var(--card-background);
 }
 
 .learn-more-btn:hover {
-    color: var(--blueHL);
+    color: var(--primary);
     background-color: var(--background);
-    border-color: var(--blueHL);
+    border-color: var(--primary);
 }
 
 .learn-more-btn .arrow {
@@ -586,7 +582,7 @@ body {
 }
 
 .project-details a {
-    color: var(--blueHL);
+    color: var(--primary);
     text-decoration: none;
     font-weight: 600;
 }
@@ -608,7 +604,7 @@ body {
     display: flex;
     align-items: center;
     font-size: 1.4rem;
-    color: var(--white);
+    color: var(--text-primary);
     white-space: nowrap;
 }
 
@@ -665,8 +661,8 @@ body {
     }
     
     .expertise-card.scroll-in-view .years {
-        border-color: var(--blueHL);
-        color: var(--blueHL);
+        border-color: var(--primary);
+        color: var(--primary);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
     }
@@ -703,7 +699,7 @@ body {
 }
 
 .expertise-card {
-    background: var(--expirenceCardBackground);
+    background: var(--card-background);
     border: 1px solid #333;
     border-radius: 10px;
     padding: 1.5rem 1rem;
@@ -720,7 +716,7 @@ body {
 .expertise-header h3 {
     margin: 0;
     font-size: var(--text-size-extra-large);
-    color: var(--white);
+    color: var(--text-primary);
     font-weight: bold;
 }
 
@@ -735,7 +731,7 @@ body {
 
 .years {
     background: var(--background);
-    color: var(--white);
+    color: var(--text-primary);
     padding: 0.5rem 1rem;
     border: 1px solid #333;
     border-radius: 25px;
@@ -773,7 +769,7 @@ body {
     background: linear-gradient(
         135deg,
         transparent,
-        var(--blueHL),
+        var(--primary),
         transparent
     );
     opacity: 0;
@@ -785,8 +781,8 @@ body {
 }
 
 .expertise-card:hover .years {
-    border-color: var(--blueHL);
-    color: var(--blueHL);
+    border-color: var(--primary);
+    color: var(--primary);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
 }
@@ -809,12 +805,24 @@ body {
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: 500;
-    color: var(--white);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 :root[data-theme="light"] .tech-tag {
-    background: var(--expirenceCardBackground);
+    background: var(--card-background);
     border-color: #e0e0e0;
+}
+
+.tech-tag-highlighted {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.2);
+}
+
+:root[data-theme="light"] .tech-tag-highlighted {
+    box-shadow: 0 4px 12px rgba(26, 170, 223, 0.15);
 }
 
 .notable-projects h4 {
@@ -846,7 +854,7 @@ body {
 }
 
 .project-link:hover {
-    color: var(--blueHL);
+    color: var(--primary);
 }
 
 /* Responsive adjustments */
@@ -880,22 +888,22 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    border: 2px solid var(--blueHL);
+    border: 2px solid var(--primary);
     padding: 15px 30px;
     border-radius: 10px;
     text-align: center;
     width: fit-content;
     text-decoration: none;
-    color: var(--white);
+    color: var(--text-primary);
     font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 500;
-    background-color: var(--expirenceCardBackground);
+    background-color: var(--card-background);
     transition: all 0.3s ease;
 }
 
 .back-to-top-container:hover {
-    color: var(--blueHL);
+    color: var(--primary);
     box-shadow: 0 4px 12px rgba(26, 170, 223, 0.3);
     transform: translateY(-2px);
 }
@@ -950,7 +958,7 @@ footer {
 
 .footer-container a:hover {
     text-decoration: underline;
-    color: var(--blueHL);
+    color: var(--primary);
 }
 
 .social-links {
@@ -976,12 +984,12 @@ footer {
 
 /* Project card light mode styles */
 :root[data-theme="light"] .project-card {
-    background-color: var(--expirenceCardBackground);
+    background-color: var(--card-background);
     border: 1px solid #e0e0e0;
 }
 
 :root[data-theme="light"] .title-background {
-    background: linear-gradient(to top, var(--expirenceCardBackground) 10%, rgba(245, 245, 245, 0), transparent);
+    background: linear-gradient(to top, var(--card-background) 10%, rgba(245, 245, 245, 0), transparent);
 }
 
 :root[data-theme="light"] .project-details p {
@@ -994,14 +1002,14 @@ footer {
 }
 
 :root[data-theme="light"] .learn-more-btn:hover {
-    color: var(--blueHL);
-    border-color: var(--blueHL);
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
 /* Light mode styles for tooltips button */
 :root[data-theme="light"] .tooltiptext {
-    background-color: var(--expirenceCardBackground);
-    color: var(--white);
+    background-color: var(--card-background);
+    color: var(--text-primary);
     border: 1px solid #e0e0e0;
 }
 
