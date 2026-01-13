@@ -271,7 +271,7 @@
                         <ul>
                             <li><a href="https://github.com/elegs99/elegs99.github.io" class="project-link" target="_blank">Personal Portfolio Website</a> - Modern, responsive design with interactive elements.</li>
                             <li><a href="https://apps.apple.com/us/app/gettogether-meet-eat-repeat/id6752873456" class="project-link" target="_blank">GetTogether</a> - Full-stack cross-platform IOS and web app built w/ Expo, Google Maps API, and Firebase.</li>
-                            <li><a href="EvolutionaryRockets/index.html" class="project-link" target="_blank">Evolutionary Rockets</a> - Web hosted simulation with reinforcement learning.</li>
+                            <li><a href="https://github.com/elegs99/Open-Source-Grab-n-Drag-Infinite-Scroll-Carousel" class="project-link" target="_blank">Grab-n-Drag Infinite Scrolling Carousel</a> - Published open-source interactable javascript component.</li>
                         </ul>
                     </div>
                 </div>
@@ -344,9 +344,8 @@
         </footer>
         
         <script>
-            // Update years of experience for each expertise card
-            // Note: currentYear is defined in current-year.js
             document.addEventListener('DOMContentLoaded', function() {
+                // Update years of experience for each expertise card
                 document.querySelectorAll('.years[data-start-year]').forEach(element => {
                     const startYear = parseInt(element.getAttribute('data-start-year'));
                     const yearsOfExperience = currentYear - startYear;
@@ -356,9 +355,6 @@
                 // Initialize skills carousels
                 const carousel1 = document.querySelector('#skillsCarousel1');
                 const carousel2 = document.querySelector('#skillsCarousel2');
-
-                // Get background color from CSS variable for fade effect
-                const rootStyles = getComputedStyle(document.documentElement);
 
                 if (carousel1) {
                     new InfiniteScrollCarousel(carousel1, {
@@ -379,6 +375,36 @@
                         fadeColor: 'var(--background)',
                     });
                 }
+
+                // Highlight matching tech tags when hovering over icon-items
+                const iconItems = document.querySelectorAll('.icon-item');
+                
+                iconItems.forEach(iconItem => {
+                    iconItem.addEventListener('mouseenter', function() {
+                        // Extract text content and get first word
+                        const iconText = this.textContent.trim();
+                        const iconFirstWord = iconText.split(/\s+/)[0].toLowerCase();
+                        
+                        // Find all matching tech tags by comparing first words
+                        const techTags = document.querySelectorAll('.tech-tag');
+                        techTags.forEach(techTag => {
+                            const techText = techTag.textContent.trim();
+                            const techFirstWord = techText.split(/\s+/)[0].toLowerCase();
+                            
+                            if (iconFirstWord === techFirstWord) {
+                                techTag.classList.add('tech-tag-highlighted');
+                            }
+                        });
+                    });
+                    
+                    iconItem.addEventListener('mouseleave', function() {
+                        // Remove highlight from all tech tags
+                        const techTags = document.querySelectorAll('.tech-tag');
+                        techTags.forEach(techTag => {
+                            techTag.classList.remove('tech-tag-highlighted');
+                        });
+                    });
+                });
             });
         </script>
     </body>
