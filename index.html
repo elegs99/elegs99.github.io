@@ -30,14 +30,14 @@
         <link rel="stylesheet" href="style.css">
         <link rel="icon" href="icons/icon.webp">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-        <link rel="stylesheet" href="open-source-files/grab-n-drag-infinite-carousel.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/grab-n-drag-infinite-carousel@latest/grab-n-drag-infinite-carousel.css">
         <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="javascript/light-mode.js"></script>
         <script src="javascript/animations.js"></script>
         <script src="javascript/scroll-hover.js"></script>
         <script src="javascript/current-year.js"></script>
-        <script src="open-source-files/grab-n-drag-infinite-carousel.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/grab-n-drag-infinite-carousel@latest/grab-n-drag-infinite-carousel.js"></script>
     </head>
     <body>
         <!-- Header Section -->
@@ -360,7 +360,7 @@
                     new InfiniteScrollCarousel(carousel1, {
                         speed: 25,
                         pauseOnHover: true,
-                        momentumDecay: 0.92,
+                        momentumDecay: 0.08,
                         maxMomentumSpeed: 2.5,
                         fadeColor: 'var(--background)',
                     });
@@ -370,7 +370,7 @@
                     new InfiniteScrollCarousel(carousel2, {
                         speed: 25,
                         pauseOnHover: true,
-                        momentumDecay: 0.92,
+                        momentumDecay: 0.08,
                         maxMomentumSpeed: 2.5,
                         fadeColor: 'var(--background)',
                     });
