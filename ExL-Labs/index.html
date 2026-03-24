@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta name="description" content="ExL Labs: consumer products and real-time systems. GetTogether (React Native iOS app) and SLEDDVR (VR racing game). Founder and Lead Developer since Aug 2024. Passionate about building products that solve real-world problems and deliver measurable impact. Seeking challenging software engineering, AI, machine learning, or computer vision roles where I can tackle meaningful problems, work on ambitious systems, and deliver measurable impact.">
+        <title>ExL Labs</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="../icons/icon.webp">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+        <script src="../javascript/current-year.js"></script>
+    </head>
+    <body>
+        <section class="hero" id="hero">
+            <div class="hero-inner">
+                <h1 class="hero-title">ExL Labs</h1>
+                <p class="hero-lede">Two shipped products—one on iOS, one in VR. I own development from initial MVP through launch.</p>
+            </div>
+        </section>
+
+        <section class="timeline" id="products">
+            <h2 class="timeline-heading">Products</h2>
+            <div class="product-layout">
+                <div class="product-choices" role="tablist" aria-label="Product selector">
+                    <button
+                        class="product-choice product-choice--active"
+                        type="button"
+                        role="tab"
+                        aria-selected="true"
+                        data-name="GetTogether"
+                        data-description="Group dining: one link for voting, live rankings, and nearby restaurants with photos and ratings."
+                        data-tags="Expo|Firebase|Maps|App Store"
+                        data-points="Friends open your link and swipe yes or no on spots—no sign-up or downloads needed to vote.|Rankings update live as votes arrive, so everyone picks a place fast instead of debating in chat."
+                        data-cta-url="https://apps.apple.com/us/app/gettogether-meet-eat-repeat/id6752873456"
+                        data-cta-label="App Store"
+                    >
+                        <span class="product-choice__inner">
+                            <span class="product-choice__title">GetTogether</span>
+                            <span class="product-choice__icon-box" aria-hidden="true">
+                                <img class="product-choice__icon" src="../images/gt/gtDemoPic.jpg" alt="">
+                            </span>
+                        </span>
+                    </button>
+
+                    <button
+                        class="product-choice"
+                        type="button"
+                        role="tab"
+                        aria-selected="false"
+                        data-name="SLEDDVR"
+                        data-description="VR sled racing on procedural mountains: body movement, cloud leaderboards, SideQuest."
+                        data-tags="Unity|C#|UGS|SideQuest"
+                        data-points="Grapple and grind procedural slopes; use your body to keep speed for the best time.|Solo Unity/C# ship: procedural courses, art, VFX, and UGS tuned for about 10× lower cloud cost."
+                        data-cta-url="https://sidequestvr.com/app/37603/sleddvr-free-single-player-demo"
+                        data-cta-label="SideQuest"
+                    >
+                        <span class="product-choice__inner">
+                            <span class="product-choice__title">SLEDDVR</span>
+                            <span class="product-choice__icon-box" aria-hidden="true">
+                                <img class="product-choice__icon" src="../images/sr/srLogo.png" alt="">
+                            </span>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="product-panel" role="region" aria-live="polite">
+                    <div class="product-panel__content">
+                        <div class="product-panel__scroll">
+                            <h3 class="product-panel__title" id="productTitle">GetTogether</h3>
+                            <p class="product-panel__subhead" id="productSubhead">Group dining: one link for voting, live rankings, and nearby restaurants with photos and ratings.</p>
+                            <div class="product-panel__tags" id="productTags" role="list" aria-label="Technologies used">
+                                <span class="product-panel__tag" role="listitem">Expo</span>
+                                <span class="product-panel__tag" role="listitem">Firebase</span>
+                                <span class="product-panel__tag" role="listitem">Maps</span>
+                                <span class="product-panel__tag" role="listitem">App Store</span>
+                            </div>
+                            <div class="product-panel__body">
+                                <ul class="product-panel__points" id="productPoints">
+                                    <li>Friends open your link and swipe yes or no on spots—no sign-up or downloads needed to vote.</li>
+                                    <li>Rankings update live as votes arrive, so everyone picks a place fast instead of debating in chat.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a
+                            class="btn btn--primary product-panel__cta"
+                            id="productCta"
+                            href="https://apps.apple.com/us/app/gettogether-meet-eat-repeat/id6752873456"
+                            target="_blank"
+                            rel="noopener"
+                        >App Store <i class="fa-solid fa-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <p>&copy; <span data-current-year></span> ExL Labs. <a href="../index.html">Ethan Legum</a></p>
+            </div>
+        </footer>
+        <script>
+            (function () {
+                const choices = Array.from(document.querySelectorAll('.product-choice'));
+                const title = document.getElementById('productTitle');
+                const subhead = document.getElementById('productSubhead');
+                const tagsHost = document.getElementById('productTags');
+                const points = document.getElementById('productPoints');
+                const cta = document.getElementById('productCta');
+
+                function escapeHtml(s) {
+                    return String(s)
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;')
+                        .replace(/"/g, '&quot;');
+                }
+
+                function setActive(choice) {
+                    choices.forEach(btn => {
+                        const active = btn === choice;
+                        btn.classList.toggle('product-choice--active', active);
+                        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+                    });
+
+                    title.textContent = choice.dataset.name;
+                    if (subhead) {
+                        subhead.textContent = choice.dataset.description || '';
+                    }
+                    if (tagsHost) {
+                        const tagList = (choice.dataset.tags || '').split('|').map(function (t) { return t.trim(); }).filter(Boolean);
+                        tagsHost.innerHTML = tagList.map(function (t) {
+                            return '<span class="product-panel__tag" role="listitem">' + escapeHtml(t) + '</span>';
+                        }).join('');
+                    }
+
+                    const pointList = (choice.dataset.points || '').split('|').filter(Boolean);
+                    points.innerHTML = pointList.map(p => '<li>' + escapeHtml(p) + '</li>').join('');
+
+                    cta.href = choice.dataset.ctaUrl;
+                    cta.innerHTML = choice.dataset.ctaLabel + ' <i class="fa-solid fa-up-right-from-square"></i>';
+                }
+
+                if (choices.length) {
+                    setActive(choices[0]);
+                }
+
+                choices.forEach(choice => {
+                    choice.addEventListener('click', function () {
+                        setActive(choice);
+                    });
+                });
+            })();
+        </script>
+    </body>
+</html>
