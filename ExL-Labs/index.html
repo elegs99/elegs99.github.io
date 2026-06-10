@@ -15,6 +15,7 @@
         <script src="../javascript/current-year.js"></script>
     </head>
     <body>
+        <canvas class="fractal-bg" aria-hidden="true"></canvas>
         <section class="hero" id="hero">
             <div class="hero-inner">
                 <h1 class="hero-title">ExL Labs</h1>
@@ -98,11 +99,252 @@
         </section>
 
         <footer class="site-footer">
+            <button
+                type="button"
+                class="exl-ambient-toggle"
+                id="exlAmbientToggle"
+                hidden
+                aria-hidden="true"
+                aria-expanded="false"
+            >Show page</button>
             <div class="footer-inner">
                 <p>&copy; <span data-current-year></span> ExL Labs. <a href="../index.html">Ethan Legum</a></p>
             </div>
         </footer>
         <script>
+            (function () {
+                const canvas = document.querySelector('.fractal-bg');
+                if (!canvas) return;
+
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (prefersReducedMotion) return;
+
+                const ctx = canvas.getContext('2d', { alpha: true });
+                if (!ctx) return;
+
+                let width = 0;
+                let height = 0;
+                let tick = 0;
+                let rafId = null;
+                let lastTime = 0;
+                const fpsInterval = 1000 / 24;
+                const walkers = [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 0 },
+                    { x: 0, y: 0 },
+                    { x: 0, y: 0 }
+                ];
+                let radius = 0;
+                // Camera zoom-out: zoom factor decreases so the pattern gets smaller on screen.
+                const zoomMin = 0.96;
+                const zoomMax = 1.22;
+                let zoom = zoomMax;
+                const zoomSpeed = 0.00025;
+                let mouseX = -10000;
+                let mouseY = -10000;
+                const mouseBoostRadius = 200;
+                const mouseBoostRadiusSq = mouseBoostRadius * mouseBoostRadius;
+                const clickPulses = [];
+
+                function maxPulseRadiusFrom(x, y) {
+                    const toCorners = Math.max(
+                        Math.hypot(x, y),
+                        Math.hypot(width - x, y),
+                        Math.hypot(x, height - y),
+                        Math.hypot(width - x, height - y)
+                    );
+                    const margin = Math.max(width, height) * 0.08 + 32;
+                    return toCorners + margin;
+                }
+
+                function pulseDotJitter(px, py, pulseStart) {
+                    const s = Math.sin(px * 12.9898 + py * 78.233 + pulseStart * 0.00031) * 43758.5453;
+                    return s - Math.floor(s);
+                }
+
+                /* 0..1 — scales how much this dot "lags" the shared pulse clock when fading (stays bright a bit longer). */
+                function pulseDotFalloffLag(px, py, pulseStart) {
+                    const s = Math.sin(px * 127.1 + py * 311.7 + pulseStart * 0.00027) * 91823.41;
+                    return s - Math.floor(s);
+                }
+
+                function clickPulseBoost(px, py, now) {
+                    let best = 0;
+                    for (let i = 0; i < clickPulses.length; i += 1) {
+                        const p = clickPulses[i];
+                        const elapsed = now - p.start;
+                        if (elapsed >= p.duration) {
+                            continue;
+                        }
+                        const t = elapsed / p.duration;
+                        const expandFrac = p.expandFrac;
+                        const te = Math.min(1, t / expandFrac);
+                        const waveR = te * p.maxR;
+                        if (waveR < 2) {
+                            continue;
+                        }
+                        const waveRSq = waveR * waveR;
+                        const dx = px - p.x;
+                        const dy = py - p.y;
+                        const distSq = (dx * dx) + (dy * dy);
+                        if (distSq < waveRSq) {
+                            const dist = Math.sqrt(distSq);
+                            const lagNorm = pulseDotFalloffLag(px, py, p.start) * 0.22;
+                            const distNorm = Math.min(1, dist / Math.max(p.maxR, 1));
+                            const distanceLag = distNorm * 0.4;
+                            const tDot = Math.max(0, t - lagNorm - distanceLag);
+                            let timeFalloff;
+                            if (tDot < expandFrac) {
+                                timeFalloff = 1;
+                            } else {
+                                const u = (tDot - expandFrac) / (1 - expandFrac);
+                                timeFalloff = Math.pow(1 - u, p.fadePow);
+                            }
+                            const radial = 1 - (distSq / waveRSq);
+                            const jitter = 0.52 + 0.92 * pulseDotJitter(px, py, p.start);
+                            let local = radial * timeFalloff * jitter * p.strength;
+                            if (local > 1) {
+                                local = 1;
+                            }
+                            if (local > best) {
+                                best = local;
+                            }
+                        }
+                    }
+                    return best;
+                }
+
+                function resize() {
+                    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+                    width = window.innerWidth;
+                    height = window.innerHeight;
+                    canvas.width = Math.floor(width * dpr);
+                    canvas.height = Math.floor(height * dpr);
+                    canvas.style.width = width + 'px';
+                    canvas.style.height = height + 'px';
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                    // Oversized radius pushes structure beyond viewport edges.
+                    // Bump this to make the pattern span more of the screen.
+                    radius = Math.max(width, height) * 1.08;
+                    ctx.fillStyle = '#111111';
+                    ctx.fillRect(0, 0, width, height);
+                    zoom = zoomMax;
+
+                    // Seed walkers in pixel space so the chaos-game converges consistently.
+                    walkers.forEach(function (walker) {
+                        walker.x = Math.random() * width;
+                        walker.y = Math.random() * height;
+                    });
+                }
+
+                function buildVertices(sides, rotation) {
+                    const vertices = [];
+                    // Keep a stable center; zoom handles the "camera" feel.
+                    const centerX = width * 0.5;
+                    const centerY = height * 0.5;
+                    const effectiveRadius = radius * zoom;
+                    for (let i = 0; i < sides; i += 1) {
+                        const angle = (i / sides) * (Math.PI * 2) + rotation;
+                        vertices.push({
+                            x: centerX + Math.cos(angle) * effectiveRadius,
+                            y: centerY + Math.sin(angle) * effectiveRadius
+                        });
+                    }
+                    return vertices;
+                }
+
+                function draw(now) {
+                    rafId = requestAnimationFrame(draw);
+
+                    if (document.hidden) return;
+                    if (now - lastTime < fpsInterval) return;
+                    lastTime = now;
+
+                    for (let i = clickPulses.length - 1; i >= 0; i -= 1) {
+                        if (now - clickPulses[i].start >= clickPulses[i].duration) {
+                            clickPulses.splice(i, 1);
+                        }
+                    }
+
+                    // Pull frames toward solid #111111 so dot trails don’t read as gray haze.
+                    ctx.fillStyle = 'rgba(17, 17, 17, 0.078)';
+                    ctx.fillRect(0, 0, width, height);
+
+                    // Chaos-game fractal: triangle flat edge on top (+ 5π/6 ≡ -π/6 + π flips from flat-bottom default).
+                    const sides = 6;
+                    const vertices = buildVertices(sides, (5 * Math.PI) / 6);
+                    const ratio = 0.5;
+
+                    const hasClickPulse = clickPulses.length > 0;
+                    for (let i = 0; i < 2200; i += 1) {
+                        for (let w = 0; w < walkers.length; w += 1) {
+                            const walker = walkers[w];
+                            const target = vertices[Math.floor(Math.random() * vertices.length)];
+                            walker.x += (target.x - walker.x) * ratio;
+                            walker.y += (target.y - walker.y) * ratio;
+
+                            const dx = walker.x - mouseX;
+                            const dy = walker.y - mouseY;
+                            const distanceSq = (dx * dx) + (dy * dy);
+                            let mouseBoost = 0;
+                            if (distanceSq < mouseBoostRadiusSq) {
+                                mouseBoost = 1 - (distanceSq / mouseBoostRadiusSq);
+                            }
+                            let clickBoost = 0;
+                            if (hasClickPulse) {
+                                clickBoost = clickPulseBoost(walker.x, walker.y, now);
+                            }
+
+                            const pulse = 0.05 + 0.06 * Math.sin(tick * 0.9 + w * 2.1);
+                            const baseAlpha = Math.min(0.98, pulse + (clickBoost * 0.78));
+                            const hoverDim = 1;
+                            const alpha = Math.max(0.02, baseAlpha * (1 - hoverDim * mouseBoost));
+                            const hueShift = Math.round(20 * clickBoost);
+                            const green = Math.min(210, 162 + hueShift);
+                            const blue = 248;
+
+                            ctx.fillStyle = 'rgba(96, ' + green + ', ' + blue + ', ' + alpha.toFixed(3) + ')';
+                            ctx.fillRect(walker.x, walker.y, 1 + (clickBoost * 1.05), 1 + (clickBoost * 1.05));
+                        }
+                    }
+
+                    // Advance zoom after drawing (keeps motion steady frame-to-frame).
+                    zoom = Math.max(zoomMin, zoom - zoomSpeed);
+                    tick += 0.009;
+                }
+
+                resize();
+                window.addEventListener('resize', resize);
+                window.addEventListener('mousemove', function (event) {
+                    mouseX = event.clientX;
+                    mouseY = event.clientY;
+                });
+                window.addEventListener('mouseleave', function () {
+                    mouseX = -10000;
+                    mouseY = -10000;
+                });
+                window.addEventListener('pointerdown', function (e) {
+                    if (e.button !== 0) return;
+                    clickPulses.push({
+                        x: e.clientX,
+                        y: e.clientY,
+                        start: performance.now(),
+                        duration: 200 + Math.random() * 400,
+                        maxR: maxPulseRadiusFrom(e.clientX, e.clientY),
+                        expandFrac: 0.62 + Math.random() * 0.22,
+                        fadePow: 2.2 + Math.random() * 3.2,
+                        strength: 1.12 + Math.random() * 0.38
+                    });
+                });
+                rafId = requestAnimationFrame(draw);
+
+                window.addEventListener('beforeunload', function () {
+                    if (rafId) {
+                        cancelAnimationFrame(rafId);
+                    }
+                });
+            })();
+
             (function () {
                 const choices = Array.from(document.querySelectorAll('.product-choice'));
                 const title = document.getElementById('productTitle');
@@ -110,6 +352,7 @@
                 const tagsHost = document.getElementById('productTags');
                 const points = document.getElementById('productPoints');
                 const cta = document.getElementById('productCta');
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
                 function escapeHtml(s) {
                     return String(s)
@@ -144,14 +387,91 @@
                     cta.innerHTML = choice.dataset.ctaLabel + ' <i class="fa-solid fa-up-right-from-square"></i>';
                 }
 
+                function triggerChoiceShimmer(btn) {
+                    if (prefersReducedMotion) return;
+                    btn.classList.remove('product-choice--shimmer');
+                    void btn.offsetWidth;
+                    btn.classList.add('product-choice--shimmer');
+                }
+
                 if (choices.length) {
                     setActive(choices[0]);
                 }
 
                 choices.forEach(choice => {
+                    choice.addEventListener('animationend', function (e) {
+                        if (e.animationName === 'exl-product-choice-shimmer') {
+                            choice.classList.remove('product-choice--shimmer');
+                        }
+                    });
                     choice.addEventListener('click', function () {
                         setActive(choice);
+                        triggerChoiceShimmer(choice);
                     });
+                });
+            })();
+
+            (function () {
+                const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (reducedMotion) {
+                    return;
+                }
+
+                const body = document.body;
+                const btn = document.getElementById('exlAmbientToggle');
+                if (!btn) {
+                    return;
+                }
+
+                const maxGapMs = 320;
+                const clicksNeeded = 11;
+                let streak = 0;
+                let prevTime = 0;
+
+                function syncToggle() {
+                    const contentHidden = body.classList.contains('exl-ambient-egg-ui-off');
+                    btn.textContent = contentHidden ? 'Show page' : 'Hide page';
+                    btn.setAttribute('aria-expanded', contentHidden ? 'false' : 'true');
+                    btn.setAttribute(
+                        'aria-label',
+                        contentHidden ? 'Show page content' : 'Hide page content to view background only'
+                    );
+                }
+
+                window.addEventListener('pointerdown', function (e) {
+                    if (e.button !== 0) {
+                        return;
+                    }
+                    if (body.classList.contains('exl-ambient-egg')) {
+                        return;
+                    }
+
+                    const now = performance.now();
+                    if (prevTime && now - prevTime > maxGapMs) {
+                        streak = 0;
+                    }
+                    streak += 1;
+                    prevTime = now;
+
+                    if (streak < clicksNeeded) {
+                        return;
+                    }
+
+                    streak = 0;
+                    prevTime = 0;
+                    body.classList.add('exl-ambient-egg');
+                    body.classList.add('exl-ambient-egg-ui-off');
+                    btn.hidden = false;
+                    btn.removeAttribute('aria-hidden');
+                    syncToggle();
+                });
+
+                btn.addEventListener('click', function () {
+                    if (!body.classList.contains('exl-ambient-egg')) {
+                        return;
+                    }
+                    body.classList.toggle('exl-ambient-egg-ui-off');
+                    syncToggle();
                 });
             })();
         </script>

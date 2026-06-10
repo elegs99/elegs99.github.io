@@ -113,6 +113,70 @@ body {
     flex-direction: column;
 }
 
+.fractal-bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
+    opacity: 1;
+}
+
+body > *:not(.fractal-bg) {
+    position: relative;
+    z-index: 2;
+}
+
+/* Easter egg: rapid-click unlock — strip edge vignette; toggle hides page chrome */
+body.exl-ambient-egg::before {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+body.exl-ambient-egg-ui-off > *:not(.fractal-bg):not(.site-footer) {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body.exl-ambient-egg-ui-off .site-footer > *:not(.exl-ambient-toggle) {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body.exl-ambient-egg-ui-off .site-footer .exl-ambient-toggle {
+    visibility: visible;
+}
+
+.exl-ambient-toggle {
+    flex: 0 0 auto;
+    align-self: center;
+    width: auto;
+    max-width: max-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    margin: 0;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--accent);
+    border-radius: 0.35rem;
+    background: rgba(17, 17, 17, 0.92);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.35);
+}
+
+.exl-ambient-toggle:hover {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+}
+
 /* Horizontal edge fade: viewport-wide so sides show through to html layers */
 body::before {
     content: '';
@@ -143,77 +207,17 @@ body::before {
     --surface-chip: #101010;
 }
 
-/* Subtle background motion — on html so it isn’t clipped by narrow body + overflow */
-html::before,
-html::after {
-    content: '';
-    position: fixed;
-    /* Extra-large box so blurred edges never meet the viewport */
-    top: 50%;
-    left: 50%;
-    width: 180vmax;
-    height: 180vmax;
-    margin-top: -90vmax;
-    margin-left: -90vmax;
-    z-index: 0;
-    pointer-events: none;
-    background:
-        radial-gradient(ellipse 55% 45% at 22% 18%, rgba(37, 99, 235, 0.14), transparent 72%),
-        radial-gradient(ellipse 50% 40% at 78% 70%, rgba(37, 99, 235, 0.08), transparent 75%);
-    filter: blur(48px);
-    opacity: 0.85;
-    transform: translate3d(0, 0, 0);
-    animation: exlBgDrift 28s ease-in-out infinite;
-    /* Softer compositing, fewer banding artifacts on some GPUs */
-    backface-visibility: hidden;
-}
-
-html::after {
-    opacity: 0.5;
-    filter: blur(64px);
-    animation-duration: 38s;
-    animation-direction: reverse;
-    background:
-        radial-gradient(ellipse 45% 38% at 55% 45%, rgba(37, 99, 235, 0.06), transparent 78%),
-        radial-gradient(ellipse 40% 35% at 12% 82%, rgba(37, 99, 235, 0.05), transparent 80%);
-}
-
-@keyframes exlBgDrift {
-    0% { transform: translate3d(-1.2%, -0.8%, 0) scale(1.01); }
-    40% { transform: translate3d(1%, -0.5%, 0) scale(1.02); }
-    75% { transform: translate3d(0.5%, 1%, 0) scale(1.01); }
-    100% { transform: translate3d(-1.2%, -0.8%, 0) scale(1.01); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-    html::before,
-    html::after {
-        animation: none;
+    .fractal-bg {
+        display: none;
     }
 
     .product-choice::after,
-    .product-choice:hover::after {
+    .product-choice.product-choice--shimmer::after {
         animation: none !important;
         opacity: 0 !important;
         background-position: 100% 0%;
     }
-}
-
-/* Softer animated glow in light mode */
-:root[data-theme="light"] html::before {
-    background:
-        radial-gradient(ellipse 55% 45% at 22% 18%, rgba(37, 99, 235, 0.08), transparent 72%),
-        radial-gradient(ellipse 50% 40% at 78% 70%, rgba(37, 99, 235, 0.05), transparent 75%);
-    filter: blur(62px);
-    opacity: 0.38;
-}
-
-:root[data-theme="light"] html::after {
-    background:
-        radial-gradient(ellipse 45% 38% at 55% 45%, rgba(37, 99, 235, 0.045), transparent 78%),
-        radial-gradient(ellipse 40% 35% at 12% 82%, rgba(37, 99, 235, 0.035), transparent 80%);
-    filter: blur(86px);
-    opacity: 0.2;
 }
 
 /* Header — minimal */
@@ -503,6 +507,11 @@ details.timeline-card[open] .expand-icon {
 /* Footer — one line */
 .site-footer {
     flex-shrink: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem 1rem;
     padding: 0.65rem 0 0.85rem;
     margin-top: 0;
     border-top: 1px solid var(--border);
@@ -528,6 +537,8 @@ details.timeline-card[open] .expand-icon {
 }
 
 .footer-inner {
+    flex: 1 1 auto;
+    min-width: 0;
     text-align: center;
 }
 
@@ -621,8 +632,8 @@ details.timeline-card[open] .expand-icon {
     z-index: 1;
 }
 
-.product-choice:hover::after {
-    animation: exl-product-choice-shimmer 1.65s cubic-bezier(0.45, 0, 0.25, 1) forwards;
+.product-choice.product-choice--shimmer::after {
+    animation: exl-product-choice-shimmer 1s cubic-bezier(0.45, 0, 0.25, 1) forwards;
 }
 
 @keyframes exl-product-choice-shimmer {
